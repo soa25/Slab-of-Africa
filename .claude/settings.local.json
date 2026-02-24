@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install 2>&1 | tail -20)",
+      "Bash(npm_config_cache=/tmp/npm-cache npm install 2>&1 | tail -20)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx tsc --noEmit 2>&1)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx next build 2>&1 | tail -40)",
+      "Bash(kill %1 2>/dev/null; true)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3002)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx next build 2>&1 | tail -30)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx next build 2>&1 | tail -25)",
+      "Bash(cd ~/slab-of-africa-claude && npm_config_cache=/tmp/npm-cache npm run dev 2>&1)",
+      "Bash(sips -g pixelWidth -g pixelHeight ~/slab-of-africa-claude/public/images/recent/*.jpg 2>&1)",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/shaan/slab-of-africa-claude/public/images/collection/\"*.jpg 2>/dev/null | awk '/\\\\.jpg/{file=$1} /pixelWidth/{w=$2} /pixelHeight/{h=$2; print file, w\"x\"h}' | sed 's|.*/||')",
+      "Bash(npm_config_cache=/tmp/npm-cache npm run dev -- -H 0.0.0.0)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx ngrok http 3003)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx localtunnel --port 3003)",
+      "Bash(npm_config_cache=/tmp/npm-cache npx next build 2>&1 | tail -20)",
+      "Bash(npm_config_cache=/tmp/npm-cache npm run dev)",
+      "Bash(npm_config_cache=/tmp/npm-cache npm run build 2>&1)",
+      "Bash(npm_config_cache=/tmp/npm-cache npm install 2>&1)",
+      "Bash(git init && git add .)",
+      "Bash(git rm -r --cached . -q && git add .)",
+      "Bash(git rm -r --cached . -q --force && git add .)"
+    ]
+  }
+}
