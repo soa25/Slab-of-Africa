@@ -176,6 +176,12 @@ h1, h2, h3 {
   transform: translateY(0);
 }
 
+/* ─── Dark form placeholder ─────────────────────────── */
+.dark-placeholder::placeholder {
+  color: #6A5A4A;
+  opacity: 1;
+}
+
 /* ─── Contact Form ───────────────────────────────────── */
 .form-input {
   width: 100%;

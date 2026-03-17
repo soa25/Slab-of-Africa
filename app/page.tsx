@@ -265,7 +265,7 @@ function ArtworkCard({
           fill
           className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           priority={priority}
-          sizes="50vw"
+          sizes="(max-width: 768px) calc(100vw - 3rem), 50vw"
         />
 
         {hasMultiple && (
@@ -348,9 +348,6 @@ export default function HomePage() {
             <p className="font-body text-muted leading-relaxed text-sm md:text-base">
               From the heart of Zimbabwe to collectors across the United States, discover our first curated collection — timeless stone sculptures available for acquisition from San Francisco, California
             </p>
-            <Link href="/collection" className="btn-outline mt-6 inline-flex">
-              View Full Collection
-            </Link>
           </ScrollReveal>
         </div>
 
@@ -361,8 +358,8 @@ export default function HomePage() {
           <div className="divider flex-1" />
         </div>
 
-        {/* Editorial grid — uniform 2-col */}
-        <div className="grid grid-cols-2 gap-x-4 md:gap-x-8 gap-y-16 md:gap-y-24">
+        {/* Editorial grid — 1-col mobile, 2-col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-24">
           {recentAdditions.map((artwork, i) => (
             <ScrollReveal key={artwork.id} delay={(i % 2) * 0.07}>
               <ArtworkCard
@@ -373,6 +370,15 @@ export default function HomePage() {
             </ScrollReveal>
           ))}
         </div>
+
+        {/* View Full Collection — centered below grid */}
+        <ScrollReveal>
+          <div className="flex justify-center mt-16 md:mt-20">
+            <Link href="/collection" className="btn-outline" style={{ borderColor: 'var(--charcoal)' }}>
+              View Full Collection
+            </Link>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* Interlude: Quote / Mission Statement */}
