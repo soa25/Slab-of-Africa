@@ -34,7 +34,7 @@ function MasonryItem({
   return (
     <div ref={ref} className="masonry-item reveal">
       <button
-        className="group w-full text-left cursor-pointer focus:outline-none"
+        className="group block w-full text-left cursor-pointer focus:outline-none"
         onClick={onClick}
         aria-label={`View ${artwork.title}`}
       >
@@ -116,7 +116,7 @@ export default function CollectionPage() {
       </section>
 
       {/* Masonry Grid */}
-      <div className="px-1 md:px-2 pb-2">
+      <div className="px-4 pb-2">
         <div className="masonry-grid">
           {collectionWorks.map((artwork) => (
             <MasonryItem
