@@ -4,10 +4,10 @@ import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const PHOTOS = [
-  '/images/fairs/Art-fair-mont/GCS Art Fairmont 20260118_0082.jpg',
-  '/images/fairs/Art-fair-mont/GCS Art Fairmont 20260118_0102.jpg',
-  '/images/fairs/Art-fair-mont/GCS Art Fairmont 20260118_0130.jpg',
-  '/images/fairs/Art-fair-mont/GCS Art Fairmont 20260118_0139.jpg',
+  '/images/fairs/Art-fair-mont/GCS-Art-Fairmont-20260118_0082.jpg',
+  '/images/fairs/Art-fair-mont/GCS-Art-Fairmont-20260118_0102.jpg',
+  '/images/fairs/Art-fair-mont/GCS-Art-Fairmont-20260118_0130.jpg',
+  '/images/fairs/Art-fair-mont/GCS-Art-Fairmont-20260118_0139.jpg',
 ]
 
 export default function FairsPage() {
