@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
 import { Cormorant, Jost } from 'next/font/google'
-import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import IntroAnimation from '@/components/IntroAnimation'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
-import Footer from '@/components/Footer'
+import ConditionalFooter from '@/components/ConditionalFooter'
 import MotionProvider from '@/components/MotionProvider'
 
 const cormorant = Cormorant({
@@ -54,7 +53,24 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
       <body>
-        <Script src="/cursor.js" strategy="afterInteractive" />
+        {/* Global grain/texture overlay — static SVG feTurbulence, no JS, no interaction */}
+        <svg
+          aria-hidden="true"
+          style={{
+            position: 'fixed', top: 0, left: 0,
+            width: '100%', height: '100%',
+            zIndex: 1,
+            pointerEvents: 'none',
+            opacity: 0.045,
+          }}
+        >
+          <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#grain)" />
+        </svg>
+
         <MotionProvider>
         <SmoothScrollProvider>
           {/* Cinematic intro animation */}
@@ -66,8 +82,8 @@ export default function RootLayout({
           {/* Page content */}
           <main>{children}</main>
 
-          {/* Footer — palette-aware, see components/Footer.tsx */}
-          <Footer />
+          {/* Footer — hidden on /collection, see components/ConditionalFooter.tsx */}
+          <ConditionalFooter />
         </SmoothScrollProvider>
         </MotionProvider>
       </body>

@@ -21,7 +21,8 @@
       "Bash(npm_config_cache=/tmp/npm-cache npm install 2>&1)",
       "Bash(git init && git add .)",
       "Bash(git rm -r --cached . -q && git add .)",
-      "Bash(git rm -r --cached . -q --force && git add .)"
+      "Bash(git rm -r --cached . -q --force && git add .)",
+      "Bash(ls -la \"/Users/shaan/Slab-of-Africa/public/images/recent/Abstract \\(red\\)/\")"
     ]
   }
 }

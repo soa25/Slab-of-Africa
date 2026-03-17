@@ -25,7 +25,7 @@ function getIO(): IntersectionObserver {
         }
       }
     },
-    { rootMargin: '-80px' }
+    { rootMargin: '0px' }
   )
   return sharedIO
 }

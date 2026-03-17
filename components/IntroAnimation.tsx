@@ -90,11 +90,11 @@ export default function IntroAnimation() {
             alignItems: 'center',
           }}
         >
-          {TITLE.split('').map((char, i) => (
+          {/* Revealed characters */}
+          {TITLE.split('').slice(0, revealed).map((char, i) => (
             <span
               key={i}
               style={{
-                visibility: i < revealed ? 'visible' : 'hidden',
                 display: 'inline-block',
                 minWidth: char === ' ' ? '0.3em' : undefined,
               }}
@@ -103,7 +103,7 @@ export default function IntroAnimation() {
             </span>
           ))}
 
-          {/* Blinking terracotta cursor */}
+          {/* Blinking terracotta cursor — inline, sits after last typed character */}
           <motion.span
             style={{
               display: 'inline-block',
@@ -121,6 +121,20 @@ export default function IntroAnimation() {
                 : { duration: 0.15 }
             }
           />
+
+          {/* Hidden placeholder characters — keep container width stable so text anchors left */}
+          {TITLE.split('').slice(revealed).map((char, i) => (
+            <span
+              key={revealed + i}
+              style={{
+                visibility: 'hidden',
+                display: 'inline-block',
+                minWidth: char === ' ' ? '0.3em' : undefined,
+              }}
+            >
+              {char}
+            </span>
+          ))}
         </div>
       </div>
     </motion.div>

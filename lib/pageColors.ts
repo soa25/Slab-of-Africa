@@ -17,9 +17,9 @@ export const PAGE_PALETTES: Record<string, PagePalette> = {
     isDark: false,
   },
   '/collection': {
-    bg: '#E8E0D0',      // warm raw stone
-    ctaBg: '#EDE7D8',   // slightly lighter stone
-    accent: '#86796F',  // muted stone
+    bg: '#C8BAA6',      // warm greige / muted clay
+    ctaBg: '#D4C9B8',   // lighter warm greige
+    accent: '#8B7A6A',  // deeper clay for nav underline
     isDark: false,
   },
   '/artists': {
@@ -29,9 +29,9 @@ export const PAGE_PALETTES: Record<string, PagePalette> = {
     isDark: false,
   },
   '/fairs': {
-    bg: '#E8D5A8',      // warm ochre / dried wheat
-    ctaBg: '#EDDDBA',   // lighter ochre
-    accent: '#A07438',  // deep amber / raw sienna
+    bg: '#CCBFA0',      // warm oat / linen
+    ctaBg: '#D8CBAF',   // lighter warm oat
+    accent: '#9A7E54',  // warm amber-brown for nav underline
     isDark: false,
   },
   '/about': {

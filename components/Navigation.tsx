@@ -9,7 +9,6 @@ import { PAGE_PALETTES, getPalette } from '@/lib/pageColors'
 const navLinks = [
   { href: '/', label: 'Recent' },
   { href: '/collection', label: 'Collection' },
-  { href: '/artists', label: 'Artists' },
   { href: '/fairs', label: 'Fairs' },
   { href: '/about', label: 'About' },
   { href: '/inquire', label: 'Inquire' },
@@ -51,7 +50,7 @@ function DesktopNavLink({
   hoveredLink: string | null
   onHover: (href: string | null) => void
 }) {
-  const accentColor = PAGE_PALETTES[href]?.accent ?? '#C1522A'
+  const accentColor = '#C1522A'
   const isHovered = hoveredLink === href
   const showUnderline = isActive || isHovered
 
@@ -106,7 +105,7 @@ function MobileNavLink({
   index: number
   isActive: boolean
 }) {
-  const accentColor = PAGE_PALETTES[href]?.accent ?? '#C1522A'
+  const accentColor = '#C1522A'
 
   return (
     <motion.li
@@ -184,7 +183,7 @@ export default function Navigation() {
             href="/"
             className="font-display tracking-widest transition-colors duration-300"
             style={{
-              fontSize: '1.6rem',
+              fontSize: '2rem',
               letterSpacing: '0.2em',
               fontWeight: 400,
               color: logoColor,
@@ -263,11 +262,11 @@ export default function Navigation() {
                 transition={{ delay: 0.6, duration: 0.4 }}
               >
                 <a
-                  href="mailto:info@slabofafrica.com"
+                  href="mailto:shaan@slabofafrica.com"
                   className="font-body text-sm tracking-widest uppercase transition-colors"
                   style={{ color: '#7A6A5A', letterSpacing: '0.2em' }}
                 >
-                  info@slabofafrica.com
+                  shaan@slabofafrica.com
                 </a>
                 <a
                   href="https://instagram.com/slabofafrica"

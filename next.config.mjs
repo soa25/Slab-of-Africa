@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['lenis'],
+  async redirects() {
+    return [
+      { source: '/artists', destination: '/', permanent: false },
+    ]
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'picsum.photos' },

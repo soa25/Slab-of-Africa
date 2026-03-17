@@ -39,7 +39,7 @@ export default function Footer() {
 
           <div className="flex flex-col sm:flex-row gap-8 font-body text-xs tracking-widest uppercase" style={{ color: mutedColor }}>
             {[
-              { href: 'mailto:info@slabofafrica.com', label: 'info@slabofafrica.com', external: false },
+              { href: 'mailto:shaan@slabofafrica.com', label: 'shaan@slabofafrica.com', external: false },
               { href: 'https://instagram.com/slabofafrica', label: '@slabofafrica', external: true },
               { href: '/inquire', label: 'Inquire', external: false },
             ].map(({ href, label, external }) => (
@@ -62,7 +62,7 @@ export default function Footer() {
         <div style={{ width: '100%', height: '1px', backgroundColor: borderColor, margin: '2.5rem 0 1.5rem' }} />
 
         <p className="font-body text-xs" style={{ color: mutedColor }}>
-          © {new Date().getFullYear()} Slab of Africa. All rights reserved. San Francisco, CA.
+          © {new Date().getFullYear()} Slab of Africa. All rights reserved.
         </p>
       </div>
     </footer>

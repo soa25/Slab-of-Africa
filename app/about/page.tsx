@@ -1,281 +1,135 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import ScrollReveal from '@/components/ScrollReveal'
 
-function SectionImage({ src, alt, aspect = '4/3' }: { src: string; alt: string; aspect?: string }) {
-  return (
-    <ScrollReveal className="relative overflow-hidden group">
-      <Image
-        src={src}
-        alt={alt}
-        width={900}
-        height={600}
-        className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-        style={{ aspectRatio: aspect }}
-      />
-    </ScrollReveal>
-  )
-}
+// ─── Images — one per section ─────────────────────────────────────────────────
+const IMAGES = [
+  '/images/about/DSC_1014.JPG',
+  '/images/about/DSC_1187.JPG',
+  '/images/about/DSC_1191.JPG',
+  '/images/about/DSC_1213.JPG',
+  '/images/about/DSC_1207.jpg',
+]
 
+// ─── Section content ──────────────────────────────────────────────────────────
+const SECTIONS = [
+  {
+    title: 'Each piece is hand carved from a single stone.',
+    body: [
+      'In Zimbabwe, every sculpture begins with a raw, solid block of stone — untouched, unpredictable, and full of potential. Whether it\'s the richly dark Spring Stone, the earthy texture of Serpentine, the vivid greens of Cobalt, or the soft, almost translucent beauty of Green Opal stone — the material itself plays a central role in what it becomes.',
+      'From that single slab, an artist brings forth a form. There are no templates, no repetitions. Just hands, stone, and time.',
+    ],
+  },
+  {
+    title: 'No two pieces can ever be the same.',
+    body: [
+      'Each sculpture carries its own soul — shaped not only by the contours of the stone, but by the choices, moods, and instincts of the artist. Every curve, mark, and texture is intentional.',
+      'What you hold is more than an object. It is a moment. A story. A singular expression that cannot be repeated.',
+    ],
+  },
+  {
+    title: 'This is not just art. It\'s inheritance.',
+    body: [
+      'The roots of Shona stone sculpting run deep into Zimbabwean soil. Passed from parent to child, uncle to nephew, master to apprentice — this is a tradition that survives through hands and memory.',
+      'Many sculptors today are descendants of the original artists who carved spirit forms under the open sky decades ago. In this way, each sculpture is also a vessel of history.',
+    ],
+  },
+  {
+    title: 'Carved by hand. Refined by fire. Washed by rain. Left to breathe.',
+    body: [
+      'The process is as elemental as the material itself. First, the sculptor works the stone using chisels, rasps, and hammers. Slowly, a shape emerges. Once rough-carved, it is smoothed and detailed with sandpaper, sometimes for days.',
+      'Then it is heated and waxed — a process that deepens its colour and reveals the natural grain. Finally, it is left in the open — under sun, wind, and rain — to breathe and settle into itself.',
+    ],
+  },
+  {
+    title: 'The artist does not shape the stone. The stone reveals the shape.',
+    body: [
+      'To many Shona sculptors, creating is not about control — it\'s about listening. They speak of entering into quiet conversation with the stone.',
+      'It is a process of respect, instinct, and belief — that the sculpture already exists within, waiting to be found. The artist\'s job is simply to uncover what has always been there.',
+    ],
+  },
+]
+
+// ─── Page ──────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #F2E6D8, #DECCBA)' }}>
-      {/* Header */}
-      <section className="pt-36 md:pt-44 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
-        <p className="section-label mb-4">Our Story</p>
-        <ScrollReveal delay={0.06}>
-          <h1
-            className="font-display text-charcoal"
-            style={{
-              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-              fontWeight: 400,
-              lineHeight: 1.05,
-            }}
-          >
-            About
-          </h1>
-        </ScrollReveal>
-        <div className="divider mt-10" />
-      </section>
+    <div
+      className="min-h-screen"
+      style={{ background: 'linear-gradient(to bottom, #F2E6D8, #DECCBA)' }}
+    >
+      {/* Clear the fixed nav */}
+      <div className="pt-36 md:pt-44" />
 
-      {/* ── Section 1: Shona Art Tradition ─────────────── */}
-      <section className="py-20 md:py-28 border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-            {/* Text */}
-            <div>
-              <ScrollReveal delay={0}>
-                <p className="section-label mb-5 text-terracotta">I — The Art Form</p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.06}>
-                <h2
-                  className="font-display text-charcoal mb-8"
-                  style={{
-                    fontSize: 'clamp(2rem, 3.5vw, 3.5rem)',
-                    fontWeight: 400,
-                    lineHeight: 1.1,
-                  }}
-                >
-                  Shona Stone Sculpture
-                </h2>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <p className="font-body text-muted leading-relaxed mb-5 text-sm md:text-base">
-                  The Shona people of Zimbabwe have been carving stone for centuries, but the modern
-                  movement began in the late 1950s when sculptor Frank McEwen established the
-                  National Gallery of Zimbabwe's workshop program in Harare. What emerged was not a
-                  craft revival, but a fully realized contemporary art movement — one that quickly
-                  gained international recognition for its originality, spiritual depth, and formal
-                  mastery.
-                </p>
-                <p className="font-body text-muted leading-relaxed mb-5 text-sm md:text-base">
-                  Unlike many traditional art forms, Shona stone sculpture has no ancient
-                  precedent in the sculptural sense — it is genuinely modern, born from the
-                  intersection of ancient Shona spiritual beliefs, the natural abundance of
-                  extraordinary stone in Zimbabwe's geological landscape, and the creative
-                  liberation that came from McEwen's radical educational philosophy: no instruction,
-                  only encouragement.
-                </p>
-                <p className="font-body text-muted leading-relaxed text-sm md:text-base">
-                  The stones themselves are foundational to the work: springstone, serpentine,
-                  verdite, and opal stone — each with its own color range, hardness, and character.
-                  Sculptors work directly with the stone, without preliminary models, responding to
-                  its form and natural markings as the work emerges. This direct relationship
-                  between artist and material is perhaps the defining quality of the tradition.
-                </p>
-              </ScrollReveal>
-            </div>
+      {SECTIONS.map((section, i) => (
+        <section key={i} className="pb-28 md:pb-40 px-6 md:px-10">
 
-            {/* Images */}
-            <div className="space-y-5">
-              <SectionImage
-                src="https://picsum.photos/seed/slab-ab1/800/560"
-                alt="Shona stone carving process"
-                aspect="16/11"
-              />
-              <div className="grid grid-cols-2 gap-5">
-                <SectionImage
-                  src="https://picsum.photos/seed/slab-ab2/500/620"
-                  alt="Zimbabwe serpentine stone"
-                  aspect="4/5"
-                />
-                <SectionImage
-                  src="https://picsum.photos/seed/slab-ab3/500/620"
-                  alt="Carving tools and process"
-                  aspect="4/5"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Pullquote */}
-          <ScrollReveal className="mt-20 border-l-2 border-terracotta pl-8 md:pl-12 max-w-3xl">
-            <blockquote
-              className="font-display text-charcoal"
+          {/* Title */}
+          <ScrollReveal>
+            <h2
+              className="font-display text-charcoal text-center mx-auto"
               style={{
-                fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
+                fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
                 fontWeight: 300,
-                fontStyle: 'italic',
-                lineHeight: 1.4,
+                lineHeight: 1.1,
+                letterSpacing: '-0.015em',
+                maxWidth: '44rem',
+                marginBottom: '1.75rem',
               }}
             >
-              "The stone already contains the sculpture. The artist's task is simply to reveal
-              what was always there."
-            </blockquote>
-            <p className="section-label mt-4 text-stone">— Shona carving philosophy</p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Section 2: The Gallery ─────────────────────── */}
-      <section className="py-20 md:py-28 border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          {/* Full-width image first */}
-          <ScrollReveal className="mb-16">
-            <div className="relative overflow-hidden">
-              <Image
-                src="https://picsum.photos/seed/slab-ab4/1200/600"
-                alt="Slab of Africa gallery"
-                width={1200}
-                height={600}
-                className="w-full object-cover"
-                style={{ aspectRatio: '21/10' }}
-              />
-              <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-                <span className="section-label text-cream/70 bg-dark/60 backdrop-blur-sm px-3 py-1.5">
-                  Slab of Africa · San Francisco
-                </span>
-              </div>
-            </div>
+              {section.title}
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-            <ScrollReveal>
-              <p className="section-label mb-5 text-terracotta">II — The Gallery</p>
-              <h2
-                className="font-display text-charcoal mb-8"
-                style={{
-                  fontSize: 'clamp(2rem, 3.5vw, 3.5rem)',
-                  fontWeight: 400,
-                  lineHeight: 1.1,
-                }}
-              >
-                Slab of Africa
-              </h2>
-            </ScrollReveal>
-
-            <div className="space-y-5">
-              <ScrollReveal delay={0.06}>
-                <p className="font-body text-muted leading-relaxed text-sm md:text-base">
-                  Founded in San Francisco, Slab of Africa was established with a single clear
-                  conviction: that Shona stone sculpture deserves a place at the very top of the
-                  contemporary art world. Not as folk art, not as ethnographic object, but as
-                  serious, ambitious, formally rigorous sculpture made by serious, ambitious, formally
-                  rigorous artists.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <p className="font-body text-muted leading-relaxed text-sm md:text-base">
-                  The gallery works directly with artists in Zimbabwe, traveling to studios and
-                  workshops to select works that meet an exacting standard. We do not buy in bulk
-                  and we do not compromise on quality. Every piece in the collection has been
-                  personally chosen because it is genuinely exceptional.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.14}>
-                <p className="font-body text-muted leading-relaxed text-sm md:text-base">
-                  In addition to direct sales, Slab of Africa participates in leading American and
-                  international art fairs, placing Shona sculpture in the conversations where it
-                  belongs — alongside the best contemporary work being made anywhere in the world.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.18}>
-                <div className="grid grid-cols-2 gap-4 mt-8">
-                  {[
-                    { n: '3', label: 'Artists represented' },
-                    { n: '15+', label: 'Works in collection' },
-                    { n: '3', label: 'Fairs exhibited' },
-                    { n: 'SF', label: 'Based in San Francisco' },
-                  ].map(({ n, label }) => (
-                    <div key={label} className="border border-border p-5">
-                      <p
-                        className="font-display text-charcoal mb-1"
-                        style={{ fontSize: '2.2rem', fontWeight: 300 }}
-                      >
-                        {n}
-                      </p>
-                      <p className="section-label text-stone">{label}</p>
-                    </div>
-                  ))}
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 3: The Founder ─────────────────────── */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-            {/* Image */}
-            <div className="md:order-2">
-              <SectionImage
-                src="https://picsum.photos/seed/slab-ab5/680/820"
-                alt="Gallery founder"
-                aspect="5/6"
-              />
-            </div>
-
-            {/* Text */}
-            <div className="md:order-1">
-              <ScrollReveal>
-                <p className="section-label mb-5 text-terracotta">III — The Founder</p>
-                <h2
-                  className="font-display text-charcoal mb-8"
+          {/* Body text */}
+          <ScrollReveal delay={0.07}>
+            <div
+              className="mx-auto text-center"
+              style={{ maxWidth: '34rem', marginBottom: '3.5rem' }}
+            >
+              {section.body.map((para, j) => (
+                <p
+                  key={j}
+                  className="font-body text-muted leading-relaxed"
                   style={{
-                    fontSize: 'clamp(2rem, 3.5vw, 3.5rem)',
-                    fontWeight: 400,
-                    lineHeight: 1.1,
+                    fontSize: '0.975rem',
+                    marginBottom: j < section.body.length - 1 ? '1rem' : 0,
                   }}
                 >
-                  A Lifelong
-                  <br />
-                  <em style={{ fontStyle: 'italic', fontWeight: 300 }}>Encounter with Stone</em>
-                </h2>
-              </ScrollReveal>
-              <ScrollReveal delay={0.08}>
-                <p className="font-body text-muted leading-relaxed mb-5 text-sm md:text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. The founder's first
-                  encounter with Shona sculpture came during a trip to Harare in the early 2000s,
-                  where a visit to the National Gallery changed everything. Standing before a
-                  Benhura piece, she understood — in a way that transcended language or analysis —
-                  that this was among the great sculptural traditions of the twentieth century.
+                  {para}
                 </p>
-                <p className="font-body text-muted leading-relaxed mb-5 text-sm md:text-base">
-                  Over the following years, she returned to Zimbabwe repeatedly, building
-                  relationships with artists, visiting studios, and developing a deep understanding
-                  of the tradition's history, materials, and contemporary practice. Slab of Africa
-                  was born from this accumulated love and knowledge — a project as personal as it is
-                  professional.
-                </p>
-                <p className="font-body text-muted leading-relaxed mb-10 text-sm md:text-base">
-                  Based in San Francisco's Hayes Valley neighborhood, she brings to the gallery both
-                  a collector's eye and an advocate's conviction that these works — and these artists —
-                  deserve far wider recognition than they have yet received.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.14}>
-                <Link href="/inquire" className="btn-primary">
-                  Get in Touch
-                </Link>
-              </ScrollReveal>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </ScrollReveal>
+
+          {/* Image — natural proportions, no cropping */}
+          <ScrollReveal delay={0.13}>
+            <div
+              className="mx-auto"
+              style={{
+                maxWidth: '80%',
+                backgroundColor: '#DDD0BC',
+                lineHeight: 0,
+              }}
+            >
+              <Image
+                src={IMAGES[i]}
+                alt={section.title}
+                width={0}
+                height={0}
+                sizes="(max-width: 768px) 95vw, 80vw"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+                priority={i === 0}
+              />
+            </div>
+          </ScrollReveal>
+
+        </section>
+      ))}
+
+      {/* Closing breath before footer */}
+      <div className="h-16 md:h-24" />
+
     </div>
   )
 }

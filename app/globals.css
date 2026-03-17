@@ -38,14 +38,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── Custom Cursor ──────────────────────────────────── */
-/* Hide system cursor on mouse devices; vanilla JS cursor takes over */
-@media (pointer: fine) {
-  html, body, *, *::before, *::after {
-    cursor: none !important;
-  }
-}
-
 /* ─── Selection ──────────────────────────────────────── */
 ::selection {
   background-color: var(--terracotta);
@@ -337,6 +329,7 @@ h1, h2, h3 {
   color: var(--stone);
   font-family: var(--font-jost), system-ui, sans-serif;
 }
+
 
 /* ─── Divider ────────────────────────────────────────── */
 .divider {

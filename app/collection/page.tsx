@@ -88,7 +88,7 @@ export default function CollectionPage() {
   }, [selectedIndex])
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #EDE8DE, #DDD4C4)' }}>
+    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #D9CEBE, #C8BAA6)' }}>
       {/* Header */}
       <section className="pt-36 md:pt-44 pb-12 px-6 md:px-10 max-w-7xl mx-auto">
         <p className="section-label mb-4">The Collection</p>
@@ -107,8 +107,8 @@ export default function CollectionPage() {
           </ScrollReveal>
           <ScrollReveal delay={0.12} className="md:max-w-xs">
             <p className="font-body text-muted text-sm leading-relaxed">
-              {collectionWorks.length} works available. Click any piece to view details and inquire.
-              Each sculpture is unique and available to collectors globally.
+              Curated selection of hand-carved Shona sculptures from Zimbabwe.
+              Further details, including pricing, are available upon inquiry
             </p>
           </ScrollReveal>
         </div>
@@ -131,7 +131,7 @@ export default function CollectionPage() {
       {/* Inquiry CTA */}
       <section
         className="border-t border-border py-16 px-6 md:px-10"
-        style={{ backgroundColor: '#EEE8E0' }}
+        style={{ backgroundColor: '#D4C9B8' }}
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <ScrollReveal>
