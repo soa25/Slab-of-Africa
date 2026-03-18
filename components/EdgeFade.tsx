@@ -31,7 +31,7 @@ export default function EdgeFade() {
       />
       <div
         className="md:hidden"
-        style={{ ...base, bottom: 0, background: `linear-gradient(to top, ${color}, transparent)` }}
+        style={{ ...base, bottom: 0, height: 30, opacity: 0.45, background: `linear-gradient(to top, ${color}, transparent)` }}
       />
     </>
   )
