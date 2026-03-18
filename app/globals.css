@@ -106,7 +106,14 @@ h1, h2, h3 {
 
 @media (max-width: 480px) {
   .masonry-grid {
-    columns: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
+    align-items: start;
+    columns: unset;
+  }
+  .masonry-item {
+    margin-bottom: 0;
   }
 }
 

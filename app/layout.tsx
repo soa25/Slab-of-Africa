@@ -21,6 +21,12 @@ const jost = Jost({
   display: 'swap',
 })
 
+import type { Viewport } from 'next'
+
+export const viewport: Viewport = {
+  themeColor: '#FAF0E2',
+}
+
 export const metadata: Metadata = {
   title: {
     default: 'Slab of Africa — Shona Stone Sculpture',
