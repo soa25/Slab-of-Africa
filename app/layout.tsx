@@ -6,7 +6,7 @@ import IntroAnimation from '@/components/IntroAnimation'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import ConditionalFooter from '@/components/ConditionalFooter'
 import MotionProvider from '@/components/MotionProvider'
-import ThemeColor from '@/components/ThemeColor'
+import EdgeFade from '@/components/EdgeFade'
 
 const cormorant = Cormorant({
   subsets: ['latin'],
@@ -74,8 +74,8 @@ export default function RootLayout({
 
         <MotionProvider>
         <SmoothScrollProvider>
-          {/* Dynamic theme-color meta tag */}
-          <ThemeColor />
+          {/* Mobile edge fades — top and bottom gradient overlays */}
+          <EdgeFade />
 
           {/* Cinematic intro animation */}
           <IntroAnimation />
