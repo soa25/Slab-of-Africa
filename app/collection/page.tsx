@@ -119,7 +119,7 @@ export default function CollectionPage() {
       <div className="px-4 pb-2">
         <div className="masonry-grid">
           <div className="masonry-column">
-            {collectionWorks.filter((_, i) => i % 2 === 0).map((artwork) => (
+            {collectionWorks.filter((_, i) => i % 2 === 0 || i === collectionWorks.length - 1).map((artwork) => (
               <MasonryItem
                 key={artwork.id}
                 artwork={artwork}
@@ -128,7 +128,7 @@ export default function CollectionPage() {
             ))}
           </div>
           <div className="masonry-column">
-            {collectionWorks.filter((_, i) => i % 2 === 1).map((artwork) => (
+            {collectionWorks.filter((_, i) => i % 2 === 1 && i !== collectionWorks.length - 1).map((artwork) => (
               <MasonryItem
                 key={artwork.id}
                 artwork={artwork}
