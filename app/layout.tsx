@@ -6,6 +6,7 @@ import IntroAnimation from '@/components/IntroAnimation'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import ConditionalFooter from '@/components/ConditionalFooter'
 import MotionProvider from '@/components/MotionProvider'
+import ThemeColor from '@/components/ThemeColor'
 
 const cormorant = Cormorant({
   subsets: ['latin'],
@@ -20,12 +21,6 @@ const jost = Jost({
   weight: ['300', '400', '500', '600'],
   display: 'swap',
 })
-
-import type { Viewport } from 'next'
-
-export const viewport: Viewport = {
-  themeColor: '#FAF0E2',
-}
 
 export const metadata: Metadata = {
   title: {
@@ -79,6 +74,9 @@ export default function RootLayout({
 
         <MotionProvider>
         <SmoothScrollProvider>
+          {/* Dynamic theme-color meta tag */}
+          <ThemeColor />
+
           {/* Cinematic intro animation */}
           <IntroAnimation />
 
