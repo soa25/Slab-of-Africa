@@ -24,15 +24,9 @@ export default function EdgeFade() {
   }
 
   return (
-    <>
-      <div
-        className="md:hidden"
-        style={{ ...base, top: 0, background: `linear-gradient(to bottom, ${color}, transparent)` }}
-      />
-      <div
-        className="md:hidden"
-        style={{ ...base, bottom: 0, height: 30, opacity: 0.45, background: `linear-gradient(to top, ${color}, transparent)` }}
-      />
-    </>
+    <div
+      className="md:hidden"
+      style={{ ...base, top: 0, background: `linear-gradient(to bottom, ${color}, transparent)` }}
+    />
   )
 }

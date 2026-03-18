@@ -104,13 +104,24 @@ h1, h2, h3 {
   }
 }
 
+/* Column wrappers are invisible to desktop CSS columns layout */
+.masonry-grid .masonry-column {
+  display: contents;
+}
+
 @media (max-width: 480px) {
   .masonry-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     gap: 8px;
-    align-items: start;
     columns: unset;
+  }
+  .masonry-grid .masonry-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
   .masonry-item {
     margin-bottom: 0;

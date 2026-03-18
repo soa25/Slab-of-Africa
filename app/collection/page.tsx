@@ -118,13 +118,24 @@ export default function CollectionPage() {
       {/* Masonry Grid */}
       <div className="px-4 pb-2">
         <div className="masonry-grid">
-          {collectionWorks.map((artwork) => (
-            <MasonryItem
-              key={artwork.id}
-              artwork={artwork}
-              onClick={() => setSelectedArtwork(artwork)}
-            />
-          ))}
+          <div className="masonry-column">
+            {collectionWorks.filter((_, i) => i % 2 === 0).map((artwork) => (
+              <MasonryItem
+                key={artwork.id}
+                artwork={artwork}
+                onClick={() => setSelectedArtwork(artwork)}
+              />
+            ))}
+          </div>
+          <div className="masonry-column">
+            {collectionWorks.filter((_, i) => i % 2 === 1).map((artwork) => (
+              <MasonryItem
+                key={artwork.id}
+                artwork={artwork}
+                onClick={() => setSelectedArtwork(artwork)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
