@@ -17,6 +17,7 @@ export default function Footer() {
 
   return (
     <footer
+      className="hidden md:block"
       style={{
         backgroundColor: footerBg,
         borderTop: `1px solid ${borderColor}`,
