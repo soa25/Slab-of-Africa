@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { collectionWorks, Artwork } from '@/lib/data'
 import Lightbox from '@/components/Lightbox'
@@ -73,6 +73,9 @@ function MasonryItem({
 export default function CollectionPage() {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
 
+  const leftColumn  = useMemo(() => collectionWorks.filter((_, i) => i % 2 === 0 || i === collectionWorks.length - 1), [])
+  const rightColumn = useMemo(() => collectionWorks.filter((_, i) => i % 2 === 1 && i !== collectionWorks.length - 1), [])
+
   const selectedIndex = selectedArtwork
     ? collectionWorks.findIndex((a) => a.id === selectedArtwork.id)
     : -1
@@ -119,7 +122,7 @@ export default function CollectionPage() {
       <div className="px-4 pb-2">
         <div className="masonry-grid">
           <div className="masonry-column">
-            {collectionWorks.filter((_, i) => i % 2 === 0 || i === collectionWorks.length - 1).map((artwork) => (
+            {leftColumn.map((artwork) => (
               <MasonryItem
                 key={artwork.id}
                 artwork={artwork}
@@ -128,7 +131,7 @@ export default function CollectionPage() {
             ))}
           </div>
           <div className="masonry-column">
-            {collectionWorks.filter((_, i) => i % 2 === 1 && i !== collectionWorks.length - 1).map((artwork) => (
+            {rightColumn.map((artwork) => (
               <MasonryItem
                 key={artwork.id}
                 artwork={artwork}
