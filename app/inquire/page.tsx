@@ -26,7 +26,11 @@ export default function InquirePage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    await new Promise(r => setTimeout(r, 1200))
+    await fetch('https://formspree.io/f/mdawboko', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(formState),
+    })
     setSubmitting(false)
     setSubmitted(true)
   }
