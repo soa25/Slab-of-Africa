@@ -300,6 +300,14 @@ function ArtworkCard({
           {artwork.title}
         </h3>
         <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>
+        <p className="font-body text-muted mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
+          {artwork.material} · {artwork.size}
+        </p>
+        {artwork.note && (
+          <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+            {artwork.note}
+          </p>
+        )}
       </div>
     </div>
   )
