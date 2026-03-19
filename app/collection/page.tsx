@@ -70,32 +70,22 @@ function MasonryItem({
   )
 }
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
 export default function CollectionPage() {
-  const [works] = useState(() => shuffle(collectionWorks))
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
 
   const selectedIndex = selectedArtwork
-    ? works.findIndex((a) => a.id === selectedArtwork.id)
+    ? collectionWorks.findIndex((a) => a.id === selectedArtwork.id)
     : -1
 
   const handlePrev = useCallback(() => {
-    if (selectedIndex > 0) setSelectedArtwork(works[selectedIndex - 1])
-    else setSelectedArtwork(works[works.length - 1])
-  }, [selectedIndex, works])
+    if (selectedIndex > 0) setSelectedArtwork(collectionWorks[selectedIndex - 1])
+    else setSelectedArtwork(collectionWorks[collectionWorks.length - 1])
+  }, [selectedIndex])
 
   const handleNext = useCallback(() => {
-    if (selectedIndex < works.length - 1) setSelectedArtwork(works[selectedIndex + 1])
-    else setSelectedArtwork(works[0])
-  }, [selectedIndex, works])
+    if (selectedIndex < collectionWorks.length - 1) setSelectedArtwork(collectionWorks[selectedIndex + 1])
+    else setSelectedArtwork(collectionWorks[0])
+  }, [selectedIndex])
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #D9CEBE, #C8BAA6)' }}>
@@ -129,7 +119,7 @@ export default function CollectionPage() {
       <div className="px-4 pb-2">
         <div className="masonry-grid">
           <div className="masonry-column">
-            {works.filter((_, i) => i % 2 === 0 || i === works.length - 1).map((artwork) => (
+            {collectionWorks.filter((_, i) => i % 2 === 0 || i === collectionWorks.length - 1).map((artwork) => (
               <MasonryItem
                 key={artwork.id}
                 artwork={artwork}
@@ -138,7 +128,7 @@ export default function CollectionPage() {
             ))}
           </div>
           <div className="masonry-column">
-            {works.filter((_, i) => i % 2 === 1 && i !== works.length - 1).map((artwork) => (
+            {collectionWorks.filter((_, i) => i % 2 === 1 && i !== collectionWorks.length - 1).map((artwork) => (
               <MasonryItem
                 key={artwork.id}
                 artwork={artwork}
@@ -172,7 +162,7 @@ export default function CollectionPage() {
       {/* Lightbox */}
       <Lightbox
         artwork={selectedArtwork}
-        artworks={works}
+        artworks={collectionWorks}
         onClose={() => setSelectedArtwork(null)}
         onPrev={handlePrev}
         onNext={handleNext}
