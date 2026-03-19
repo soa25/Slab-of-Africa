@@ -99,11 +99,13 @@ function MobileNavLink({
   label,
   index,
   isActive,
+  onClose,
 }: {
   href: string
   label: string
   index: number
   isActive: boolean
+  onClose: () => void
 }) {
   const accentColor = '#C1522A'
 
@@ -126,6 +128,7 @@ function MobileNavLink({
           color: isActive ? accentColor : '#E8E0D8',
           transition: 'color 0.2s ease',
         }}
+        onClick={onClose}
       >
         {label}
       </Link>
@@ -240,8 +243,9 @@ export default function Navigation() {
             initial="closed"
             animate="open"
             exit="closed"
+            onClick={() => setMenuOpen(false)}
           >
-            <nav className="relative z-10 w-full">
+            <nav className="relative z-10 w-full" onClick={(e) => e.stopPropagation()}>
               <ul className="space-y-2">
                 {navLinks.map(({ href, label }, i) => (
                   <MobileNavLink
@@ -250,6 +254,7 @@ export default function Navigation() {
                     label={label}
                     index={i}
                     isActive={pathname === href}
+                    onClose={() => setMenuOpen(false)}
                   />
                 ))}
               </ul>
