@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { recentAdditions } from '@/lib/data'
@@ -246,19 +246,41 @@ function ArtworkCard({
   const [activeIndex, setActiveIndex] = useState(0)
   const hasMultiple = images.length > 1
 
-  const prev = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setActiveIndex(i => (i - 1 + images.length) % images.length)
+  const touchStartX = useRef(0)
+  const touchStartY = useRef(0)
+  const didSwipe = useRef(false)
+
+  const prevPhoto = () => setActiveIndex(i => (i - 1 + images.length) % images.length)
+  const nextPhoto = () => setActiveIndex(i => (i + 1) % images.length)
+
+  const prev = (e: React.MouseEvent) => { e.stopPropagation(); prevPhoto() }
+  const next = (e: React.MouseEvent) => { e.stopPropagation(); nextPhoto() }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+    didSwipe.current = false
   }
 
-  const next = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setActiveIndex(i => (i + 1) % images.length)
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX.current
+    const dy = e.changedTouches[0].clientY - touchStartY.current
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      didSwipe.current = true
+      if (dx < 0) nextPhoto()
+      else prevPhoto()
+    }
   }
 
   return (
     <div className="group block cursor-pointer" onClick={() => onOpen(artwork)}>
-      <div className="relative overflow-hidden bg-black" style={{ aspectRatio: '3 / 4' }}>
+      <div
+        className="relative overflow-hidden bg-black"
+        style={{ aspectRatio: '3 / 4' }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onClick={(e) => { if (didSwipe.current) { didSwipe.current = false; e.stopPropagation() } }}
+      >
         <Image
           src={images[activeIndex]}
           alt={artwork.title}
