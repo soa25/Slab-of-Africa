@@ -2,41 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useRef, useEffect, useState } from 'react'
 import { getPalette } from '@/lib/pageColors'
-
-function MobileFooter({ isDark, mutedColor, borderColor }: { isDark: boolean; mutedColor: string; borderColor: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.5 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div
-      ref={ref}
-      className="block md:hidden"
-      style={{
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 0.6s ease',
-        padding: '1.25rem 1.5rem',
-        borderTop: `1px solid ${borderColor}`,
-      }}
-    >
-      <p className="font-body text-xs" style={{ color: mutedColor }}>
-        © {new Date().getFullYear()} Slab of Africa. All rights reserved.
-      </p>
-    </div>
-  )
-}
 
 export default function Footer() {
   const pathname = usePathname()
@@ -50,7 +16,6 @@ export default function Footer() {
   const hoverColor  = accent
 
   return (
-    <>
     <footer
       className="hidden md:block"
       style={{
@@ -102,7 +67,5 @@ export default function Footer() {
         </p>
       </div>
     </footer>
-    <MobileFooter isDark={isDark} mutedColor={mutedColor} borderColor={borderColor} />
-    </>
   )
 }
