@@ -119,7 +119,7 @@ function MobileNavLink({
     >
       <Link
         href={href}
-        className="font-display block"
+        className="font-display relative inline-block"
         style={{
           fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
           fontWeight: 300,
@@ -131,6 +131,18 @@ function MobileNavLink({
         onClick={onClose}
       >
         {label}
+        <motion.span
+          className="absolute left-0 block"
+          style={{
+            bottom: '-2px',
+            height: '1px',
+            width: '100%',
+            backgroundColor: accentColor,
+            transformOrigin: 'left center',
+          }}
+          animate={{ scaleX: isActive ? 1 : 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        />
       </Link>
     </motion.li>
   )
