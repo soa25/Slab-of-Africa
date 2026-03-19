@@ -391,7 +391,7 @@ export default function HomePage() {
         {/* Inquire — mobile only */}
         <ScrollReveal>
           <div className="flex justify-center mt-4 md:hidden">
-            <Link href="/inquire" className="btn-outline" style={{ borderColor: 'var(--charcoal)' }}>
+            <Link href="/inquire" className="btn-primary">
               Inquire
             </Link>
           </div>
