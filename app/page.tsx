@@ -119,7 +119,7 @@ function Lightbox({
                   >
                     <Image
                       src={src}
-                      alt={`${artwork.title} — photo ${i + 1}`}
+                      alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}, photo ${i + 1}`}
                       fill
                       className="object-contain"
                       sizes="(max-width: 768px) 50vw, 33vw"
@@ -180,7 +180,7 @@ function Lightbox({
                 >
                   <Image
                     src={images[photoIndex]}
-                    alt={`${artwork.title} — photo ${photoIndex + 1}`}
+                    alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}, photo ${photoIndex + 1}`}
                     fill
                     className="object-contain"
                     sizes="90vw"
@@ -283,7 +283,8 @@ function ArtworkCard({
       >
         <Image
           src={images[activeIndex]}
-          alt={artwork.title}
+          alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
+          title={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
           fill
           className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           priority={priority}
@@ -337,10 +338,35 @@ function ArtworkCard({
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
+const SITE_URL = 'https://www.slabofafrica.com'
+
 export default function HomePage() {
   const [lightboxArtwork, setLightboxArtwork] = useState<Artwork | null>(null)
 
+  const sculptureSchema = {
+    '@context': 'https://schema.org',
+    '@graph': recentAdditions.map(a => ({
+      '@type': ['VisualArtwork', 'Product'],
+      name: a.title,
+      creator: { '@type': 'Person', name: a.artist },
+      artMedium: `${a.material} stone`,
+      artForm: 'Shona stone sculpture',
+      size: a.size,
+      description: `${a.title} — ${a.material} Shona stone sculpture by ${a.artist}. ${a.size}.`,
+      image: `${SITE_URL}${a.image}`,
+      url: `${SITE_URL}/inquire`,
+      offers: {
+        '@type': 'Offer',
+        availability: 'https://schema.org/InStock',
+        seller: { '@type': 'Organization', name: 'Slab of Africa' },
+        url: `${SITE_URL}/inquire`,
+      },
+    })),
+  }
+
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sculptureSchema) }} />
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #FAF0E2, #E0D5C5)' }}>
 
       <AnimatePresence>
@@ -439,10 +465,16 @@ export default function HomePage() {
             </blockquote>
           </ScrollReveal>
           <p className="section-label mt-8 text-terracotta">Slab of Africa</p>
+          <ScrollReveal delay={0.1}>
+            <p className="font-body text-muted text-sm mt-4">
+              <a href="/about" className="link-underline" style={{ color: 'inherit' }}>Learn about the Shona sculpture tradition</a>
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
 
     </div>
+    </>
   )
 }

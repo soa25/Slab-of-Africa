@@ -86,7 +86,8 @@ export default function FairsPage() {
             <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
               <Image
                 src={PHOTOS[0]}
-                alt="Art-Fair-Mont January 2026"
+                alt="Slab of Africa booth at Art-Fair-Mont San Francisco — Shona stone sculptures from Zimbabwe on display"
+                title="Slab of Africa booth at Art-Fair-Mont San Francisco — Shona stone sculptures from Zimbabwe on display"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 58vw"
@@ -100,7 +101,8 @@ export default function FairsPage() {
             <div className="relative overflow-hidden" style={{ aspectRatio: '3/4' }}>
               <Image
                 src={PHOTOS[1]}
-                alt="Art-Fair-Mont January 2026"
+                alt="African art exhibition Art-Fair-Mont 2026 — Zimbabwe Shona stone sculptures for sale in San Francisco"
+                title="African art exhibition Art-Fair-Mont 2026 — Zimbabwe Shona stone sculptures for sale in San Francisco"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 25vw"
@@ -118,7 +120,8 @@ export default function FairsPage() {
             <div className="relative overflow-hidden" style={{ aspectRatio: '1/1' }}>
               <Image
                 src={PHOTOS[2]}
-                alt="Art-Fair-Mont January 2026"
+                alt="Shona sculpture collection at San Francisco art fair — authentic handmade Zimbabwe stone art"
+                title="Shona sculpture collection at San Francisco art fair — authentic handmade Zimbabwe stone art"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 30vw"
@@ -131,7 +134,8 @@ export default function FairsPage() {
             <div className="relative overflow-hidden" style={{ aspectRatio: '5/4' }}>
               <Image
                 src={PHOTOS[3]}
-                alt="Art-Fair-Mont January 2026"
+                alt="Slab of Africa at Art-Fair-Mont 2026 — hand-carved African Shona sculptures exhibition San Francisco"
+                title="Slab of Africa at Art-Fair-Mont 2026 — hand-carved African Shona sculptures exhibition San Francisco"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 46vw"

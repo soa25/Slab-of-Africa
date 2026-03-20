@@ -42,7 +42,8 @@ function MasonryItem({
         <div className="relative overflow-hidden bg-stone/10">
           <Image
             src={artwork.image}
-            alt={artwork.title}
+            alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
+            title={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
             width={artwork.aspectRatio === 'landscape' ? 800 : 600}
             height={artwork.aspectRatio === 'landscape' ? 560 : artwork.aspectRatio === 'square' ? 600 : 800}
             className="w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] block"
@@ -70,6 +71,37 @@ function MasonryItem({
   )
 }
 
+const SITE_URL = 'https://www.slabofafrica.com'
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Shona Stone Sculpture Collection — Slab of Africa',
+  url: `${SITE_URL}/collection`,
+  numberOfItems: collectionWorks.length,
+  itemListElement: collectionWorks.map((w, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': ['VisualArtwork', 'Product'],
+      name: w.title,
+      creator: { '@type': 'Person', name: w.artist },
+      artMedium: `${w.material} stone`,
+      artForm: 'Shona stone sculpture',
+      size: w.size,
+      description: `${w.title} — ${w.material} Shona stone sculpture by ${w.artist}. ${w.size}.`,
+      image: `${SITE_URL}${w.image}`,
+      url: `${SITE_URL}/inquire`,
+      offers: {
+        '@type': 'Offer',
+        availability: 'https://schema.org/InStock',
+        seller: { '@type': 'Organization', name: 'Slab of Africa' },
+        url: `${SITE_URL}/inquire`,
+      },
+    },
+  })),
+}
+
 export default function CollectionPage() {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
 
@@ -91,6 +123,8 @@ export default function CollectionPage() {
   }, [selectedIndex])
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #D9CEBE, #C8BAA6)' }}>
       {/* Header */}
       <section className="pt-36 md:pt-44 pb-12 px-6 md:px-10 max-w-7xl mx-auto">
@@ -171,5 +205,6 @@ export default function CollectionPage() {
         onNext={handleNext}
       />
     </div>
+    </>
   )
 }
