@@ -4,6 +4,8 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/artists', destination: '/', permanent: false },
+      { source: '/contact/', destination: '/inquire', permanent: true },
+      { source: '/new-page/', destination: '/', permanent: true },
     ]
   },
   images: {
