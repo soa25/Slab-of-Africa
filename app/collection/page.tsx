@@ -95,8 +95,6 @@ const collectionSchema = {
       brand: { '@type': 'Brand', name: 'Slab of Africa' },
       offers: {
         '@type': 'Offer',
-        price: 'Contact for pricing',
-        priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         seller: { '@type': 'Organization', name: 'Slab of Africa' },
         url: `${SITE_URL}/inquire`,
@@ -106,6 +104,15 @@ const collectionSchema = {
             { '@type': 'DefinedRegion', addressCountry: 'US' },
             { '@type': 'DefinedRegion', name: 'Worldwide' },
           ],
+          shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            businessDays: {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            },
+            cutoffTime: '17:00',
+          },
         },
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
