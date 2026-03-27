@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 const THEME_COLORS: Record<string, string> = {
   '/':           '#FAF0E2',
   '/collection': '#D9CEBE',
+  '/artists':    '#C4C0BA',
   '/fairs':      '#DDD0BA',
   '/about':      '#F2E6D8',
   '/inquire':    '#231E1A',

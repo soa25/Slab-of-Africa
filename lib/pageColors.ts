@@ -3,10 +3,11 @@
 // and a flag for whether it's a dark-theme page.
 
 export interface PagePalette {
-  bg: string        // root page background
-  ctaBg: string     // slightly shifted bg for CTA / section breaks
-  accent: string    // nav underline + active state accent
-  isDark: boolean   // inverts nav text + scrolled-header colour
+  bg: string             // root page background
+  ctaBg: string          // slightly shifted bg for CTA / section breaks
+  accent: string         // nav underline + active state accent
+  isDark: boolean        // inverts nav text + scrolled-header colour
+  navScrolledBg?: string // optional: overrides nav scrolled bg for this page
 }
 
 export const PAGE_PALETTES: Record<string, PagePalette> = {
@@ -23,10 +24,11 @@ export const PAGE_PALETTES: Record<string, PagePalette> = {
     isDark: false,
   },
   '/artists': {
-    bg: '#EDE0C4',      // warm desert sand
-    ctaBg: '#F3EAD4',   // lighter sand
-    accent: '#AD8B52',  // amber sand
+    bg: '#B0ACA6',                        // raw limestone / unpolished granite
+    ctaBg: '#BCBAB4',                     // slightly lighter stone
+    accent: '#6B6560',                    // dark warm grey for nav underline
     isDark: false,
+    navScrolledBg: 'rgba(176,172,166,0.96)', // matches bg with blur
   },
   '/fairs': {
     bg: '#CCBFA0',      // warm oat / linen

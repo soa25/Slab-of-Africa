@@ -9,6 +9,7 @@ import { PAGE_PALETTES, getPalette } from '@/lib/pageColors'
 const navLinks = [
   { href: '/', label: 'Recent' },
   { href: '/collection', label: 'Collection' },
+  { href: '/artists', label: 'Artists' },
   { href: '/fairs', label: 'Fairs' },
   { href: '/about', label: 'About' },
   { href: '/inquire', label: 'Inquire' },
@@ -173,7 +174,7 @@ export default function Navigation() {
 
   const scrolledBg = isDarkPage
     ? 'rgba(28,23,20,0.96)'
-    : 'rgba(248,238,222,0.95)'
+    : (currentPalette.navScrolledBg ?? 'rgba(248,238,222,0.95)')
   const scrolledBorder = isDarkPage
     ? '1px solid rgba(255,255,255,0.06)'
     : '1px solid #E5DDD4'

@@ -1,164 +1,164 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { artists } from '@/lib/data'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import ScrollReveal from '@/components/ScrollReveal'
 
-function ArtistSection({
-  artist,
-  index,
-}: {
-  artist: (typeof artists)[0]
-  index: number
-}) {
-  const isEven = index % 2 === 0
+const ARTISTS = [
+  {
+    name: 'Lovemore Bonjisi',
+    bio: `Raised in Ruwa, Zimbabwe, within a family where sculpting was not a profession but a way of life, Lovemore Bonjisi came to the craft through his older brother Lameck. Unable to attend secondary school for lack of a birth certificate, he joined Lameck at twelve and threw himself into learning. By the time his documentation came through at fifteen, he was already a sculptor in every meaningful sense. When Lameck passed away in 2003, Lovemore carried the practice forward — and the weight of that inheritance is visible in his work, which draws deeply on the expressions and emotional life of the Shona people. His sculptures have been exhibited in the United States, Germany and the Netherlands.`,
+  },
+  {
+    name: 'Gift Rusere',
+    bio: `Gift Rusere grew up in Mhondoro, Mashonaland West, before moving to Mbare in Harare at twelve — where his maternal uncle Kunaka, who sold his work at Africa Unity Square, first placed a chisel in his hands. He started carving in 1998 while still at school and sold his first pieces at HIFA in 1999. A meeting with German painter Andreas Wutz opened him to abstraction and expanded what he understood sculpture could be. He works primarily in springstone, green opal, cobalt and leopard stone, materials whose character he knows intimately after more than two decades of practice.`,
+  },
+  {
+    name: 'Itayi Mupumha',
+    bio: `Born in 1975 in Rusape District, the eldest of eight, Itayi Mupumha relocated to Chitungwiza at eleven and completed his O-Levels in 1993 before turning his attention fully to stone. He began sculpting in 1994 under his uncle Richard Mupumha, working through a two-year apprenticeship before establishing himself as a full-time sculptor in 1996. He now works at Chitungwiza Arts Centre alongside his brother Onias. His sculptures have found their way into private collections in Germany, Italy, Britain, the United States, Australia and South Africa.`,
+  },
+  {
+    name: 'Bywell Sango',
+    bio: `Born in Guruve in 1979, Bywell Sango grew up in the shadow — and the influence — of his older brother Brighton, one of Zimbabwe's celebrated sculptors. He developed his practice early, absorbing the discipline while finding his own direction: a style rooted not in narrative or mythology but in the stone itself. He follows the material, letting its natural contours suggest the final form. He works in cobalt, opal, springstone and serpentine and has exhibited at the National Gallery of Zimbabwe and internationally across Austria, Germany, Denmark, Sweden, Norway, Finland and the United States.`,
+  },
+  {
+    name: 'Phillip Mlima',
+    bio: `Born in Harare in 1978 and raised in Mufokse Township, with family roots in Mutoko, Phillip Mlima began sculpting in 1998 in the Ruwa area — though the real foundation was laid two years earlier, when the celebrated Gerald Takawira took him under his wing. The eldest of five siblings and a father of three, his work spans creations, abstracts, animals, figurative birds and scenes drawn from Shona life. For Phillip, sculpting is inseparable from culture; his pieces are an ongoing conversation with the values and customs of the people he comes from.`,
+  },
+  {
+    name: 'Tafadzwa Mamvura',
+    bio: `Tafadzwa Tandi Mamvura comes from three generations of carvers: his grandfather Gabriel Tandi was a first-generation Shona sculptor, and his father Thomas Tandi carried that legacy into the second. Born in Mrewa, Zimbabwe, Tafadzwa had absorbed the fundamentals of the craft before he turned ten, mentored directly by his father. He has become known for work of exceptional precision — figurative torsos, busts and abstract pieces that honour the particular beauty of semi-precious stone. His sculptures feel less carved than coaxed, shaped by a hand that grew up understanding stone as a living material.`,
+  },
+  {
+    name: 'Graham Rugoyi',
+    bio: `Graham Rugoyi grew up in Chitungwiza under the influence of second-generation sculptor Ignatious Zhuwakiyi, a formative encounter that shaped both his eye and his ambitions. He exhibited at the German Embassy in Harare from 2006 to 2008 and has since placed work with private and public collectors across Europe and North America. His primary interest is the human figure — its postures, gestures and the way it moves through space — alongside animals and birds. He has continued making work through the practical difficulties that trade restrictions have imposed on artists of his generation, and his persistence shows.`,
+  },
+  {
+    name: 'Wilberforce Chewa',
+    bio: `Wilberforce Chewa was born in Guruve, a region that has produced some of Zimbabwe's most significant sculptors, including the late Brighton Sango and Edronzi Rukodzi. He began his artistic life at thirteen, developing his practice alongside his brothers John and Omiro before joining the Sanganai Art Group in 1995 and the Tengenenge Art Community in 1997. He now divides his time between a studio in Hatfield, Harare, and his workshop in Guruve. His work moves across human figures, birds and an increasingly abstract territory — forms that hold their origins lightly.`,
+  },
+]
+
+function ArtistRow({ artist, index, isLast }: { artist: typeof ARTISTS[0]; index: number; isLast: boolean }) {
+  const [open, setOpen] = useState(false)
 
   return (
-    <section className="py-20 md:py-28 border-b border-border last:border-0">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div
-          className={`grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start ${
-            !isEven ? 'md:[&>*:first-child]:order-2' : ''
-          }`}
+    <>
+      <div>
+        <button
+          className="w-full py-10 md:py-12 text-left focus:outline-none group"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
         >
-          {/* Image column */}
-          <ScrollReveal>
-            <div className="relative overflow-hidden group">
-              <Image
-                src={artist.image}
-                alt={artist.name}
-                width={700}
-                height={860}
-                className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                style={{ aspectRatio: '5/6' }}
-              />
-              {/* Number overlay */}
-              <div
-                className="absolute top-6 left-6 font-display text-cream/20"
-                style={{ fontSize: '5rem', fontWeight: 300, lineHeight: 1 }}
-              >
-                0{index + 1}
-              </div>
-            </div>
-
-            {/* Caption beneath image */}
-            <div className="mt-5 flex items-center gap-4">
-              <div className="w-8 h-px bg-terracotta" />
-              <p className="section-label text-stone">
-                {artist.origin} · b. {artist.born}
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* Text column */}
-          <ScrollReveal className="flex flex-col justify-center pt-0 md:pt-12">
-            <p className="section-label mb-5">Artist Profile</p>
-            <h2
-              className="font-display text-charcoal mb-6"
+          <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-16">
+            <span
+              className="font-body shrink-0"
               style={{
-                fontSize: 'clamp(2.2rem, 4vw, 4rem)',
-                fontWeight: 400,
-                lineHeight: 1.05,
+                fontSize: '0.7rem',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: 'var(--stone)',
+                opacity: 0.6,
+                minWidth: '2rem',
               }}
             >
-              {artist.name}
-            </h2>
-
-            <div className="divider mb-8" />
-
-            <p className="font-body text-muted leading-relaxed mb-6 text-sm md:text-base">
-              {artist.bio}
-            </p>
-            <p className="font-body text-muted leading-relaxed mb-10 text-sm md:text-base">
-              {artist.extended}
-            </p>
-
-            {/* Signature style */}
-            <div className="border-l-2 border-terracotta pl-5 mb-10">
-              <p className="section-label mb-2">Signature Style</p>
-              <p className="font-body text-sm text-charcoal leading-relaxed">
-                {artist.signature}
-              </p>
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <div className="flex items-center justify-between flex-1">
+              <h2
+                className="font-display text-charcoal transition-colors duration-300 group-hover:text-terracotta"
+                style={{
+                  fontSize: 'clamp(2rem, 4.5vw, 4rem)',
+                  fontWeight: 300,
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.1,
+                }}
+              >
+                {artist.name}
+              </h2>
+              <motion.span
+                animate={{ rotate: open ? 45 : 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="shrink-0 ml-6"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '2.2rem',
+                  fontWeight: 200,
+                  color: 'var(--stone)',
+                  opacity: 0.5,
+                  lineHeight: 1,
+                  userSelect: 'none',
+                }}
+              >
+                +
+              </motion.span>
             </div>
+          </div>
+        </button>
 
-            <Link href="/collection" className="btn-outline self-start">
-              View Works by {artist.name.split(' ')[0]}
-            </Link>
-          </ScrollReveal>
-        </div>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              key="bio"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="pb-10 md:pb-12 md:pl-[calc(2rem+4rem)]">
+                <p
+                  className="font-body text-muted leading-relaxed"
+                  style={{ fontSize: '0.95rem', maxWidth: '42rem' }}
+                >
+                  {artist.bio}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </section>
+      {!isLast && <div className="divider" />}
+    </>
   )
 }
 
 export default function ArtistsPage() {
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #F3E9CE, #E0D0A8)' }}>
+    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #C4C0BA, #B0ACA6)' }}>
+
       {/* Header */}
-      <section className="pt-36 md:pt-44 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
-        <p className="section-label mb-4">Represented Artists</p>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <ScrollReveal delay={0.06}>
-            <h1
-              className="font-display text-charcoal"
-              style={{
-                fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-                fontWeight: 400,
-                lineHeight: 1.05,
-              }}
-            >
-              The Sculptors
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={0.12} className="md:max-w-sm">
-            <p className="font-body text-muted text-sm leading-relaxed">
-              Slab of Africa represents three of Zimbabwe's most significant Shona stone sculptors,
-              each bringing a singular artistic vision to this ancient tradition.
-            </p>
-          </ScrollReveal>
-        </div>
+      <section className="pt-36 md:pt-44 pb-12 px-6 md:px-16 max-w-7xl mx-auto">
+        <p className="section-label mb-4">The Artists</p>
+        <ScrollReveal>
+          <h1
+            className="font-display text-charcoal"
+            style={{
+              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+              fontWeight: 400,
+              lineHeight: 1.05,
+            }}
+          >
+            Sculptors
+          </h1>
+        </ScrollReveal>
         <div className="divider mt-10" />
       </section>
 
-      {/* Artist list overview */}
-      <div className="px-6 md:px-10 max-w-7xl mx-auto pb-8">
-        <ScrollReveal>
-          <div className="grid grid-cols-3 gap-px bg-border">
-            {artists.map((artist, i) => (
-              <div key={artist.id} className="px-6 py-5" style={{ backgroundColor: '#EDE3CF' }}>
-                <p className="section-label text-stone mb-1">0{i + 1}</p>
-                <p className="font-display text-charcoal text-lg md:text-xl">{artist.name}</p>
-                <p className="font-body text-xs text-muted mt-1">b. {artist.born}</p>
-              </div>
-            ))}
-          </div>
-        </ScrollReveal>
-      </div>
-
-      {/* Artist sections */}
-      <div>
-        {artists.map((artist, i) => (
-          <ArtistSection key={artist.id} artist={artist} index={i} />
+      {/* Artist list */}
+      <section className="px-6 md:px-16 max-w-7xl mx-auto pb-32">
+        {ARTISTS.map((artist, i) => (
+          <ArtistRow
+            key={artist.name}
+            artist={artist}
+            index={i}
+            isLast={i === ARTISTS.length - 1}
+          />
         ))}
-      </div>
-
-      {/* CTA */}
-      <section className="py-20 px-6 md:px-10 border-t border-border" style={{ backgroundColor: '#F5EAD8' }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <ScrollReveal>
-            <p className="section-label mb-2">The Collection</p>
-            <h2 className="font-display text-charcoal text-2xl md:text-3xl">
-              See the works these artists have made.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <Link href="/collection" className="btn-primary">
-              Browse Collection
-            </Link>
-          </ScrollReveal>
-        </div>
       </section>
+
     </div>
   )
 }

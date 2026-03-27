@@ -3,8 +3,7 @@ const nextConfig = {
   transpilePackages: ['lenis'],
   async redirects() {
     return [
-      { source: '/artists', destination: '/', permanent: false },
-      { source: '/contact/', destination: '/inquire', permanent: true },
+{ source: '/contact/', destination: '/inquire', permanent: true },
       { source: '/new-page/', destination: '/', permanent: true },
     ]
   },
