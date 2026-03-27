@@ -344,6 +344,12 @@ h1, h2, h3 {
   border-color: var(--charcoal);
 }
 
+.btn-outline-terracotta:hover {
+  background-color: var(--terracotta);
+  color: #fff;
+  border-color: var(--terracotta);
+}
+
 /* ─── Section label ──────────────────────────────────── */
 .section-label {
   font-size: 0.7rem;

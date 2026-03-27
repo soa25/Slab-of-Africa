@@ -456,10 +456,10 @@ export default function HomePage() {
         {/* View Full Collection — centered below grid */}
         <ScrollReveal>
           <div className="flex flex-col items-center gap-4 mt-16 md:mt-20">
-            <Link href="/collection" className="btn-outline" style={{ borderColor: 'var(--charcoal)' }}>
+            <Link href="/collection" className="btn-outline btn-outline-terracotta" style={{ borderColor: 'var(--charcoal)' }}>
               View Full Collection
             </Link>
-            <Link href="/artists" className="btn-outline" style={{ borderColor: 'var(--charcoal)' }}>
+            <Link href="/artists" className="btn-outline btn-outline-terracotta" style={{ borderColor: 'var(--charcoal)' }}>
               The Artists
             </Link>
           </div>
@@ -496,7 +496,7 @@ export default function HomePage() {
           <p className="section-label mt-8 text-terracotta">Slab of Africa</p>
           <ScrollReveal delay={0.1}>
             <p className="font-body text-muted text-sm mt-4">
-              <a href="/about" className="link-underline" style={{ color: 'inherit' }}>Learn about the Shona sculpture tradition</a>
+              <a href="/about" className="link-underline" style={{ color: 'inherit', transition: 'color 0.25s ease' }} onMouseEnter={e => (e.currentTarget.style.color = 'var(--terracotta)')} onMouseLeave={e => (e.currentTarget.style.color = 'inherit')}>Learn about the Shona sculpture tradition</a>
             </p>
           </ScrollReveal>
         </div>
