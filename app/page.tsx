@@ -455,9 +455,12 @@ export default function HomePage() {
 
         {/* View Full Collection — centered below grid */}
         <ScrollReveal>
-          <div className="flex justify-center mt-16 md:mt-20">
+          <div className="flex flex-col items-center gap-4 mt-16 md:mt-20">
             <Link href="/collection" className="btn-outline" style={{ borderColor: 'var(--charcoal)' }}>
               View Full Collection
+            </Link>
+            <Link href="/artists" className="btn-outline" style={{ borderColor: 'var(--charcoal)' }}>
+              The Artists
             </Link>
           </div>
         </ScrollReveal>
