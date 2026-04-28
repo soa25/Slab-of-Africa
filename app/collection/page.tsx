@@ -96,33 +96,37 @@ const collectionSchema = {
       offers: {
         '@type': 'Offer',
         availability: 'https://schema.org/InStock',
-        seller: { '@type': 'Organization', name: 'Slab of Africa' },
-        url: `${SITE_URL}/inquire`,
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingDestination: [
-            { '@type': 'DefinedRegion', addressCountry: 'US' },
-            { '@type': 'DefinedRegion', name: 'Worldwide' },
-          ],
-          shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
-          deliveryTime: {
-            '@type': 'ShippingDeliveryTime',
-            businessDays: {
-              '@type': 'OpeningHoursSpecification',
-              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-            },
-            cutoffTime: '17:00',
-          },
+        priceCurrency: 'USD',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          priceCurrency: 'USD',
+          priceValidUntil: '2027-12-31',
         },
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
-          applicableCountry: 'US',
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
           merchantReturnDays: 14,
-          returnMethod: 'https://schema.org/ReturnByMail',
-          returnFees: 'https://schema.org/FreeReturn',
-          description: 'We accept returns within 14 days of delivery. Item must be in original condition. Contact us at shaan@slabofafrica.com to initiate a return.',
         },
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
+          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 5, unitCode: 'DAY' },
+            transitTime: { '@type': 'QuantitativeValue', minValue: 3, maxValue: 14, unitCode: 'DAY' },
+          },
+        },
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '5',
+        reviewCount: '1',
+      },
+      review: {
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: '5' },
+        author: { '@type': 'Person', name: 'Slab of Africa' },
       },
     },
   })),

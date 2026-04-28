@@ -25,7 +25,8 @@
       "Bash(ls -la \"/Users/shaan/Slab-of-Africa/public/images/recent/Abstract \\(red\\)/\")",
       "Bash(git rm -r --cached \"public/images/About\" \"public/images/Fairs\" && git add public/images/about public/images/fairs && git status)",
       "Bash(git add public/images/about public/images/fairs && git status)",
-      "Bash(git checkout app/collection/page.tsx)"
+      "Bash(git checkout app/collection/page.tsx)",
+      "Bash(git checkout app/about/page.tsx)"
     ]
   }
 }

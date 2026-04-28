@@ -6,6 +6,10 @@ import ScrollReveal from '@/components/ScrollReveal'
 
 const ARTISTS = [
   {
+    name: 'Dominic Benhura',
+    bio: `Born in 1968 in the small Zimbabwean village of Murewa, Dominic Benhura is critically acclaimed as one of the premier stone sculptors in the world, with exhibitions spanning over three decades across Africa, America, Asia, and Europe. He came to Harare as a boy and learned the art from other sculptors, including his cousin, eventually finding his own distinct niche. Where his forerunners' work was mostly static, Benhura created forms in motion. From the beginning he showed immense talent, and was working professionally by the age of twelve. His approach is quietly revolutionary. Benhura has an exceptional ability to portray human feeling through form rather than facial expression. Figures mid-leap, children mid-laugh, a body caught between gravity and flight. He has also pushed the boundaries of materials traditionally used in stone sculpture, using one stone inlaid into another to create decorative effects, and incorporating metal, wood, and wire to give his work new and unique qualities. The subjects are expansive. Plants, animals, birds. Though he is most drawn to women and children, a reflection of being raised by his mother and aunt after his father died shortly before he was born. Family runs through almost everything he makes. The reach of his work is hard to overstate. His Leap Frog series is viewed by millions annually as a permanent installation at Hartsfield International Airport in Atlanta, the world's busiest. In 2003, he personally presented Swing Me Mama to Nelson Mandela, which now stands in the permanent collection of the Nelson Mandela Foundation in Johannesburg. The British Museum holds an example of his work in its permanent collection. Dominic Studios, his Harare atelier, is home to a close-knit group of some of the finest sculptors on the continent. A place where the next generation of Zimbabwean stone carvers learns the craft from one of its living masters.`,
+  },
+  {
     name: 'Lovemore Bonjisi',
     bio: `Raised in Ruwa, Zimbabwe, within a family where sculpting was not a profession but a way of life, Lovemore Bonjisi came to the craft through his older brother Lameck. Unable to attend secondary school for lack of a birth certificate, he joined Lameck at twelve and threw himself into learning. By the time his documentation came through at fifteen, he was already a sculptor in every meaningful sense. When Lameck passed away in 2003, Lovemore carried the practice forward — and the weight of that inheritance is visible in his work, which draws deeply on the expressions and emotional life of the Shona people. His sculptures have been exhibited in the United States, Germany and the Netherlands.`,
   },
@@ -130,7 +134,7 @@ export default function ArtistsPage() {
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #C4C0BA, #B0ACA6)' }}>
 
       {/* Header */}
-      <section className="pt-36 md:pt-44 pb-12 px-6 md:px-16 max-w-7xl mx-auto">
+      <section className="pt-36 md:pt-44 px-6 md:px-16 max-w-7xl mx-auto">
         <p className="section-label mb-4">The Artists</p>
         <ScrollReveal>
           <h1
