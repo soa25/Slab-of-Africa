@@ -245,7 +245,7 @@ export const recentAdditions: Artwork[] = [
     id: 79,
     title: 'Happy Trio',
     artist: 'Dominic Benhura',
-    material: 'Springstone',
+    material: 'Springstone and Dolomite',
     size: '16 × 27 × 4 in',
     year: 2024,
     image: '/images/recent/happy-trio-dominic.jpg',
