@@ -432,7 +432,7 @@ export default function HomePage() {
 
           <ScrollReveal delay={0.15} className="md:max-w-xs">
             <p className="font-body text-muted leading-relaxed text-sm md:text-base">
-              From the heart of Zimbabwe to collectors across the United States, discover our first curated collection — timeless stone sculptures available for acquisition from San Francisco, California
+              From the heart of Zimbabwe to collectors across the United States, discover our curated collection — timeless stone sculptures available for acquisition from San Francisco, California
             </p>
           </ScrollReveal>
         </div>
