@@ -187,10 +187,10 @@ export const recentAdditions: Artwork[] = [
     material: 'Springstone',
     size: '42 × 30 × 4 in',
     year: 2024,
-    image: '/images/recent/calling-bird-dominic.jpg',
+    image: '/images/recent/calling-bird-dominic-2.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    images: ['/images/recent/calling-bird-dominic.jpg'],
+    images: ['/images/recent/calling-bird-dominic-2.jpg'],
   },
   // 11
   {
