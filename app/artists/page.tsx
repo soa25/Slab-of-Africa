@@ -114,7 +114,7 @@ function ArtistRow({ artist, index, isLast }: { artist: typeof ARTISTS[0]; index
             >
               <div className="pb-10 md:pb-12 md:pl-[calc(2rem+4rem)]">
                 <p
-                  className="font-body text-muted leading-relaxed"
+                  className="font-body text-charcoal leading-relaxed"
                   style={{ fontSize: '0.95rem', maxWidth: '42rem' }}
                 >
                   {artist.bio}

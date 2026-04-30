@@ -26,7 +26,9 @@
       "Bash(git rm -r --cached \"public/images/About\" \"public/images/Fairs\" && git add public/images/about public/images/fairs && git status)",
       "Bash(git add public/images/about public/images/fairs && git status)",
       "Bash(git checkout app/collection/page.tsx)",
-      "Bash(git checkout app/about/page.tsx)"
+      "Bash(git checkout app/about/page.tsx)",
+      "Bash(fc-list)",
+      "Bash(python3 generate_story.py \\\\\n    \"public/images/recent/apple-of-my-eye-dominic.jpg\" \\\\\n    \"Dominic Benhura\" \\\\\n    \"Slab of Africa is proud to announce a partnership with world renowned sculptor Dominic Benhura. Born in Murewa, Zimbabwe. A boy who sold his first piece at 12 and never looked back. His work is held at the British Museum, the Nelson Mandela Foundation, and in galleries and collections across Europe, Asia, and the Americas. A true master of his craft.\" 2>&1)"
     ]
   }
 }
