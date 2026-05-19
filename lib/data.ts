@@ -11,6 +11,7 @@ export interface Artwork {
   description?: string
   images?: string[]
   note?: string
+  sold?: boolean
 }
 
 export interface Artist {
@@ -235,6 +236,7 @@ export const recentAdditions: Artwork[] = [
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     note: 'Sold as a set or individually',
+    sold: true,
     images: [
       '/images/recent/Watchmen.jpg',
       '/images/recent/Watchmen%201/DSC_0137.jpg',
@@ -265,6 +267,7 @@ export const recentAdditions: Artwork[] = [
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     note: 'Sold as a set or individually',
+    sold: true,
     images: [
       '/images/recent/DSC_0138.jpg',
       '/images/recent/Watchmen%202/DSC_0140.jpg',

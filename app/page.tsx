@@ -107,6 +107,32 @@ function Lightbox({
                 }}>
                   {artwork.title}
                 </h2>
+                {artwork.sold ? (
+                  <span style={{
+                    display: 'inline-block', marginTop: '0.65rem',
+                    fontFamily: 'var(--font-jost)', fontSize: '0.68rem',
+                    letterSpacing: '0.2em', textTransform: 'uppercase',
+                    color: 'var(--terracotta)', fontWeight: 400,
+                  }}>
+                    Sold
+                  </span>
+                ) : (
+                  <Link
+                    href="/inquire"
+                    style={{
+                      display: 'inline-block', marginTop: '0.65rem',
+                      fontFamily: 'var(--font-jost)', fontSize: '0.68rem',
+                      letterSpacing: '0.2em', textTransform: 'uppercase',
+                      color: 'var(--terracotta)', fontWeight: 400,
+                      textDecoration: 'none',
+                      transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+                  >
+                    Inquire
+                  </Link>
+                )}
               </div>
 
               {/* Photo grid */}
@@ -222,6 +248,38 @@ function Lightbox({
                 </button>
               </>
             )}
+
+            {/* Inquire / Sold — bottom right */}
+            {artwork.sold ? (
+              <span
+                onClick={e => e.stopPropagation()}
+                style={{
+                  position: 'absolute', bottom: '1.25rem', right: '1.5rem',
+                  fontFamily: 'var(--font-jost)', fontSize: '0.68rem',
+                  letterSpacing: '0.2em', textTransform: 'uppercase',
+                  color: 'var(--terracotta)', fontWeight: 400,
+                }}
+              >
+                Sold
+              </span>
+            ) : (
+              <Link
+                href="/inquire"
+                onClick={e => e.stopPropagation()}
+                style={{
+                  position: 'absolute', bottom: '1.25rem', right: '1.5rem',
+                  fontFamily: 'var(--font-jost)', fontSize: '0.68rem',
+                  letterSpacing: '0.2em', textTransform: 'uppercase',
+                  color: 'var(--terracotta)', fontWeight: 400,
+                  textDecoration: 'none',
+                  transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
+                onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+              >
+                Inquire
+              </Link>
+            )}
           </motion.div>
         )}
 
@@ -330,6 +388,43 @@ function ArtworkCard({
           <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
             {artwork.note}
           </p>
+        )}
+        {artwork.sold ? (
+          <span
+            style={{
+              display: 'inline-block',
+              marginTop: '0.75rem',
+              fontFamily: 'var(--font-jost)',
+              fontSize: '0.68rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--terracotta)',
+              fontWeight: 400,
+            }}
+          >
+            Sold
+          </span>
+        ) : (
+          <Link
+            href="/inquire"
+            onClick={e => e.stopPropagation()}
+            style={{
+              display: 'inline-block',
+              marginTop: '0.75rem',
+              fontFamily: 'var(--font-jost)',
+              fontSize: '0.68rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--terracotta)',
+              fontWeight: 400,
+              textDecoration: 'none',
+              transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+          >
+            Inquire
+          </Link>
         )}
       </div>
     </div>
