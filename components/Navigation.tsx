@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -154,8 +154,11 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+  const [navHidden, setNavHidden] = useState(false)
+  const lastScrollYRef = useRef(0)
   const pathname = usePathname()
 
+  const isMarinPage = pathname === '/marin'
   const currentPalette = getPalette(pathname)
   const isDarkPage = currentPalette.isDark
 
@@ -165,7 +168,27 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => { setMenuOpen(false) }, [pathname])
+  // Auto-hide nav on scroll down, reveal on scroll up — /marin only
+  useEffect(() => {
+    if (!isMarinPage) return
+    lastScrollYRef.current = window.scrollY
+    const handleScrollDir = () => {
+      const y = window.scrollY
+      if (y > lastScrollYRef.current && y > 60) {
+        setNavHidden(true)
+      } else if (y < lastScrollYRef.current) {
+        setNavHidden(false)
+      }
+      lastScrollYRef.current = y
+    }
+    window.addEventListener('scroll', handleScrollDir, { passive: true })
+    return () => window.removeEventListener('scroll', handleScrollDir)
+  }, [isMarinPage])
+
+  useEffect(() => {
+    setMenuOpen(false)
+    setNavHidden(false)
+  }, [pathname])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -185,9 +208,10 @@ export default function Navigation() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-[100]"
+        className={`fixed ${isMarinPage ? 'top-0' : 'top-9'} left-0 right-0 z-[100]`}
         style={{
-          transition: 'background-color 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease',
+          transition: 'background-color 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease, transform 0.35s ease',
+          transform: isMarinPage && navHidden ? 'translateY(-100%)' : 'translateY(0)',
           backgroundColor: scrolled ? scrolledBg : 'transparent',
           borderBottom: scrolled ? scrolledBorder : '1px solid transparent',
           backdropFilter: scrolled ? 'blur(12px)' : 'none',

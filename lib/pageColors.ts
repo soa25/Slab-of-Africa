@@ -48,6 +48,13 @@ export const PAGE_PALETTES: Record<string, PagePalette> = {
     accent: '#C8AE96',  // warm cream — legible on dark
     isDark: true,
   },
+  '/marin': {
+    bg: '#2C3B2D',      // deep forest green
+    ctaBg: '#243024',   // slightly darker green
+    accent: '#D4BC8A',  // soft gold — legible on dark green
+    isDark: true,
+    navScrolledBg: 'rgba(44,59,45,0.97)',
+  },
 }
 
 // Fallback for unknown paths

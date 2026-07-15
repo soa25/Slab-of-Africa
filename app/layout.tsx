@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Cormorant, Jost } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
+import ExhibitionBanner from '@/components/ExhibitionBanner'
 import IntroAnimation from '@/components/IntroAnimation'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import ConditionalFooter from '@/components/ConditionalFooter'
@@ -179,6 +180,9 @@ export default function RootLayout({
 
           {/* Cinematic intro animation */}
           <IntroAnimation />
+
+          {/* Exhibition announcement strip */}
+          <ExhibitionBanner />
 
           {/* Navigation */}
           <Navigation />

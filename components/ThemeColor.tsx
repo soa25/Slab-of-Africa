@@ -10,6 +10,7 @@ const THEME_COLORS: Record<string, string> = {
   '/fairs':      '#DDD0BA',
   '/about':      '#F2E6D8',
   '/inquire':    '#231E1A',
+  '/marin':      '#2C3B2D',
 }
 
 export default function ThemeColor() {
