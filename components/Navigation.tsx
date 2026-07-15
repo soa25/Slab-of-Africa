@@ -168,9 +168,8 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Auto-hide nav on scroll down, reveal on scroll up — /marin only
+  // Auto-hide nav on scroll down, reveal on scroll up — all pages
   useEffect(() => {
-    if (!isMarinPage) return
     lastScrollYRef.current = window.scrollY
     const handleScrollDir = () => {
       const y = window.scrollY
@@ -183,7 +182,7 @@ export default function Navigation() {
     }
     window.addEventListener('scroll', handleScrollDir, { passive: true })
     return () => window.removeEventListener('scroll', handleScrollDir)
-  }, [isMarinPage])
+  }, [])
 
   useEffect(() => {
     setMenuOpen(false)
@@ -211,7 +210,7 @@ export default function Navigation() {
         className={`fixed ${isMarinPage ? 'top-0' : 'top-9'} left-0 right-0 z-[100]`}
         style={{
           transition: 'background-color 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease, transform 0.35s ease',
-          transform: isMarinPage && navHidden ? 'translateY(-100%)' : 'translateY(0)',
+          transform: navHidden ? 'translateY(-100%)' : 'translateY(0)',
           backgroundColor: isMarinPage ? currentPalette.bg : (scrolled ? scrolledBg : 'transparent'),
           borderBottom: isMarinPage ? '1px solid rgba(255,255,255,0.06)' : (scrolled ? scrolledBorder : '1px solid transparent'),
           backdropFilter: !isMarinPage && scrolled ? 'blur(12px)' : 'none',
