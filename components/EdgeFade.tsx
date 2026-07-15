@@ -12,6 +12,7 @@ const PAGE_COLORS: Record<string, string> = {
 
 export default function EdgeFade() {
   const pathname = usePathname()
+  if (pathname === '/marin') return null
   const color = PAGE_COLORS[pathname] ?? '#FAF0E2'
 
   const base: React.CSSProperties = {

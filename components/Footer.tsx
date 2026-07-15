@@ -9,7 +9,7 @@ export default function Footer() {
   const { bg, isDark, accent } = getPalette(pathname)
 
   // Derive footer colours from page palette
-  const footerBg    = isDark ? '#161210' : bg            // slightly darker than page on dark; same on light
+  const footerBg    = isDark && pathname !== '/marin' ? '#161210' : bg
   const borderColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)'
   const logoColor   = isDark ? '#D8CCBF' : '#1C1917'
   const mutedColor  = isDark ? '#6A5A4A' : '#6E5F52'
