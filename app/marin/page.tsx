@@ -339,9 +339,9 @@ export default function MarinPage() {
             .marin-catalogue-btn {
               display: inline-flex;
               align-items: center;
-              background: transparent;
-              color: ${C.text};
-              border: 1px solid ${C.btnBorder};
+              background: ${C.gold};
+              color: ${C.bg};
+              border: 1px solid ${C.gold};
               padding: 0.75rem 1.75rem;
               font-family: var(--font-jost), system-ui, sans-serif;
               font-size: 0.75rem;
@@ -353,9 +353,8 @@ export default function MarinPage() {
               text-decoration: none;
             }
             .marin-catalogue-btn:hover {
-              background-color: ${C.gold};
-              color: ${C.bg};
-              border-color: ${C.gold};
+              background-color: #B8A070;
+              border-color: #B8A070;
             }
           `}</style>
           <a
