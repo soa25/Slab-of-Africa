@@ -60,6 +60,7 @@ export const recentAdditions: Artwork[] = [
     year: 2024,
     image: '/images/recent/family-discussion.jpg',
     aspectRatio: 'portrait',
+    sold: true,
     description: 'Placeholder description for this work.',
     images: [
       '/images/recent/family-discussion.jpg',
@@ -203,6 +204,7 @@ export const recentAdditions: Artwork[] = [
     year: 2024,
     image: '/images/recent/Trusting.jpg',
     aspectRatio: 'portrait',
+    sold: true,
     description: 'Placeholder description for this work.',
     images: [
       '/images/recent/Trusting.jpg',
