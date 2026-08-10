@@ -254,6 +254,7 @@ export const recentAdditions: Artwork[] = [
     year: 2024,
     image: '/images/recent/happy-trio-dominic.jpg',
     aspectRatio: 'landscape',
+    sold: true,
     description: 'Placeholder description for this work.',
     images: ['/images/recent/happy-trio-dominic.jpg'],
   },
