@@ -454,7 +454,9 @@ export default function HomePage() {
       offers: {
         '@type': 'Offer',
         availability: 'https://schema.org/InStock',
+        price: '0',
         priceCurrency: 'USD',
+        priceValidUntil: '2027-12-31',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
           priceCurrency: 'USD',
@@ -462,8 +464,11 @@ export default function HomePage() {
         },
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
+          applicableCountry: 'US',
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
           merchantReturnDays: 14,
+          returnMethod: 'https://schema.org/ReturnByMail',
+          returnFees: 'https://schema.org/FreeReturn',
         },
         shippingDetails: {
           '@type': 'OfferShippingDetails',
