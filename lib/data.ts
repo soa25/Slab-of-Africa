@@ -191,6 +191,7 @@ export const recentAdditions: Artwork[] = [
     year: 2024,
     image: '/images/recent/calling-bird-dominic-2.jpg',
     aspectRatio: 'portrait',
+    sold: true,
     description: 'Placeholder description for this work.',
     images: ['/images/recent/calling-bird-dominic-2.jpg'],
   },
