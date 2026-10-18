@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Art Fairs',
+  title: 'Exhibits',
   description: 'Slab of Africa at African art fairs and exhibitions across the United States. See Shona stone sculptures from Zimbabwe at live shows and art events including Art-Fair-Mont in San Francisco.',
   keywords: [
     'African art fair', 'Shona sculpture exhibition', 'Zimbabwe art show', 'African art event',

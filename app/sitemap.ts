@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: 'https://www.slabofafrica.com/fairs',
+      url: 'https://www.slabofafrica.com/exhibits',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
