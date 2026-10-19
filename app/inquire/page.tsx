@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { recentAdditions } from '@/lib/data'
 import ScrollReveal from '@/components/ScrollReveal'
 
-const WHATSAPP = '263777043331'
+const WHATSAPP = '19253268551'
 
 // Dark-theme colour tokens
 const D = {

@@ -56,15 +56,22 @@ function TileContent({
   meta,
   indicator,
   theme,
+  open = false,
 }: {
   title: string
   subtitle: string
   meta: string[]
   indicator: ReactNode
   theme: Theme
+  open?: boolean
 }) {
   return (
-    <div className="flex flex-col justify-between gap-16 min-h-[22rem] md:min-h-[26rem] p-8 md:p-12">
+    // Open tiles drop the tall min-height so details sit at the top instead of below empty space
+    <div
+      className={`flex flex-col justify-between px-8 pb-8 md:px-12 md:pb-12 transition-[min-height,gap,padding] duration-500 ease-out ${
+        open ? 'gap-3 min-h-0 pt-5 md:pt-7' : 'gap-16 min-h-[22rem] md:min-h-[26rem] pt-8 md:pt-12'
+      }`}
+    >
       <div className="flex items-start justify-end">
         {indicator}
       </div>
@@ -172,6 +179,7 @@ function ArtFairMontRow() {
           subtitle="Boutique art fair inside the iconic Fairmont Hotel during San Francisco Art Week"
           meta={['San Francisco, California', 'January 2026']}
           theme={PERIWINKLE}
+          open={open}
           indicator={
             <span style={indicatorStyle(PERIWINKLE)}>
               {open ? 'Close' : 'View'}
@@ -333,6 +341,7 @@ function WestPortalRow() {
           subtitle="Slab of Africa representing Gift Rusere at West Portal Gallery as part of a featured artists exhibition"
           meta={['San Francisco, California', 'October — November 2026']}
           theme={CREAM}
+          open={open}
           indicator={
             <span style={indicatorStyle(CREAM)}>
               {open ? 'Close' : 'View'}
