@@ -6,7 +6,7 @@ import type { CSSProperties } from 'react'
 export const metadata: Metadata = {
   title: 'Zimbabwe Contemporary Sculpture Exhibition — Marin Art & Garden Center',
   description:
-    'Works by Dominic Benhura at the Marin Art & Garden Center, Ross, California. On view until October 2026. Available for acquisition through Slab of Africa.',
+    'Works by Dominic Benhura at the Marin Art & Garden Center, Ross, California. July 1 — October 15, 2026. Available for acquisition through Slab of Africa.',
 }
 
 const PHOTOS = [
@@ -296,7 +296,7 @@ export default function MarinPage() {
               marginTop: '0.2rem',
             }}
           >
-            Marin Art &amp; Garden Center, Ross, CA — On view until October 2026
+            Marin Art &amp; Garden Center, Ross, CA — July 1 — October 15, 2026
           </p>
         </div>
 

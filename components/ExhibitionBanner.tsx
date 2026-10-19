@@ -50,30 +50,18 @@ export default function ExhibitionBanner() {
             textOverflow: 'ellipsis',
           }}
         >
-          Dominic Benhura at Marin Art &amp; Garden Center
-        </span>
-
-        <span className="hidden md:inline shrink-0" style={{ color: 'rgba(255,255,255,0.1)', fontSize: '0.75rem' }}>·</span>
-
-        {/* Location / dates */}
-        <span
-          className="hidden md:inline shrink-0"
-          style={{
-            fontFamily: 'var(--font-jost)',
-            fontSize: '0.68rem',
-            letterSpacing: '0.06em',
-            color: '#6E5F52',
-            fontWeight: 300,
-          }}
-        >
-          Ross, California — On view until October 2026
+          Gift Rusere at West Portal Gallery — San Francisco, California
         </span>
 
         <span className="shrink-0" style={{ color: 'rgba(255,255,255,0.1)', fontSize: '0.75rem' }}>·</span>
 
         {/* CTA */}
         <Link
-          href="/marin"
+          href="/exhibits#west-portal"
+          onClick={() => {
+            // Already on /exhibits — a hash-only change doesn't remount the tile, so tell it directly
+            if (pathname === '/exhibits') window.dispatchEvent(new CustomEvent('open-exhibit', { detail: 'west-portal' }))
+          }}
           className="shrink-0 exhibition-banner-link"
           style={{
             fontFamily: 'var(--font-jost)',
