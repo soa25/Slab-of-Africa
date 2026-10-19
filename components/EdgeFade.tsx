@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 const PAGE_COLORS: Record<string, string> = {
   '/':           '#FAF0E2',
   '/collection': '#D9CEBE',
-  '/fairs':      '#DDD0BA',
+  '/exhibits':   '#DDD0BA',
   '/about':      '#F2E6D8',
   '/inquire':    '#231E1A',
 }

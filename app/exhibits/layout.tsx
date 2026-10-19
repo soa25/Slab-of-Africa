@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Art Fairs | Slab of Africa — Shona Sculpture Exhibitions',
     description: 'Slab of Africa at African art fairs and exhibitions. See hand-carved Shona stone sculptures from Zimbabwe at live events.',
-    url: 'https://www.slabofafrica.com/fairs',
+    url: 'https://www.slabofafrica.com/exhibits',
   },
   alternates: {
-    canonical: 'https://www.slabofafrica.com/fairs',
+    canonical: 'https://www.slabofafrica.com/exhibits',
   },
 }
 
@@ -23,7 +23,7 @@ const breadcrumb = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.slabofafrica.com' },
-    { '@type': 'ListItem', position: 2, name: 'Art Fairs', item: 'https://www.slabofafrica.com/fairs' },
+    { '@type': 'ListItem', position: 2, name: 'Exhibits', item: 'https://www.slabofafrica.com/exhibits' },
   ],
 }
 

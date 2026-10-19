@@ -145,7 +145,7 @@ function MarinRow() {
       <TileContent
         title="Marin Art & Garden Center"
         subtitle="Zimbabwe Contemporary Sculpture Exhibition — Featuring Dominic Benhura"
-        meta={['Ross, California', 'July 1 — October 2026']}
+        meta={['Ross, California', 'July 1 — October 15, 2026']}
         theme={MARIN}
         indicator={
           <span style={indicatorStyle(MARIN)}>

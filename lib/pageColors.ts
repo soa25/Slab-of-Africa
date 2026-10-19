@@ -30,7 +30,7 @@ export const PAGE_PALETTES: Record<string, PagePalette> = {
     isDark: false,
     navScrolledBg: 'rgba(176,172,166,0.96)', // matches bg with blur
   },
-  '/fairs': {
+  '/exhibits': {
     bg: '#CCBFA0',      // warm oat / linen
     ctaBg: '#D8CBAF',   // lighter warm oat
     accent: '#9A7E54',  // warm amber-brown for nav underline
