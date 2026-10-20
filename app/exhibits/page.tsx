@@ -59,7 +59,7 @@ function TileContent({
   open = false,
 }: {
   title: string
-  subtitle: string
+  subtitle: ReactNode
   meta: string[]
   indicator: ReactNode
   theme: Theme
@@ -331,14 +331,43 @@ function WestPortalRow() {
       className={open ? 'transition-[transform,filter] duration-500 ease-out' : TILE_HOVER}
       style={{ background: CREAM_BG }}
     >
-      <button
-        className="w-full text-left focus:outline-none group"
+      {/* div rather than button — the subtitle holds a link, which can't sit inside a button */}
+      <div
+        role="button"
+        tabIndex={0}
+        className="w-full text-left focus:outline-none group cursor-pointer"
         onClick={() => setOpen(!open)}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setOpen(!open)
+          }
+        }}
         aria-expanded={open}
       >
         <TileContent
           title="West Portal Gallery Exhibition"
-          subtitle="Slab of Africa representing Gift Rusere at West Portal Gallery as part of a featured artists exhibition"
+          subtitle={
+            <>
+              Slab of Africa representing Gift Rusere at{' '}
+              <a
+                href="https://westportalgallery.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
+                onKeyDown={e => e.stopPropagation()}
+                style={{
+                  color: CREAM.text,
+                  textDecoration: 'none',
+                  borderBottom: '1px solid currentColor',
+                  paddingBottom: '1px',
+                }}
+              >
+                West Portal Gallery
+              </a>{' '}
+              as part of a featured artists exhibition
+            </>
+          }
           meta={['San Francisco, California', 'October — November 2026']}
           theme={CREAM}
           open={open}
@@ -356,7 +385,7 @@ function WestPortalRow() {
             </span>
           }
         />
-      </button>
+      </div>
 
       <AnimatePresence initial={false}>
         {open && (
