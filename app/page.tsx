@@ -512,7 +512,6 @@ export default function HomePage() {
       <section className="pt-36 md:pt-44 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
-            <p className="section-label mb-4">Recent Additions</p>
             <ScrollReveal delay={0.08}>
               <h1
                 className="font-display text-charcoal"

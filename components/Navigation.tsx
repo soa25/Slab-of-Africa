@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { PAGE_PALETTES, getPalette } from '@/lib/pageColors'
 
 const navLinks = [
-  { href: '/', label: 'Recent' },
+  { href: '/', label: 'New' },
   { href: '/collection', label: 'Collection' },
   { href: '/artists', label: 'Artists' },
   { href: '/exhibits', label: 'Exhibits' },
