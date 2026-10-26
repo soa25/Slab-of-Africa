@@ -419,13 +419,13 @@ function WestPortalRow() {
               <div className="grid grid-cols-2 gap-4 md:gap-6 mt-10 md:mt-14 max-w-2xl">
                 {WEST_PORTAL_WORKS.map((work, i) => (
                   <ScrollReveal key={work.id} delay={i * 0.1}>
-                    <div className="relative overflow-hidden" style={{ aspectRatio: '3/4' }}>
+                    <div className="relative overflow-hidden" style={{ aspectRatio: '2/3' }}>
                       <Image
                         src={work.image}
                         alt={`${work.title} by ${work.artist} — ${work.material} Shona stone sculpture from Zimbabwe`}
                         title={`${work.title} by ${work.artist} — ${work.material} Shona stone sculpture from Zimbabwe`}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="(max-width: 768px) 45vw, 320px"
                       />
                     </div>
