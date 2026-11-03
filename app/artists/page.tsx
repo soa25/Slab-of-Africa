@@ -43,7 +43,7 @@ const ARTISTS = [
   },
 ]
 
-function ArtistRow({ artist, index, isLast }: { artist: typeof ARTISTS[0]; index: number; isLast: boolean }) {
+function ArtistRow({ artist, isLast }: { artist: typeof ARTISTS[0]; isLast: boolean }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -54,51 +54,36 @@ function ArtistRow({ artist, index, isLast }: { artist: typeof ARTISTS[0]; index
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
-          <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-16">
-            <span
-              className="font-body shrink-0"
+          <div className="flex items-center justify-between">
+            <h2
+              className="font-display text-charcoal transition-colors duration-300 group-hover:text-terracotta"
               style={{
-                fontSize: '0.7rem',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: 'var(--stone)',
-                opacity: 0.6,
-                minWidth: '2rem',
+                fontSize: 'clamp(2rem, 4.5vw, 4rem)',
+                fontWeight: 300,
+                letterSpacing: '-0.01em',
+                lineHeight: 1.1,
               }}
             >
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <div className="flex items-center justify-between flex-1">
-              <h2
-                className="font-display text-charcoal transition-colors duration-300 group-hover:text-terracotta"
-                style={{
-                  fontSize: 'clamp(2rem, 4.5vw, 4rem)',
-                  fontWeight: 300,
-                  letterSpacing: '-0.01em',
-                  lineHeight: 1.1,
-                }}
-              >
-                {artist.name}
-              </h2>
-              <motion.span
-                animate={{ rotate: open ? 45 : 0 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="shrink-0 ml-6"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2.2rem',
-                  fontWeight: 200,
-                  color: 'var(--stone)',
-                  opacity: 0.5,
-                  lineHeight: 1,
-                  userSelect: 'none',
-                }}
-              >
-                +
-              </motion.span>
-            </div>
+              {artist.name}
+            </h2>
+            <motion.span
+              animate={{ rotate: open ? 45 : 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="shrink-0 ml-6"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '2.2rem',
+                fontWeight: 200,
+                color: 'var(--stone)',
+                opacity: 0.5,
+                lineHeight: 1,
+                userSelect: 'none',
+              }}
+            >
+              +
+            </motion.span>
           </div>
         </button>
 
@@ -112,7 +97,7 @@ function ArtistRow({ artist, index, isLast }: { artist: typeof ARTISTS[0]; index
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               style={{ overflow: 'hidden' }}
             >
-              <div className="pb-10 md:pb-12 md:pl-[calc(2rem+4rem)]">
+              <div className="pb-10 md:pb-12">
                 <p
                   className="font-body text-charcoal leading-relaxed"
                   style={{ fontSize: '0.95rem', maxWidth: '42rem' }}
@@ -157,7 +142,6 @@ export default function ArtistsPage() {
           <ArtistRow
             key={artist.name}
             artist={artist}
-            index={i}
             isLast={i === ARTISTS.length - 1}
           />
         ))}
