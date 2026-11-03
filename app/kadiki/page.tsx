@@ -1,0 +1,77 @@
+import type { Metadata } from 'next'
+import ScrollReveal from '@/components/ScrollReveal'
+import WaitlistForm from './WaitlistForm'
+import KadikiWord from './KadikiWord'
+
+// Placeholder page: noindex and left out of the sitemap until it has content
+export const metadata: Metadata = {
+  title: 'Kadiki',
+  robots: { index: false },
+  alternates: {
+    canonical: 'https://www.slabofafrica.com/kadiki',
+  },
+}
+
+const BODY = [
+  <>In Shona, <KadikiWord>kadiki</KadikiWord> means little one.</>,
+  <><KadikiWord>Kadiki</KadikiWord> is a new collection of small sculptures from Slab of Africa: animals, family groups and timeless Shona forms, carved by three sculptors working exclusively with us on this collection.</>,
+  <>Each design is carved again and again, but no two pieces are ever the same. Every sculpture begins as its own block of stone and is shaped entirely by hand. The grain, the colour and the way the stone takes the light are different every time. The piece you receive will carry its own character, a little different from the one pictured and from every other in the world.</>,
+  <>These are works to live with every day, to gift, or to begin a collection. They carry the same stone, the same hands and the same tradition as our larger works, at a scale and price that welcome more people in.</>,
+]
+
+export default function KadikiPage() {
+  return (
+    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #FAF0E2, #E0D5C5)' }}>
+      <section className="pt-36 md:pt-44 pb-32 px-6 md:px-16 max-w-7xl mx-auto">
+        <p className="section-label mb-4" style={{ color: 'var(--terracotta)' }}>Coming soon</p>
+        <ScrollReveal>
+          <h1
+            className="font-kadiki text-charcoal"
+            style={{
+              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+              fontWeight: 300,
+              fontStyle: 'italic',
+              lineHeight: 1.05,
+            }}
+          >
+            Kadiki
+          </h1>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.05}>
+          <p
+            className="font-display text-charcoal mt-6"
+            style={{
+              fontSize: 'clamp(1.5rem, 2.4vw, 2rem)',
+              fontWeight: 300,
+              lineHeight: 1.2,
+            }}
+          >
+            Small works, carved by hand
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.1}>
+          <div className="mt-12 space-y-5" style={{ maxWidth: '40rem' }}>
+            {BODY.map((paragraph, i) => (
+              <p key={i} className="font-body text-muted leading-relaxed" style={{ fontSize: '0.975rem' }}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </ScrollReveal>
+
+        {/* Coming soon */}
+        <ScrollReveal delay={0.1}>
+          <div className="mt-16 pt-12" style={{ maxWidth: '40rem', borderTop: '1px solid rgba(28,25,23,0.15)' }}>
+            <p className="section-label mb-4">Coming soon</p>
+            <p className="font-body text-muted leading-relaxed mb-8" style={{ fontSize: '0.975rem' }}>
+              Join the list to be the first to know when <KadikiWord>Kadiki</KadikiWord> launches.
+            </p>
+            <WaitlistForm />
+          </div>
+        </ScrollReveal>
+      </section>
+    </div>
+  )
+}

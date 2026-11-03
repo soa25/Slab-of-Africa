@@ -6,14 +6,22 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PAGE_PALETTES, getPalette } from '@/lib/pageColors'
 
-const navLinks = [
+// Desktop splits these around the centered logo; mobile shows them in one list
+const leftLinks = [
   { href: '/', label: 'New' },
   { href: '/collection', label: 'Collection' },
-  { href: '/artists', label: 'Artists' },
+  { href: '/kadiki', label: 'Kadiki' },
   { href: '/exhibits', label: 'Exhibits' },
+]
+
+const rightLinks = [
+  { href: '/artists', label: 'Artists' },
+  { href: '/journal', label: 'Journal' },
   { href: '/about', label: 'About' },
   { href: '/inquire', label: 'Inquire' },
 ]
+
+const navLinks = [...leftLinks, ...rightLinks]
 
 const menuVariants = {
   closed: {
@@ -55,6 +63,8 @@ function DesktopNavLink({
   const isHovered = hoveredLink === href
   const showUnderline = isActive || isHovered
 
+  const isKadiki = href === '/kadiki'
+
   const baseColor = isDarkPage ? 'rgba(196,184,170,0.7)' : '#6E5F52'
   const activeColor = isDarkPage ? '#F0E8E0' : '#1C1917'
 
@@ -62,12 +72,15 @@ function DesktopNavLink({
     <li>
       <Link
         href={href}
-        className="relative font-body inline-block"
+        className={`relative inline-block ${isKadiki ? 'font-kadiki' : 'font-body'}`}
+        // Kadiki: italic serif reads small and thin next to the sans links, so it's
+        // a touch larger, heavier and tighter
         style={{
-          fontSize: '0.75rem',
-          letterSpacing: '0.18em',
+          fontSize: isKadiki ? '0.8625rem' : '0.75rem',
+          letterSpacing: isKadiki ? '0.02em' : '0.18em',
           textTransform: 'uppercase',
-          fontWeight: 400,
+          fontWeight: isKadiki ? 500 : 400,
+          fontStyle: isKadiki ? 'italic' : undefined,
           color: isActive ? activeColor : baseColor,
           transition: 'color 0.25s ease',
         }}
@@ -120,11 +133,12 @@ function MobileNavLink({
     >
       <Link
         href={href}
-        className="font-display relative inline-block"
+        className={`relative inline-block ${href === '/kadiki' ? 'font-kadiki' : 'font-display'}`}
         style={{
-          fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
-          fontWeight: 300,
-          letterSpacing: '-0.01em',
+          fontSize: href === '/kadiki' ? 'clamp(2.53rem, 8.05vw, 4.025rem)' : 'clamp(2.2rem, 7vw, 3.5rem)',
+          fontWeight: href === '/kadiki' ? 500 : 300,
+          fontStyle: href === '/kadiki' ? 'italic' : undefined,
+          letterSpacing: href === '/kadiki' ? '0.02em' : '-0.01em',
           lineHeight: 1.15,
           color: isActive ? accentColor : '#E8E0D8',
           transition: 'color 0.2s ease',
@@ -216,7 +230,23 @@ export default function Navigation() {
           backdropFilter: !isMarinPage && scrolled ? 'blur(12px)' : 'none',
         }}
       >
-        <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
+        {/* Below 1200px: logo left, hamburger right. From 1200px: equal side columns keep the logo at the true center */}
+        <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between min-[1200px]:grid min-[1200px]:grid-cols-[1fr_auto_1fr] min-[1200px]:gap-10">
+          {/* Desktop nav — left of logo */}
+          <ul className="hidden min-[1200px]:flex items-baseline justify-end gap-8">
+            {leftLinks.map(({ href, label }) => (
+              <DesktopNavLink
+                key={href}
+                href={href}
+                label={label}
+                isActive={pathname === href}
+                isDarkPage={isDarkPage}
+                hoveredLink={hoveredLink}
+                onHover={setHoveredLink}
+              />
+            ))}
+          </ul>
+
           {/* Logo */}
           <Link
             href="/"
@@ -231,9 +261,9 @@ export default function Navigation() {
             SLAB OF AFRICA
           </Link>
 
-          {/* Desktop nav */}
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map(({ href, label }) => (
+          {/* Desktop nav — right of logo */}
+          <ul className="hidden min-[1200px]:flex items-center justify-start gap-8">
+            {rightLinks.map(({ href, label }) => (
               <DesktopNavLink
                 key={href}
                 href={href}
@@ -248,7 +278,7 @@ export default function Navigation() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden relative z-[200] w-10 h-10 flex flex-col items-center justify-center gap-[6px]"
+            className="min-[1200px]:hidden relative z-[200] w-10 h-10 flex flex-col items-center justify-center gap-[6px]"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -273,7 +303,7 @@ export default function Navigation() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-[150] md:hidden flex flex-col justify-center items-start px-10"
+            className="fixed inset-0 z-[150] min-[1200px]:hidden flex flex-col justify-center items-start px-10"
             style={{ backgroundColor: '#1A1612' }}
             variants={menuVariants}
             initial="closed"

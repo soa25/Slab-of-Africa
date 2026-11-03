@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant, Jost } from 'next/font/google'
+import { Cormorant, Cormorant_Garamond, Jost } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import ExhibitionBanner from '@/components/ExhibitionBanner'
@@ -17,6 +17,15 @@ const cormorant = Cormorant({
   subsets: ['latin'],
   variable: '--font-cormorant',
   weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+})
+
+// Kadiki heading + nav link. Swap the font here; everything uses --font-kadiki
+const kadiki = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-kadiki',
+  weight: ['300', '500'],
+  style: ['italic'],
   display: 'swap',
 })
 
@@ -148,7 +157,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${kadiki.variable} ${jost.variable}`}>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
