@@ -230,10 +230,11 @@ export default function Navigation() {
           backdropFilter: !isMarinPage && scrolled ? 'blur(12px)' : 'none',
         }}
       >
-        {/* Below 1200px: logo left, hamburger right. From 1200px: equal side columns keep the logo at the true center */}
-        <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between min-[1200px]:grid min-[1200px]:grid-cols-[1fr_auto_1fr] min-[1200px]:gap-10">
+        {/* Below 1240px: logo left, hamburger right. From 1240px: equal side columns keep the logo at the true center,
+            with each link group pushed out to its edge and at least 4rem from the logo */}
+        <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between min-[1240px]:grid min-[1240px]:grid-cols-[1fr_auto_1fr] min-[1240px]:gap-16">
           {/* Desktop nav — left of logo */}
-          <ul className="hidden min-[1200px]:flex items-baseline justify-end gap-8">
+          <ul className="hidden min-[1240px]:flex items-baseline justify-self-start gap-8">
             {leftLinks.map(({ href, label }) => (
               <DesktopNavLink
                 key={href}
@@ -262,7 +263,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop nav — right of logo */}
-          <ul className="hidden min-[1200px]:flex items-center justify-start gap-8">
+          <ul className="hidden min-[1240px]:flex items-center justify-self-end gap-8">
             {rightLinks.map(({ href, label }) => (
               <DesktopNavLink
                 key={href}
@@ -278,7 +279,7 @@ export default function Navigation() {
 
           {/* Mobile hamburger */}
           <button
-            className="min-[1200px]:hidden relative z-[200] w-10 h-10 flex flex-col items-center justify-center gap-[6px]"
+            className="min-[1240px]:hidden relative z-[200] w-10 h-10 flex flex-col items-center justify-center gap-[6px]"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -303,7 +304,7 @@ export default function Navigation() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-[150] min-[1200px]:hidden flex flex-col justify-center items-start px-10"
+            className="fixed inset-0 z-[150] min-[1240px]:hidden flex flex-col justify-center items-start px-10"
             style={{ backgroundColor: '#1A1612' }}
             variants={menuVariants}
             initial="closed"
