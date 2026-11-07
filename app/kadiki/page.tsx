@@ -109,8 +109,7 @@ export default function KadikiPage() {
 
         {/* Coming soon */}
         <ScrollReveal delay={0.1}>
-          <div className="mt-16 pt-12" style={{ maxWidth: '40rem', borderTop: '1px solid rgba(28,25,23,0.15)' }}>
-            <p className="section-label mb-4">Coming soon</p>
+          <div className="mt-8" style={{ maxWidth: '40rem' }}>
             <p className="font-body text-muted leading-relaxed mb-8" style={{ fontSize: '0.975rem' }}>
               Join the list to be the first to know when <KadikiWord>Kadiki</KadikiWord> launches.
             </p>
