@@ -12,6 +12,8 @@ const nextConfig = {
   images: {
     // Cache optimized images for a year instead of regenerating them every 4 hours
     minimumCacheTTL: 31536000,
+    // 75 is the default for every image; 85 is used only for the large single-photo lightbox view
+    qualities: [75, 85],
   },
 }
 

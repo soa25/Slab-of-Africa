@@ -18,6 +18,17 @@ const MULTIPLE_STONES = 'Multiple Stones'
 const describe = (a: Artwork) =>
   a.alt ?? `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona sculpture in multiple stones' : `${a.material} Shona sculpture`}${a.artist ? ` by ${a.artist}` : ''}`
 
+// True when (x, y) lands on the visible picture of an object-fit: contain image,
+// not on the empty letterbox space around it
+function isOnPicture(img: HTMLImageElement, x: number, y: number) {
+  const r = img.getBoundingClientRect()
+  if (!img.naturalWidth || !img.naturalHeight) return true
+  const k = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight)
+  const w = img.naturalWidth * k, h = img.naturalHeight * k
+  const left = r.left + (r.width - w) / 2, top = r.top + (r.height - h) / 2
+  return x >= left && x <= left + w && y >= top && y <= top + h
+}
+
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 
 function Lightbox({
@@ -28,7 +39,9 @@ function Lightbox({
   onClose: () => void
 }) {
   const images = artwork.images?.length ? artwork.images : [artwork.image ?? '']
-  const [level, setLevel] = useState<1 | 2>(1)
+  // One photo: no grid to choose from, so open straight into the large photo view
+  const single = images.length === 1
+  const [level, setLevel] = useState<1 | 2>(single ? 2 : 1)
   const [photoIndex, setPhotoIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
 
@@ -46,13 +59,27 @@ function Lightbox({
   // Re-registers on every render so closures are always fresh
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { level === 2 ? backToGrid() : onClose() }
+      if (e.key === 'Escape') { level === 2 && !single ? backToGrid() : onClose() }
       if (level === 2 && e.key === 'ArrowLeft') prev()
       if (level === 2 && e.key === 'ArrowRight') next()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   })
+
+  // One click handler for the whole lightbox: a click that isn't on a photo or a control closes it completely.
+  // A drag or a text selection doesn't count as a click on the background.
+  const pointerStart = useRef<{ x: number; y: number } | null>(null)
+  const onBackgroundClick = (e: React.MouseEvent) => {
+    const start = pointerStart.current
+    if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 6) return
+    if (window.getSelection()?.toString()) return
+    const target = e.target as HTMLElement
+    if (target.closest('button, a, [data-lightbox-control]')) return
+    const img = target.closest('img')
+    if (img && isOnPicture(img, e.clientX, e.clientY)) return
+    onClose()
+  }
 
   if (!mounted) return null
 
@@ -64,6 +91,8 @@ function Lightbox({
       transition={{ duration: 0.25 }}
       style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.95)' }}
       data-lenis-prevent=""
+      onPointerDown={e => { pointerStart.current = { x: e.clientX, y: e.clientY } }}
+      onClick={onBackgroundClick}
     >
       {/* X — always visible, always closes entirely */}
       <button
@@ -93,12 +122,8 @@ function Lightbox({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}
-            onClick={onClose}
           >
-            <div
-              style={{ maxWidth: 900, margin: '0 auto', padding: '4.5rem 1.5rem 4rem' }}
-              onClick={e => e.stopPropagation()}
-            >
+            <div style={{ maxWidth: 900, margin: '0 auto', padding: '4.5rem 1.5rem 4rem' }}>
               {/* Header */}
               <div style={{ marginBottom: '2.5rem' }}>
                 {artwork.artist && (
@@ -150,8 +175,9 @@ function Lightbox({
                 {images.map((src, i) => (
                   <div
                     key={i}
+                    data-lightbox-control=""
                     style={{ aspectRatio: '3/4', position: 'relative', background: '#000', cursor: 'zoom-in' }}
-                    onClick={() => openPhoto(i)}
+                    onClick={e => { e.stopPropagation(); openPhoto(i) }}
                   >
                     <Image
                       src={src}
@@ -179,9 +205,9 @@ function Lightbox({
               position: 'absolute', inset: 0,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
-            onClick={backToGrid}
           >
-            {/* Back button */}
+            {/* Back button — only when there's a grid to go back to */}
+            {!single && (
             <button
               onClick={e => { e.stopPropagation(); backToGrid() }}
               style={{
@@ -199,11 +225,13 @@ function Lightbox({
               </svg>
               Back
             </button>
+            )}
 
-            {/* Main image */}
+            {/* Main image — single photos get the largest uncropped view the screen allows */}
             <div
-              style={{ position: 'relative', width: '90vw', height: '90vh' }}
-              onClick={e => e.stopPropagation()}
+              style={single
+                ? { position: 'relative', width: '96vw', height: '92svh' }
+                : { position: 'relative', width: '90vw', height: '90vh' }}
             >
               <AnimatePresence mode="sync" initial={false}>
                 <motion.div
@@ -219,7 +247,9 @@ function Lightbox({
                     alt={`${describe(artwork)}, photo ${photoIndex + 1}`}
                     fill
                     className="object-contain"
-                    sizes="90vw"
+                    sizes={single ? '100vw' : '90vw'}
+                    quality={single ? 85 : undefined}
+                    priority={single}
                   />
                 </motion.div>
               </AnimatePresence>
@@ -262,9 +292,9 @@ function Lightbox({
             {/* Inquire / Sold — bottom right */}
             {artwork.sold ? (
               <span
-                onClick={e => e.stopPropagation()}
                 style={{
                   position: 'absolute', bottom: '1.25rem', right: '1.5rem',
+                  ...(single ? { textShadow: '0 1px 3px rgba(0,0,0,0.85)' } : {}),
                   fontFamily: 'var(--font-jost)', fontSize: '0.68rem',
                   letterSpacing: '0.2em', textTransform: 'uppercase',
                   color: 'var(--terracotta)', fontWeight: 400,
@@ -278,6 +308,7 @@ function Lightbox({
                 onClick={e => e.stopPropagation()}
                 style={{
                   position: 'absolute', bottom: '1.25rem', right: '1.5rem',
+                  ...(single ? { textShadow: '0 1px 3px rgba(0,0,0,0.85)' } : {}),
                   fontFamily: 'var(--font-jost)', fontSize: '0.68rem',
                   letterSpacing: '0.2em', textTransform: 'uppercase',
                   color: 'var(--terracotta)', fontWeight: 400,
@@ -618,6 +649,7 @@ export default function HomePage() {
       <AnimatePresence>
         {lightboxArtwork && (
           <Lightbox
+            key={lightboxArtwork.id}
             artwork={lightboxArtwork}
             onClose={() => setLightboxArtwork(null)}
           />
