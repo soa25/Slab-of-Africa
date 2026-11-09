@@ -15,6 +15,11 @@ export interface Artwork {
   price?: number // USD, shown on the homepage card when set
   fit?: 'contain' | 'cover' // homepage card image; defaults to 'contain'
   series?: string // shown in italics under the artist on homepage cards
+  subline?: string // italic line in the same spot as series, for text that isn't a series name
+  layout?: 'feature' // 'feature' = full-width homepage row with a quote slot on the right
+  quote?: { text: string; attribution?: string } // shown in the feature row's quote slot when set
+  alt?: string // overrides the automatic alt text (e.g. when size needs spelling out)
+  sizeDescription?: string // spelled-out size for structured data when `size` isn't a measurement
 }
 
 export interface Artist {
@@ -89,13 +94,13 @@ export const recentAdditions: Artwork[] = [
   // 4
   {
     id: 85,
-    title: 'Blue Flame',
+    title: 'Eternal Flame',
     artist: 'Timothy Gwaravaza',
     material: 'Aventurine',
-    image: '/images/recent/blue-flame-timothy.jpg',
+    image: '/images/recent/eternal-flame-timothy.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    images: ['/images/recent/blue-flame-timothy.jpg'],
+    images: ['/images/recent/eternal-flame-timothy.jpg'],
   },
   // 5
   {
@@ -112,44 +117,55 @@ export const recentAdditions: Artwork[] = [
   },
   // 6
   {
-    id: 90,
-    title: 'Sprout 01',
-    artist: 'Itayi Mupumha',
-    material: 'Dolomite',
-    image: '/images/recent/sprout-01-itayi.jpg',
+    id: 102,
+    title: 'Gossip',
+    artist: 'Simon Chidharara',
+    material: 'Serpentine',
+    image: '/images/recent/gossip-simon.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    series: 'Sprout series',
-    images: ['/images/recent/sprout-01-itayi.jpg'],
-    price: 1200,
+    images: ['/images/recent/gossip-simon.jpg'],
   },
   // 7
   {
-    id: 91,
-    title: 'Sprout 02',
+    id: 114,
+    title: 'Peace',
     artist: 'Itayi Mupumha',
     material: 'Dolomite',
-    image: '/images/recent/sprout-02-itayi.jpg',
+    image: '/images/recent/peace-itayi.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    series: 'Sprout series',
-    images: ['/images/recent/sprout-02-itayi.jpg'],
+    subline: 'Sold individually or as a set',
+    images: ['/images/recent/peace-itayi.jpg'],
     price: 1200,
   },
   // 8
   {
-    id: 92,
-    title: 'Sprout 03',
+    id: 115,
+    title: 'Harmony',
     artist: 'Itayi Mupumha',
     material: 'Dolomite',
-    image: '/images/recent/sprout-03-itayi.jpg',
+    image: '/images/recent/harmony-itayi.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    series: 'Sprout series',
-    images: ['/images/recent/sprout-03-itayi.jpg'],
-    price: 1500,
+    subline: 'Sold individually or as a set',
+    images: ['/images/recent/harmony-itayi.jpg'],
+    price: 1200,
   },
   // 9
+  {
+    id: 116,
+    title: 'Tranquility',
+    artist: 'Itayi Mupumha',
+    material: 'Dolomite',
+    image: '/images/recent/tranquility-itayi.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    subline: 'Sold individually or as a set',
+    images: ['/images/recent/tranquility-itayi.jpg'],
+    price: 1500,
+  },
+  // 10
   {
     id: 1,
     title: 'Bonded Souls',
@@ -168,7 +184,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Bonded%20Souls/DSC_0197.jpg',
     ],
   },
-  // 10
+  // 11
   {
     id: 93,
     title: 'Elder',
@@ -179,7 +195,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/elder-phillip.jpg'],
     price: 3000,
   },
-  // 11
+  // 12
   {
     id: 7,
     title: 'Lovers',
@@ -196,7 +212,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Lovers/Lovers.jpg',
     ],
   },
-  // 12
+  // 13
   {
     id: 88,
     title: 'Abstract',
@@ -209,7 +225,20 @@ export const recentAdditions: Artwork[] = [
     price: 2700,
     fit: 'cover',
   },
-  // 13
+  // 14
+  {
+    id: 84,
+    title: 'Dancing Away',
+    artist: 'Dominic Benhura',
+    material: 'Springstone',
+    size: '40 × 22 × 9 in',
+    year: 2024,
+    image: '/images/recent/dancing-away-dominic.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/dancing-away-dominic.jpg'],
+  },
+  // 15
   {
     id: 9,
     title: 'Abstract',
@@ -227,20 +256,19 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(red)/DSC_0454.jpg',
     ],
   },
-  // 14
+  // 16
   {
-    id: 84,
-    title: 'Dancing Away',
-    artist: 'Dominic Benhura',
+    id: 97,
+    title: 'Abstract 01',
+    artist: 'Blessing Mutukwa',
     material: 'Springstone',
-    size: '40 × 22 × 9 in',
-    year: 2024,
-    image: '/images/recent/dancing-away-dominic.jpg',
+    image: '/images/recent/abstract-01-blessing.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    images: ['/images/recent/dancing-away-dominic.jpg'],
+    images: ['/images/recent/abstract-01-blessing.jpg'],
+    fit: 'cover',
   },
-  // 15
+  // 17
   {
     id: 8,
     title: 'Riches of True Love',
@@ -258,7 +286,18 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Riches%20of%20True%20Love/DSC_0444.jpg',
     ],
   },
-  // 16
+  // 18
+  {
+    id: 103,
+    title: 'Loving Moment',
+    artist: 'Simon Chidharara',
+    material: 'Serpentine',
+    image: '/images/recent/loving-moment-simon.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/loving-moment-simon.jpg'],
+  },
+  // 19
   {
     id: 86,
     title: 'Torso',
@@ -269,7 +308,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/torso-timothy.jpg'],
   },
-  // 17
+  // 20
   {
     id: 78,
     title: 'Calling Bird',
@@ -283,7 +322,30 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/calling-bird-dominic-2.jpg'],
   },
-  // 18
+  // 21
+  {
+    id: 109,
+    title: 'Abstract 01',
+    material: 'White Opal',
+    image: '/images/recent/abstract-white-opal-01.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-white-opal-01.jpg'],
+    price: 1800,
+  },
+  // 22
+  {
+    id: 101,
+    title: 'The Embrace',
+    material: 'Springstone',
+    image: '/images/recent/the-embrace.jpg',
+    aspectRatio: 'landscape',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/the-embrace.jpg'],
+    price: 3500,
+    layout: 'feature',
+  },
+  // 23
   {
     id: 5,
     title: 'Trusting',
@@ -302,7 +364,35 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Trusting/DSC_0184.jpg',
     ],
   },
-  // 19
+  // 24
+  {
+    id: 98,
+    title: 'Abstract 02',
+    artist: 'Blessing Mutukwa',
+    material: 'Springstone',
+    image: '/images/recent/abstract-02-blessing.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-02-blessing.jpg'],
+    fit: 'cover',
+  },
+  // 25
+  {
+    id: 113,
+    title: 'Baby Giraffes',
+    material: 'Green Opal',
+    size: 'Lifesize · approx. 6 ft',
+    sizeDescription: 'Lifesize, approximately 6 ft',
+    alt: 'Baby Giraffes — lifesize Green Opal Shona sculpture, approximately 6 feet tall',
+    image: '/images/recent/baby-giraffes.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: [
+      '/images/recent/baby-giraffes.jpg',
+      '/images/recent/baby-giraffes/baby-giraffes-2.jpg',
+    ],
+  },
+  // 26
   {
     id: 83,
     title: 'Joyous Moment',
@@ -315,7 +405,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/Joyous-moment-dominic.jpg'],
   },
-  // 20
+  // 27
   {
     id: 87,
     title: 'Abstract',
@@ -326,7 +416,21 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/abstract-timothy.jpg'],
   },
-  // 21
+  // 28
+  {
+    id: 79,
+    title: 'Happy Trio',
+    artist: 'Dominic Benhura',
+    material: 'Springstone and Dolomite',
+    size: '16 × 27 × 4 in',
+    year: 2024,
+    image: '/images/recent/happy-trio-dominic.jpg',
+    aspectRatio: 'landscape',
+    sold: true,
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/happy-trio-dominic.jpg'],
+  },
+  // 29
   {
     id: 3,
     title: 'Watchmen',
@@ -344,21 +448,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%201/DSC_0137.jpg',
     ],
   },
-  // 22
-  {
-    id: 79,
-    title: 'Happy Trio',
-    artist: 'Dominic Benhura',
-    material: 'Springstone and Dolomite',
-    size: '16 × 27 × 4 in',
-    year: 2024,
-    image: '/images/recent/happy-trio-dominic.jpg',
-    aspectRatio: 'landscape',
-    sold: true,
-    description: 'Placeholder description for this work.',
-    images: ['/images/recent/happy-trio-dominic.jpg'],
-  },
-  // 23
+  // 30
   {
     id: 6,
     title: 'Watchmen',
@@ -376,7 +466,17 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%202/DSC_0140.jpg',
     ],
   },
-  // 24
+  // 31
+  {
+    id: 105,
+    title: 'Abstract',
+    material: 'Leopard Stone',
+    image: '/images/recent/abstract-leopard-stone.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-leopard-stone.jpg'],
+  },
+  // 32
   {
     id: 82,
     title: 'Relaxing with Mum',
@@ -389,7 +489,32 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/relaxing-with-mum-dominic.jpg'],
   },
-  // 25
+  // 33
+  {
+    id: 99,
+    title: 'Abstract 03',
+    artist: 'Blessing Mutukwa',
+    material: 'Springstone',
+    image: '/images/recent/abstract-03-blessing.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-03-blessing.jpg'],
+    fit: 'cover',
+  },
+  // 34
+  {
+    id: 80,
+    title: 'I Like It Mum',
+    artist: 'Dominic Benhura',
+    material: 'Springstone',
+    size: '25 × 7 × 6 in',
+    year: 2024,
+    image: '/images/recent/I-like-it-mum-dominic.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/I-like-it-mum-dominic.jpg'],
+  },
+  // 35
   {
     id: 10,
     title: 'Abstract',
@@ -407,20 +532,64 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(green)/DSC_0472.jpg',
     ],
   },
-  // 26
+  // 36
   {
-    id: 80,
-    title: 'I Like It Mum',
-    artist: 'Dominic Benhura',
-    material: 'Springstone',
-    size: '25 × 7 × 6 in',
-    year: 2024,
-    image: '/images/recent/I-like-it-mum-dominic.jpg',
+    id: 107,
+    title: 'Entangled',
+    artist: 'Peter Gwisa',
+    material: 'Leopard Stone',
+    image: '/images/recent/entangled-peter.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
-    images: ['/images/recent/I-like-it-mum-dominic.jpg'],
+    images: ['/images/recent/entangled-peter.jpg'],
+    price: 3000,
   },
-  // 27
+  // 37
+  {
+    id: 108,
+    title: 'Aviary',
+    artist: 'Samson Mukhowa',
+    material: 'Multiple Stones',
+    image: '/images/recent/aviary-samson.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/aviary-samson.jpg'],
+  },
+  // 38
+  {
+    id: 110,
+    title: 'Abstract 02',
+    material: 'White Opal',
+    image: '/images/recent/abstract-white-opal-02.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-white-opal-02.jpg'],
+    price: 1000,
+  },
+  // 39
+  {
+    id: 104,
+    title: 'Pretty Woman',
+    artist: 'Simon Chidharara',
+    material: 'Serpentine',
+    image: '/images/recent/pretty-woman-simon.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/pretty-woman-simon.jpg'],
+  },
+  // 40
+  {
+    id: 112,
+    title: 'Intertwined Spirit',
+    artist: 'Itayi Mupumha',
+    material: 'Springstone',
+    image: '/images/recent/intertwined-spirit-itayi.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/intertwined-spirit-itayi.jpg'],
+    price: 3000,
+  },
+  // 41
   {
     id: 89,
     title: 'Interlace',
@@ -433,7 +602,17 @@ export const recentAdditions: Artwork[] = [
     price: 2700,
     fit: 'cover',
   },
-  // 28
+  // 42
+  {
+    id: 106,
+    title: 'Flower',
+    material: 'Leopard Stone',
+    image: '/images/recent/flower-leopard-stone.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/flower-leopard-stone.jpg'],
+  },
+  // 43
   {
     id: 81,
     title: 'Pat Cake',
@@ -446,7 +625,19 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pat-cake-dominic.jpg'],
   },
-  // 29
+  // 44
+  {
+    id: 100,
+    title: 'Abstract 04',
+    artist: 'Blessing Mutukwa',
+    material: 'Springstone',
+    image: '/images/recent/abstract-04-blessing.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-04-blessing.jpg'],
+    fit: 'cover',
+  },
+  // 45
   {
     id: 75,
     title: 'Feeling Great',
@@ -458,6 +649,53 @@ export const recentAdditions: Artwork[] = [
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     images: ['/images/recent/feeling-great-dominic.jpg'],
+  },
+  // 46
+  {
+    id: 111,
+    title: 'Abstract 03',
+    material: 'White Opal',
+    image: '/images/recent/abstract-white-opal-03.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-white-opal-03.jpg'],
+    price: 1300,
+  },
+  // 47
+  {
+    id: 94,
+    title: 'Flame Lily 01',
+    artist: 'Owen Mulungisi',
+    material: 'Dolomite',
+    image: '/images/recent/flame-lily-01-owen.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    series: 'Flame Lily Series',
+    images: ['/images/recent/flame-lily-01-owen.jpg'],
+  },
+  // 48
+  {
+    id: 95,
+    title: 'Flame Lily 02',
+    artist: 'Owen Mulungisi',
+    material: 'Dolomite',
+    image: '/images/recent/flame-lily-02-owen.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    series: 'Flame Lily Series',
+    images: ['/images/recent/flame-lily-02-owen.jpg'],
+  },
+  // 49
+  {
+    id: 96,
+    title: 'Flame Lily 03',
+    artist: 'Owen Mulungisi',
+    material: 'Dolomite',
+    image: '/images/recent/flame-lily-03-owen.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    series: 'Flame Lily Series',
+    images: ['/images/recent/flame-lily-03-owen.jpg'],
   },
 ]
 

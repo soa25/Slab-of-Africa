@@ -26,10 +26,15 @@ export default function InquirePage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
+    // The dropdown stores the piece's id (titles repeat), so send a readable, unambiguous label instead
+    const piece = recentAdditions.find(a => String(a.id) === formState.artwork)
+    const artwork = piece
+      ? `${piece.title} — ${piece.artist ? `${piece.artist}, ` : ''}${piece.material} (#${piece.id})`
+      : ''
     await fetch('https://formspree.io/f/mdawboko', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(formState),
+      body: JSON.stringify({ ...formState, artwork }),
     })
     setSubmitting(false)
     setSubmitted(true)
@@ -259,8 +264,8 @@ export default function InquirePage() {
                     >
                       <option value="" style={{ background: '#1C1714' }}>Select a work, or leave blank for general inquiry</option>
                       {recentAdditions.map(a => (
-                        <option key={a.id} value={a.title} style={{ background: '#1C1714' }}>
-                          {a.title}{a.artist ? ` — ${a.artist}` : ''}
+                        <option key={a.id} value={String(a.id)} style={{ background: '#1C1714' }}>
+                          {a.title} — {a.artist ?? a.material}
                         </option>
                       ))}
                     </select>

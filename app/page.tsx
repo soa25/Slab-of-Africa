@@ -11,8 +11,12 @@ import HomeHeadline from '@/components/HomeHeadline'
 
 type Artwork = (typeof recentAdditions)[0]
 
+// "Multiple Stones" can't be used as an adjective ("Multiple Stones Shona sculpture"), so it gets its own wording
+const MULTIPLE_STONES = 'Multiple Stones'
+
 // Alt/title text; leaves out "by …" when a piece has no artist yet
-const describe = (a: Artwork) => `${a.title} — ${a.material} Shona sculpture${a.artist ? ` by ${a.artist}` : ''}`
+const describe = (a: Artwork) =>
+  a.alt ?? `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona sculpture in multiple stones' : `${a.material} Shona sculpture`}${a.artist ? ` by ${a.artist}` : ''}`
 
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 
@@ -363,7 +367,7 @@ function ArtworkCard({
           className={`${artwork.fit === 'cover' ? 'object-cover object-center' : 'object-contain'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]`}
           priority={priority}
           loading={!priority && eager ? 'eager' : undefined}
-          sizes="(max-width: 768px) calc(100vw - 3rem), 50vw"
+          sizes="(max-width: 768px) calc(100vw - 3rem), (max-width: 1023px) 50vw, 33vw"
         />
 
         {preloadIndex !== null && (
@@ -375,7 +379,7 @@ function ArtworkCard({
             className="object-contain"
             style={{ visibility: 'hidden' }}
             loading="eager"
-            sizes="(max-width: 768px) calc(100vw - 3rem), 50vw"
+            sizes="(max-width: 768px) calc(100vw - 3rem), (max-width: 1023px) 50vw, 33vw"
           />
         )}
 
@@ -403,70 +407,139 @@ function ArtworkCard({
         )}
       </div>
 
-      <div className="pt-5">
-        <h3
-          className="font-display text-charcoal group-hover:text-terracotta transition-colors duration-300"
-          style={{ fontSize: 'clamp(1.1rem, 1.5vw, 1.6rem)' }}
-        >
-          {artwork.title}
-        </h3>
-        {artwork.artist && <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>}
-        {artwork.series && (
-          <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
-            {artwork.series}
-          </p>
-        )}
-        <p className="font-body text-muted mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
-          {artwork.material}{artwork.size ? ` · ${artwork.size}` : ''}
+      <CardCaption artwork={artwork} />
+    </div>
+  )
+}
+
+// Title, artist, series, stone, note, price and Inquire/Sold, shared by grid cards and the feature row
+function CardCaption({ artwork }: { artwork: Artwork }) {
+  return (
+    <div className="pt-5">
+      <h3
+        className="font-display text-charcoal group-hover:text-terracotta transition-colors duration-300"
+        style={{ fontSize: 'clamp(1.1rem, 1.5vw, 1.6rem)' }}
+      >
+        {artwork.title}
+      </h3>
+      {artwork.artist && <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>}
+      {artwork.series && (
+        <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+          {artwork.series}
         </p>
-        {artwork.note && (
-          <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
-            {artwork.note}
-          </p>
-        )}
-        {artwork.price !== undefined && (
-          <p className="font-body text-charcoal mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
-            ${artwork.price.toLocaleString('en-US')}
-          </p>
-        )}
-        {artwork.sold ? (
-          <span
-            style={{
-              display: 'inline-block',
-              marginTop: '0.75rem',
-              fontFamily: 'var(--font-jost)',
-              fontSize: '0.68rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: 'var(--terracotta)',
-              fontWeight: 400,
-            }}
-          >
-            Sold
-          </span>
-        ) : (
-          <Link
-            href="/inquire"
-            onClick={e => e.stopPropagation()}
-            style={{
-              display: 'inline-block',
-              marginTop: '0.75rem',
-              fontFamily: 'var(--font-jost)',
-              fontSize: '0.68rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: 'var(--terracotta)',
-              fontWeight: 400,
-              textDecoration: 'none',
-              transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
-            onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
-          >
-            Inquire
-          </Link>
-        )}
+      )}
+      {artwork.subline && (
+        <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+          {artwork.subline}
+        </p>
+      )}
+      <p className="font-body text-muted mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
+        {artwork.material}{artwork.size ? ` · ${artwork.size}` : ''}
+      </p>
+      {artwork.note && (
+        <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+          {artwork.note}
+        </p>
+      )}
+      {artwork.price !== undefined && (
+        <p className="font-body text-charcoal mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
+          ${artwork.price.toLocaleString('en-US')}
+        </p>
+      )}
+      {artwork.sold ? (
+        <span
+          style={{
+            display: 'inline-block',
+            marginTop: '0.75rem',
+            fontFamily: 'var(--font-jost)',
+            fontSize: '0.68rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--terracotta)',
+            fontWeight: 400,
+          }}
+        >
+          Sold
+        </span>
+      ) : (
+        <Link
+          href="/inquire"
+          onClick={e => e.stopPropagation()}
+          style={{
+            display: 'inline-block',
+            marginTop: '0.75rem',
+            fontFamily: 'var(--font-jost)',
+            fontSize: '0.68rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--terracotta)',
+            fontWeight: 400,
+            textDecoration: 'none',
+            transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
+          onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+        >
+          Inquire
+        </Link>
+      )}
+    </div>
+  )
+}
+
+// Intrinsic shape hint for natural-ratio images; the browser switches to the real ratio once loaded
+const RATIO_HINT = { landscape: [3, 2], portrait: [3, 4], square: [1, 1] } as const
+
+// ── Feature row ───────────────────────────────────────────────────────────────
+// Full-width row: photo at its natural ratio on the left (~60%), caption under it,
+// and a quote slot on the right (~40%) that renders only when the piece has a quote.
+function FeatureCard({
+  artwork,
+  priority = false,
+  eager = false,
+  onOpen,
+}: {
+  artwork: Artwork
+  priority?: boolean
+  eager?: boolean
+  onOpen: (artwork: Artwork) => void
+}) {
+  const [w, h] = RATIO_HINT[artwork.aspectRatio]
+  return (
+    <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-12 md:items-start">
+      <div className="group block cursor-pointer" onClick={() => onOpen(artwork)}>
+        <div className="relative overflow-hidden">
+          <Image
+            src={artwork.image}
+            alt={describe(artwork)}
+            title={describe(artwork)}
+            width={w * 1000}
+            height={h * 1000}
+            className="transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+            priority={priority}
+            loading={!priority && eager ? 'eager' : undefined}
+            sizes="(max-width: 768px) calc(100vw - 3rem), (max-width: 1280px) 60vw, 720px"
+          />
+        </div>
+        <CardCaption artwork={artwork} />
       </div>
+
+      {artwork.quote && (
+        <figure className="mt-8 md:mt-0">
+          <blockquote
+            className="font-display text-charcoal"
+            style={{ fontSize: 'clamp(1.25rem, 1.8vw, 1.6rem)', fontWeight: 300, fontStyle: 'italic', lineHeight: 1.45 }}
+          >
+            {artwork.quote.text}
+          </blockquote>
+          {artwork.quote.attribution && (
+            <figcaption className="section-label mt-5" style={{ color: 'var(--muted)' }}>
+              {artwork.quote.attribution}
+            </figcaption>
+          )}
+        </figure>
+      )}
     </div>
   )
 }
@@ -484,11 +557,12 @@ export default function HomePage() {
       '@type': ['VisualArtwork', 'Product'],
       name: a.title,
       ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
-      artMedium: `${a.material} stone`,
+      artMedium: a.material === MULTIPLE_STONES ? MULTIPLE_STONES : `${a.material} stone`,
       artForm: 'Shona stone sculpture',
       // Size is left out entirely when a piece has no dimensions
-      ...(a.size ? { size: a.size } : {}),
-      description: `${a.title} — ${a.material} Shona stone sculpture${a.artist ? ` by ${a.artist}` : ''}.${a.size ? ` ${a.size}.` : ''}`,
+      // A spelled-out size (e.g. "Lifesize") goes in the description only, not the size property
+      ...(a.size && !a.sizeDescription ? { size: a.size } : {}),
+      description: `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona stone sculpture in multiple stones' : `${a.material} Shona stone sculpture`}${a.artist ? ` by ${a.artist}` : ''}.${a.sizeDescription ? ` ${a.sizeDescription}.` : a.size ? ` ${a.size}.` : ''}`,
       image: `${SITE_URL}${a.image}`,
       url: `${SITE_URL}/inquire`,
       brand: { '@type': 'Brand', name: 'Slab of Africa' },
@@ -567,17 +641,29 @@ export default function HomePage() {
         <div className="divider mt-10 mb-8" />
 
         {/* Editorial grid — 1-col mobile, 2-col desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-24">
-          {recentAdditions.map((artwork, i) => (
-            <ScrollReveal key={artwork.id} delay={(i % 2) * 0.07} mobileFadeOnly>
-              <ArtworkCard
-                artwork={artwork}
-                priority={i < 4}
-                eager={i < 10}
-                onOpen={setLightboxArtwork}
-              />
-            </ScrollReveal>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-24">
+          {recentAdditions.map((artwork, i) =>
+            artwork.layout === 'feature' ? (
+              // Spans every column of the row (grid-column: 1 / -1)
+              <ScrollReveal key={artwork.id} className="md:[grid-column:1/-1]" mobileFadeOnly>
+                <FeatureCard
+                  artwork={artwork}
+                  priority={i < 4}
+                  eager={i < 10}
+                  onOpen={setLightboxArtwork}
+                />
+              </ScrollReveal>
+            ) : (
+              <ScrollReveal key={artwork.id} delay={(i % 2) * 0.07} mobileFadeOnly>
+                <ArtworkCard
+                  artwork={artwork}
+                  priority={i < 4}
+                  eager={i < 10}
+                  onOpen={setLightboxArtwork}
+                />
+              </ScrollReveal>
+            )
+          )}
         </div>
 
         {/* View Full Collection — centered below grid */}
