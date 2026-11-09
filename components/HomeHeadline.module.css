@@ -92,6 +92,15 @@
   to   { transform: translateX(var(--drift)); }
 }
 
+/* Mobile: no scroll drift. Only the outer line spans are affected, so the entrance (inner spans) still plays. */
+@media (max-width: 767px) {
+  .line {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}
+
 /* Reduced motion: finished static headline */
 @media (prefers-reduced-motion: reduce) {
   .line,
