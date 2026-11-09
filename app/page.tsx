@@ -12,7 +12,7 @@ import HomeHeadline from '@/components/HomeHeadline'
 type Artwork = (typeof recentAdditions)[0]
 
 // Image sizes, shared so the lightbox can show the exact file the card or thumbnail already loaded
-const CARD_SIZES = '(max-width: 768px) calc(100vw - 3rem), (max-width: 1023px) 50vw, 33vw'
+const CARD_SIZES = '(max-width: 1023px) 50vw, 33vw'
 // Lightbox grid: 2 columns under 768px, 3 columns above, inside a 900px max-width box with 1.5rem padding
 const THUMB_SIZES = '(max-width: 767px) calc(50vw - 30px), (max-width: 899px) calc(33vw - 27px), 274px'
 
@@ -499,34 +499,31 @@ const ArtworkCard = memo(function ArtworkCard({
 // Title, artist, series, stone, note, price and Inquire/Sold, shared by grid cards and the feature row
 function CardCaption({ artwork }: { artwork: Artwork }) {
   return (
-    <div className="pt-5">
-      <h3
-        className="font-display text-charcoal group-hover:text-terracotta transition-colors duration-300"
-        style={{ fontSize: 'clamp(1.1rem, 1.5vw, 1.6rem)' }}
-      >
+    <div className="pt-3 md:pt-5 break-words">
+      <h3 className="font-display text-charcoal group-hover:text-terracotta transition-colors duration-300 text-[0.95rem] leading-snug md:text-[clamp(1.1rem,1.5vw,1.6rem)] md:leading-normal">
         {artwork.title}
       </h3>
-      {artwork.artist && <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>}
+      {artwork.artist && <p className="font-body text-muted mt-1 md:mt-1.5 text-[0.75rem] md:text-sm">— {artwork.artist}</p>}
       {artwork.series && (
-        <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+        <p className="font-body text-muted mt-0.5 text-[0.7rem] md:text-[0.75rem]" style={{ fontWeight: 300, fontStyle: 'italic' }}>
           {artwork.series}
         </p>
       )}
       {artwork.subline && (
-        <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+        <p className="font-body text-muted mt-0.5 text-[0.7rem] md:text-[0.75rem]" style={{ fontWeight: 300, fontStyle: 'italic' }}>
           {artwork.subline}
         </p>
       )}
-      <p className="font-body text-muted mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
+      <p className="font-body text-muted mt-1 text-[0.72rem] tracking-normal md:text-[0.78rem] md:tracking-[0.02em]" style={{ fontWeight: 300 }}>
         {artwork.material}{artwork.size ? ` · ${artwork.size}` : ''}
       </p>
       {artwork.note && (
-        <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+        <p className="font-body text-muted mt-0.5 text-[0.7rem] md:text-[0.75rem]" style={{ fontWeight: 300, fontStyle: 'italic' }}>
           {artwork.note}
         </p>
       )}
       {artwork.price !== undefined && (
-        <p className="font-body text-charcoal mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
+        <p className="font-body text-charcoal mt-1 text-[0.72rem] tracking-normal md:text-[0.78rem] md:tracking-[0.02em]" style={{ fontWeight: 300 }}>
           ${artwork.price.toLocaleString('en-US')}
         </p>
       )}
@@ -551,7 +548,12 @@ function CardCaption({ artwork }: { artwork: Artwork }) {
           onClick={e => e.stopPropagation()}
           style={{
             display: 'inline-block',
-            marginTop: '0.75rem',
+            // 14px + 16px line + 14px = 44px tap height; the negative margins keep the text in the same place
+            paddingTop: 14,
+            paddingBottom: 14,
+            lineHeight: '16px',
+            marginTop: 'calc(0.75rem - 14px)',
+            marginBottom: -14,
             fontFamily: 'var(--font-jost)',
             fontSize: '0.68rem',
             letterSpacing: '0.2em',
@@ -590,7 +592,7 @@ const FeatureCard = memo(function FeatureCard({
   const [w, h] = RATIO_HINT[artwork.aspectRatio]
   return (
     <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-12 md:items-start">
-      <div className="group block cursor-pointer" onClick={() => onOpen(artwork)}>
+      <div className="group block cursor-pointer w-[60%] md:w-auto" onClick={() => onOpen(artwork)}>
         <div className="relative overflow-hidden" style={{ touchAction: 'pan-y', WebkitTapHighlightColor: 'transparent', cursor: 'pointer' }}>
           <Image
             src={artwork.image}
@@ -715,11 +717,11 @@ export default function HomePage() {
         <div className="divider mt-10 mb-8" />
 
         {/* Editorial grid — 1-col mobile, 2-col desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-24">
+        <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-x-3 md:gap-x-8 gap-y-10 md:gap-y-24 -mx-2 md:mx-0">
           {recentAdditions.map((artwork, i) =>
             artwork.layout === 'feature' ? (
               // Spans every column of the row (grid-column: 1 / -1)
-              <ScrollReveal key={artwork.id} className="md:[grid-column:1/-1]" mobileFadeOnly>
+              <ScrollReveal key={artwork.id} className="[grid-column:1/-1]" mobileFadeOnly>
                 <FeatureCard
                   artwork={artwork}
                   priority={i < 4}
