@@ -1,6 +1,27 @@
+/* Headline container. It reaches out to the screen edges (cancelling the page gutter), so overflow-x: clip
+   stops the entrance from causing horizontal scroll without clipping letters inside the gutter.
+   --hl-top matches the homepage header's top padding (pt-32 / md:pt-40), so the drift starts at scroll 0. */
+.wrap {
+  overflow-x: clip;
+  margin-inline: -1.5rem;
+  padding-inline: 1.5rem;
+  --drift: 12px;
+  --hl-top: 8rem;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    margin-inline: -2.5rem;
+    padding-inline: 2.5rem;
+    --drift: 24px;
+    --hl-top: 10rem;
+  }
+}
+
 /* Mobile size keeps the longest line ("for timeless Zimbabwean") 30px+ clear of the gutters at 360px wide */
 .headline {
   font-size: clamp(1.5rem, 8vw, 2rem);
+  view-timeline: --headline block;
 }
 
 @media (min-width: 768px) {
@@ -9,30 +30,73 @@
   }
 }
 
-/* Line mask: room below for descenders and italic swashes, cancelled by the negative margin */
-.mask {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.15em;
-  margin-bottom: -0.15em;
-}
-
+/* Outer line span: scroll drift. Inner span: entrance. Separate elements so the two transforms don't collide. */
 .line {
   display: block;
   white-space: nowrap;
   will-change: transform;
 }
 
-.drift {
+.enter {
   display: block;
-  will-change: transform;
+  animation-duration: 0.9s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+
+.fromLeft .enter {
+  animation-name: hl-enter-left;
+}
+
+.fromRight .enter {
+  animation-name: hl-enter-right;
+}
+
+@keyframes hl-enter-left {
+  from { transform: translateX(-32px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes hl-enter-right {
+  from { transform: translateX(32px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* Scroll drift: runs from scroll 0 until the headline's bottom leaves the top of the screen.
+   Where scroll-driven animations aren't supported the headline stays still (the entrance still plays). */
+@supports (animation-timeline: view()) {
+  .line {
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --headline;
+    animation-range: exit-crossing calc(-1 * var(--hl-top)) exit-crossing 100%;
+  }
+
+  .fromLeft {
+    animation-name: hl-drift-left;
+  }
+
+  .fromRight {
+    animation-name: hl-drift-right;
+  }
+}
+
+@keyframes hl-drift-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-1 * var(--drift))); }
+}
+
+@keyframes hl-drift-right {
+  from { transform: translateX(0); }
+  to   { transform: translateX(var(--drift)); }
 }
 
 /* Reduced motion: finished static headline */
 @media (prefers-reduced-motion: reduce) {
   .line,
-  .drift {
-    transform: none !important;
+  .enter {
+    animation: none !important;
     will-change: auto;
   }
 }
