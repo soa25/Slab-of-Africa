@@ -3,8 +3,8 @@ export interface Artwork {
   title: string
   artist: string
   material: string
-  size: string
-  year: number
+  size?: string // omitted when dimensions aren't known
+  year?: number
   image: string
   aspectRatio: 'portrait' | 'landscape' | 'square'
   featured?: boolean
@@ -12,6 +12,8 @@ export interface Artwork {
   images?: string[]
   note?: string
   sold?: boolean
+  price?: number // USD, shown on the homepage card when set
+  fit?: 'contain' | 'cover' // homepage card image; defaults to 'contain'
 }
 
 export interface Artist {
@@ -85,6 +87,17 @@ export const recentAdditions: Artwork[] = [
   },
   // 4
   {
+    id: 85,
+    title: 'Blue Flame',
+    artist: 'Timothy Gwaravaza',
+    material: 'Aventurine',
+    image: '/images/recent/blue-flame-timothy.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/blue-flame-timothy.jpg'],
+  },
+  // 5
+  {
     id: 77,
     title: 'Happiness',
     artist: 'Dominic Benhura',
@@ -96,7 +109,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/happiness-dominic.jpg'],
   },
-  // 5
+  // 6
   {
     id: 1,
     title: 'Bonded Souls',
@@ -115,7 +128,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Bonded%20Souls/DSC_0197.jpg',
     ],
   },
-  // 6
+  // 7
   {
     id: 7,
     title: 'Lovers',
@@ -132,7 +145,20 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Lovers/Lovers.jpg',
     ],
   },
-  // 7
+  // 8
+  {
+    id: 88,
+    title: 'Abstract',
+    artist: 'Blessing Mutukwa',
+    material: 'Dolomite',
+    image: '/images/recent/abstract-blessing.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-blessing.jpg'],
+    price: 2700,
+    fit: 'cover',
+  },
+  // 9
   {
     id: 9,
     title: 'Abstract',
@@ -150,7 +176,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(red)/DSC_0454.jpg',
     ],
   },
-  // 8
+  // 10
   {
     id: 84,
     title: 'Dancing Away',
@@ -163,7 +189,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/dancing-away-dominic.jpg'],
   },
-  // 9
+  // 11
   {
     id: 8,
     title: 'Riches of True Love',
@@ -181,7 +207,18 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Riches%20of%20True%20Love/DSC_0444.jpg',
     ],
   },
-  // 10
+  // 12
+  {
+    id: 86,
+    title: 'Torso',
+    artist: 'Timothy Gwaravaza',
+    material: 'Aventurine',
+    image: '/images/recent/torso-timothy.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/torso-timothy.jpg'],
+  },
+  // 13
   {
     id: 78,
     title: 'Calling Bird',
@@ -195,7 +232,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/calling-bird-dominic-2.jpg'],
   },
-  // 11
+  // 14
   {
     id: 5,
     title: 'Trusting',
@@ -214,7 +251,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Trusting/DSC_0184.jpg',
     ],
   },
-  // 12
+  // 15
   {
     id: 83,
     title: 'Joyous Moment',
@@ -227,7 +264,18 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/Joyous-moment-dominic.jpg'],
   },
-  // 13
+  // 16
+  {
+    id: 87,
+    title: 'Abstract',
+    artist: 'Timothy Gwaravaza',
+    material: 'Aventurine',
+    image: '/images/recent/abstract-timothy.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-timothy.jpg'],
+  },
+  // 17
   {
     id: 3,
     title: 'Watchmen',
@@ -245,7 +293,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%201/DSC_0137.jpg',
     ],
   },
-  // 14
+  // 18
   {
     id: 79,
     title: 'Happy Trio',
@@ -259,7 +307,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/happy-trio-dominic.jpg'],
   },
-  // 15
+  // 19
   {
     id: 6,
     title: 'Watchmen',
@@ -277,7 +325,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%202/DSC_0140.jpg',
     ],
   },
-  // 16
+  // 20
   {
     id: 82,
     title: 'Relaxing with Mum',
@@ -290,7 +338,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/relaxing-with-mum-dominic.jpg'],
   },
-  // 17
+  // 21
   {
     id: 10,
     title: 'Abstract',
@@ -308,7 +356,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(green)/DSC_0472.jpg',
     ],
   },
-  // 18
+  // 22
   {
     id: 80,
     title: 'I Like It Mum',
@@ -321,7 +369,20 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/I-like-it-mum-dominic.jpg'],
   },
-  // 19
+  // 23
+  {
+    id: 89,
+    title: 'Interlace',
+    artist: 'Blessing Mutukwa',
+    material: 'Dolomite',
+    image: '/images/recent/interlace-blessing.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/interlace-blessing.jpg'],
+    price: 2700,
+    fit: 'cover',
+  },
+  // 24
   {
     id: 81,
     title: 'Pat Cake',
@@ -334,7 +395,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pat-cake-dominic.jpg'],
   },
-  // 20
+  // 25
   {
     id: 75,
     title: 'Feeling Great',

@@ -355,7 +355,7 @@ function ArtworkCard({
           alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
           title={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
           fill
-          className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+          className={`${artwork.fit === 'cover' ? 'object-cover object-center' : 'object-contain'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]`}
           priority={priority}
           loading={!priority && eager ? 'eager' : undefined}
           sizes="(max-width: 768px) calc(100vw - 3rem), 50vw"
@@ -407,11 +407,16 @@ function ArtworkCard({
         </h3>
         <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>
         <p className="font-body text-muted mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
-          {artwork.material} · {artwork.size}
+          {artwork.material}{artwork.size ? ` · ${artwork.size}` : ''}
         </p>
         {artwork.note && (
           <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
             {artwork.note}
+          </p>
+        )}
+        {artwork.price !== undefined && (
+          <p className="font-body text-charcoal mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
+            ${artwork.price.toLocaleString('en-US')}
           </p>
         )}
         {artwork.sold ? (
@@ -471,15 +476,17 @@ export default function HomePage() {
       creator: { '@type': 'Person', name: a.artist },
       artMedium: `${a.material} stone`,
       artForm: 'Shona stone sculpture',
-      size: a.size,
-      description: `${a.title} — ${a.material} Shona stone sculpture by ${a.artist}. ${a.size}.`,
+      // Size is left out entirely when a piece has no dimensions
+      ...(a.size ? { size: a.size } : {}),
+      description: `${a.title} — ${a.material} Shona stone sculpture by ${a.artist}.${a.size ? ` ${a.size}.` : ''}`,
       image: `${SITE_URL}${a.image}`,
       url: `${SITE_URL}/inquire`,
       brand: { '@type': 'Brand', name: 'Slab of Africa' },
       offers: {
         '@type': 'Offer',
         availability: 'https://schema.org/InStock',
-        price: '0',
+        // Real price when a piece has one, otherwise the existing placeholder
+        price: a.price !== undefined ? String(a.price) : '0',
         priceCurrency: 'USD',
         priceValidUntil: '2027-12-31',
         priceSpecification: {

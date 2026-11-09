@@ -439,7 +439,7 @@ function WestPortalRow() {
                       className="font-body mt-1"
                       style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: CREAM.muted }}
                     >
-                      {work.material} · {work.size}
+                      {work.material}{work.size ? ` · ${work.size}` : ''}
                     </p>
                   </ScrollReveal>
                 ))}
