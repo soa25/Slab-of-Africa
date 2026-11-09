@@ -163,6 +163,12 @@ function MobileNavLink({
   )
 }
 
+// rgba(r,g,b,a) → rgb(r,g,b); other colour formats pass through unchanged
+function toOpaque(color: string) {
+  const m = color.match(/^rgba\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,[^)]*\)$/)
+  return m ? `rgb(${m[1]}, ${m[2]}, ${m[3]})` : color
+}
+
 // ─── Main Navigation ──────────────────────────────────────────────────────
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
@@ -208,9 +214,10 @@ export default function Navigation() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  const scrolledBg = isDarkPage
+  // Solid (100% opacity) version of the scrolled colour; no backdrop blur
+  const scrolledBg = toOpaque(isDarkPage
     ? 'rgba(28,23,20,0.96)'
-    : (currentPalette.navScrolledBg ?? 'rgba(248,238,222,0.95)')
+    : (currentPalette.navScrolledBg ?? 'rgba(248,238,222,0.95)'))
   const scrolledBorder = isDarkPage
     ? '1px solid rgba(255,255,255,0.06)'
     : '1px solid #E5DDD4'
@@ -223,11 +230,10 @@ export default function Navigation() {
       <header
         className={`fixed ${isMarinPage ? 'top-0' : 'top-9'} left-0 right-0 z-[100]`}
         style={{
-          transition: 'background-color 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease, transform 0.35s ease',
+          transition: 'background-color 0.45s ease, border-color 0.45s ease, transform 0.35s ease',
           transform: navHidden ? 'translateY(-100%)' : 'translateY(0)',
           backgroundColor: isMarinPage ? currentPalette.bg : (scrolled ? scrolledBg : 'transparent'),
           borderBottom: isMarinPage ? '1px solid rgba(255,255,255,0.06)' : (scrolled ? scrolledBorder : '1px solid transparent'),
-          backdropFilter: !isMarinPage && scrolled ? 'blur(12px)' : 'none',
         }}
       >
         {/* Below 1240px: logo left, hamburger right. From 1240px: equal side columns keep the logo at the true center,

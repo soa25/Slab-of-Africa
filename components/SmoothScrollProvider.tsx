@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAnimationFrame } from 'framer-motion'
 import Lenis from 'lenis'
 
@@ -35,9 +35,15 @@ export default function SmoothScrollProvider({
 }: {
   children: React.ReactNode
 }) {
+  // Touch-first devices scroll natively: no Lenis and no per-frame loop there
+  const [enabled, setEnabled] = useState(false)
+  useEffect(() => {
+    setEnabled(!window.matchMedia('(hover: none) and (pointer: coarse)').matches)
+  }, [])
+
   return (
     <>
-      <LenisDriver />
+      {enabled && <LenisDriver />}
       {children}
     </>
   )
