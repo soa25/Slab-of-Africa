@@ -1,8 +1,8 @@
 'use client'
 
-import Image from 'next/image'
+import Image, { getImageProps } from 'next/image'
 import Link from 'next/link'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, createContext, useContext, memo, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { recentAdditions } from '@/lib/data'
@@ -10,6 +10,66 @@ import ScrollReveal from '@/components/ScrollReveal'
 import HomeHeadline from '@/components/HomeHeadline'
 
 type Artwork = (typeof recentAdditions)[0]
+
+// Image sizes, shared so the lightbox can show the exact file the card or thumbnail already loaded
+const CARD_SIZES = '(max-width: 768px) calc(100vw - 3rem), (max-width: 1023px) 50vw, 33vw'
+// Lightbox grid: 2 columns under 768px, 3 columns above, inside a 900px max-width box with 1.5rem padding
+const THUMB_SIZES = '(max-width: 767px) calc(50vw - 30px), (max-width: 899px) calc(33vw - 27px), 274px'
+
+// Hover effects written in JS only run on devices that can really hover, so a tap never changes anything
+const canHover = () => typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+const hoverOn = (e: React.MouseEvent<HTMLElement>) => { if (canHover()) { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' } }
+const hoverOff = (e: React.MouseEvent<HTMLElement>) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }
+
+// Opening the lightbox goes through context, so its state lives outside the grid and cards don't re-render
+const OpenLightboxContext = createContext<(artwork: Artwork) => void>(() => {})
+
+function LightboxProvider({ children }: { children: ReactNode }) {
+  const [artwork, setArtwork] = useState<Artwork | null>(null)
+  const close = useCallback(() => setArtwork(null), [])
+  return (
+    <OpenLightboxContext.Provider value={setArtwork}>
+      <AnimatePresence>
+        {artwork && <Lightbox key={artwork.id} artwork={artwork} onClose={close} />}
+      </AnimatePresence>
+      {children}
+    </OpenLightboxContext.Provider>
+  )
+}
+
+// Loads an image into the browser cache with the same URL choice the <Image> would make. No React state, no DOM change.
+function preloadImage(src: string, sizes: string) {
+  const { props } = getImageProps({ src, alt: '', fill: true, sizes })
+  const img = new window.Image()
+  if (props.sizes) img.sizes = props.sizes
+  if (props.srcSet) img.srcset = props.srcSet
+  img.src = props.src
+}
+
+// Lightbox photo: the already-cached card/thumbnail file shows instantly, the large version fades in over it once loaded
+function LayeredPhoto({
+  src, alt, previewSizes, sizes, quality, priority,
+}: {
+  src: string; alt: string; previewSizes: string; sizes: string; quality?: number; priority?: boolean
+}) {
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <>
+      <Image src={src} alt="" aria-hidden="true" fill className="object-contain" sizes={previewSizes} />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-contain"
+        sizes={sizes}
+        quality={quality}
+        priority={priority}
+        onLoad={() => setLoaded(true)}
+        style={{ opacity: loaded ? 1 : 0, transition: 'opacity 0.2s ease' }}
+      />
+    </>
+  )
+}
 
 // "Multiple Stones" can't be used as an adjective ("Multiple Stones Shona sculpture"), so it gets its own wording
 const MULTIPLE_STONES = 'Multiple Stones'
@@ -88,7 +148,7 @@ function Lightbox({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
+      transition={{ duration: 0.2 }}
       style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.95)' }}
       data-lenis-prevent=""
       onPointerDown={e => { pointerStart.current = { x: e.clientX, y: e.clientY } }}
@@ -162,8 +222,8 @@ function Lightbox({
                       textDecoration: 'none',
                       transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+                    onMouseEnter={hoverOn}
+                    onMouseLeave={hoverOff}
                   >
                     Inquire
                   </Link>
@@ -184,7 +244,9 @@ function Lightbox({
                       alt={`${describe(artwork)}, photo ${i + 1}`}
                       fill
                       className="object-contain"
-                      sizes="(max-width: 768px) 50vw, 33vw"
+                      sizes={THUMB_SIZES}
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                 ))}
@@ -242,11 +304,11 @@ function Lightbox({
                   transition={{ duration: 0.22, ease: 'easeInOut' }}
                   style={{ position: 'absolute', inset: 0 }}
                 >
-                  <Image
+                  <LayeredPhoto
                     src={images[photoIndex]}
                     alt={`${describe(artwork)}, photo ${photoIndex + 1}`}
-                    fill
-                    className="object-contain"
+                    // Single photo: the card's file is cached. Multi-photo: the grid thumbnail's file is cached.
+                    previewSizes={single ? CARD_SIZES : THUMB_SIZES}
                     sizes={single ? '100vw' : '90vw'}
                     quality={single ? 85 : undefined}
                     priority={single}
@@ -315,8 +377,8 @@ function Lightbox({
                   textDecoration: 'none',
                   transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
-                onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+                onMouseEnter={hoverOn}
+                onMouseLeave={hoverOff}
               >
                 Inquire
               </Link>
@@ -332,25 +394,27 @@ function Lightbox({
 
 // ── Grid card ─────────────────────────────────────────────────────────────────
 
-function ArtworkCard({
+const ArtworkCard = memo(function ArtworkCard({
   artwork,
   priority = false,
   eager = false,
-  onOpen,
 }: {
   artwork: Artwork
   priority?: boolean
   eager?: boolean
-  onOpen: (artwork: Artwork) => void
 }) {
+  const onOpen = useContext(OpenLightboxContext)
   const images = artwork.images?.length ? artwork.images : [artwork.image ?? '']
   const [activeIndex, setActiveIndex] = useState(0)
   const hasMultiple = images.length > 1
 
-  // On first touch (or hover), quietly load the next angle so a swipe shows it instantly. Once per card.
-  const [preloadIndex, setPreloadIndex] = useState<number | null>(null)
+  // On first pointer contact (or mouse hover), load the next angle into the browser cache so a swipe shows it
+  // instantly. Imperative and once per card: no state change and no DOM change, so a tap still opens on the first try.
+  const preloaded = useRef(false)
   const preloadNext = () => {
-    if (hasMultiple && preloadIndex === null) setPreloadIndex((activeIndex + 1) % images.length)
+    if (!hasMultiple || preloaded.current) return
+    preloaded.current = true
+    preloadImage(images[(activeIndex + 1) % images.length], CARD_SIZES)
   }
 
   const touchStartX = useRef(0)
@@ -363,8 +427,8 @@ function ArtworkCard({
   const prev = (e: React.MouseEvent) => { e.stopPropagation(); prevPhoto() }
   const next = (e: React.MouseEvent) => { e.stopPropagation(); nextPhoto() }
 
+  // Records the start point only: no state, no preventDefault
   const handleTouchStart = (e: React.TouchEvent) => {
-    preloadNext()
     touchStartX.current = e.touches[0].clientX
     touchStartY.current = e.touches[0].clientY
     didSwipe.current = false
@@ -384,10 +448,12 @@ function ArtworkCard({
     <div className="group block cursor-pointer" onClick={() => onOpen(artwork)}>
       <div
         className="relative overflow-hidden bg-black"
-        style={{ aspectRatio: '3 / 4' }}
+        // pan-y keeps vertical scrolling native and lets a tap fire its click straight away
+        style={{ aspectRatio: '3 / 4', touchAction: 'pan-y', WebkitTapHighlightColor: 'transparent', cursor: 'pointer' }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        onMouseEnter={preloadNext}
+        onPointerDown={preloadNext}
+        onPointerEnter={e => { if (e.pointerType === 'mouse') preloadNext() }}
         onClick={(e) => { if (didSwipe.current) { didSwipe.current = false; e.stopPropagation() } }}
       >
         <Image
@@ -398,21 +464,8 @@ function ArtworkCard({
           className={`${artwork.fit === 'cover' ? 'object-cover object-center' : 'object-contain'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]`}
           priority={priority}
           loading={!priority && eager ? 'eager' : undefined}
-          sizes="(max-width: 768px) calc(100vw - 3rem), (max-width: 1023px) 50vw, 33vw"
+          sizes={CARD_SIZES}
         />
-
-        {preloadIndex !== null && (
-          <Image
-            src={images[preloadIndex]}
-            alt=""
-            aria-hidden="true"
-            fill
-            className="object-contain"
-            style={{ visibility: 'hidden' }}
-            loading="eager"
-            sizes="(max-width: 768px) calc(100vw - 3rem), (max-width: 1023px) 50vw, 33vw"
-          />
-        )}
 
         {hasMultiple && (
           <>
@@ -441,7 +494,7 @@ function ArtworkCard({
       <CardCaption artwork={artwork} />
     </div>
   )
-}
+})
 
 // Title, artist, series, stone, note, price and Inquire/Sold, shared by grid cards and the feature row
 function CardCaption({ artwork }: { artwork: Artwork }) {
@@ -508,8 +561,8 @@ function CardCaption({ artwork }: { artwork: Artwork }) {
             textDecoration: 'none',
             transition: 'opacity 0.2s ease, text-decoration 0.2s ease',
           }}
-          onMouseEnter={e => { e.currentTarget.style.opacity = '0.7'; e.currentTarget.style.textDecoration = 'underline' }}
-          onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.textDecoration = 'none' }}
+          onMouseEnter={hoverOn}
+          onMouseLeave={hoverOff}
         >
           Inquire
         </Link>
@@ -524,22 +577,21 @@ const RATIO_HINT = { landscape: [3, 2], portrait: [3, 4], square: [1, 1] } as co
 // ── Feature row ───────────────────────────────────────────────────────────────
 // Full-width row: photo at its natural ratio on the left (~60%), caption under it,
 // and a quote slot on the right (~40%) that renders only when the piece has a quote.
-function FeatureCard({
+const FeatureCard = memo(function FeatureCard({
   artwork,
   priority = false,
   eager = false,
-  onOpen,
 }: {
   artwork: Artwork
   priority?: boolean
   eager?: boolean
-  onOpen: (artwork: Artwork) => void
 }) {
+  const onOpen = useContext(OpenLightboxContext)
   const [w, h] = RATIO_HINT[artwork.aspectRatio]
   return (
     <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-12 md:items-start">
       <div className="group block cursor-pointer" onClick={() => onOpen(artwork)}>
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden" style={{ touchAction: 'pan-y', WebkitTapHighlightColor: 'transparent', cursor: 'pointer' }}>
           <Image
             src={artwork.image}
             alt={describe(artwork)}
@@ -573,14 +625,13 @@ function FeatureCard({
       )}
     </div>
   )
-}
+})
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 const SITE_URL = 'https://www.slabofafrica.com'
 
 export default function HomePage() {
-  const [lightboxArtwork, setLightboxArtwork] = useState<Artwork | null>(null)
 
   const sculptureSchema = {
     '@context': 'https://schema.org',
@@ -645,16 +696,7 @@ export default function HomePage() {
     <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sculptureSchema) }} />
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #FAF0E2, #E0D5C5)' }}>
-
-      <AnimatePresence>
-        {lightboxArtwork && (
-          <Lightbox
-            key={lightboxArtwork.id}
-            artwork={lightboxArtwork}
-            onClose={() => setLightboxArtwork(null)}
-          />
-        )}
-      </AnimatePresence>
+    <LightboxProvider>
 
       {/* Hero header */}
       <section className="pt-32 md:pt-40 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
@@ -682,7 +724,6 @@ export default function HomePage() {
                   artwork={artwork}
                   priority={i < 4}
                   eager={i < 10}
-                  onOpen={setLightboxArtwork}
                 />
               </ScrollReveal>
             ) : (
@@ -691,7 +732,6 @@ export default function HomePage() {
                   artwork={artwork}
                   priority={i < 4}
                   eager={i < 10}
-                  onOpen={setLightboxArtwork}
                 />
               </ScrollReveal>
             )
@@ -741,13 +781,13 @@ export default function HomePage() {
           <p className="section-label mt-8 text-terracotta">Slab of Africa</p>
           <ScrollReveal delay={0.1}>
             <p className="font-body text-muted text-sm mt-4">
-              <a href="/about" className="link-underline" style={{ color: 'inherit', transition: 'color 0.25s ease' }} onMouseEnter={e => (e.currentTarget.style.color = 'var(--terracotta)')} onMouseLeave={e => (e.currentTarget.style.color = 'inherit')}>Learn about the Shona sculpture tradition</a>
+              <a href="/about" className="link-underline" style={{ color: 'inherit', transition: 'color 0.25s ease' }} onMouseEnter={e => { if (canHover()) e.currentTarget.style.color = 'var(--terracotta)' }} onMouseLeave={e => (e.currentTarget.style.color = 'inherit')}>Learn about the Shona sculpture tradition</a>
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-
+    </LightboxProvider>
     </div>
     </>
   )

@@ -266,8 +266,10 @@ h1, h2, h3 {
   transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.link-underline:hover::after {
-  width: 100%;
+@media (hover: hover) and (pointer: fine) {
+  .link-underline:hover::after {
+    width: 100%;
+  }
 }
 
 /* ─── Nav link (underline is a JS motion.span in Navigation.tsx) ─ */
@@ -295,8 +297,10 @@ h1, h2, h3 {
   display: block;
 }
 
-.img-wrapper:hover img {
-  transform: scale(1.05);
+@media (hover: hover) and (pointer: fine) {
+  .img-wrapper:hover img {
+    transform: scale(1.05);
+  }
 }
 
 /* ─── Terracotta button ──────────────────────────────── */
@@ -317,8 +321,10 @@ h1, h2, h3 {
   transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
-.btn-primary:hover {
-  background-color: var(--terracotta-light);
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: var(--terracotta-light);
+  }
 }
 
 .btn-outline {
@@ -338,16 +344,20 @@ h1, h2, h3 {
   transition: all 0.25s ease;
 }
 
-.btn-outline:hover {
-  background-color: var(--charcoal);
-  color: var(--cream);
-  border-color: var(--charcoal);
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline:hover {
+    background-color: var(--charcoal);
+    color: var(--cream);
+    border-color: var(--charcoal);
+  }
 }
 
-.btn-outline-terracotta:hover {
-  background-color: var(--terracotta);
-  color: #fff;
-  border-color: var(--terracotta);
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline-terracotta:hover {
+    background-color: var(--terracotta);
+    color: #fff;
+    border-color: var(--terracotta);
+  }
 }
 
 /* ─── Section label ──────────────────────────────────── */

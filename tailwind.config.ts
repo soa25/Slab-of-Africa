@@ -1,6 +1,8 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  // hover: and group-hover: only apply on devices that can really hover, so a tap never triggers them
+  future: { hoverOnlyWhenSupported: true },
   content: [
     './app/**/*.{ts,tsx,js,jsx}',
     './components/**/*.{ts,tsx,js,jsx}',
