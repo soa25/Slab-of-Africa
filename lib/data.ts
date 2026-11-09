@@ -188,6 +188,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 93,
     title: 'Elder',
+    artist: 'Farayi Nyakanyanza',
     material: 'Leopard Stone',
     image: '/images/recent/elder-phillip.jpg',
     aspectRatio: 'portrait',
@@ -326,6 +327,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 109,
     title: 'Abstract 01',
+    artist: 'Elvis Mamvura',
     material: 'White Opal',
     image: '/images/recent/abstract-white-opal-01.jpg',
     aspectRatio: 'portrait',
@@ -368,10 +370,11 @@ export const recentAdditions: Artwork[] = [
   {
     id: 113,
     title: 'Baby Giraffes',
+    artist: 'Shepard Phiri',
     material: 'Green Opal',
     size: 'Lifesize · approx. 6 ft',
     sizeDescription: 'Lifesize, approximately 6 ft',
-    alt: 'Baby Giraffes — lifesize Green Opal Shona sculpture, approximately 6 feet tall',
+    alt: 'Baby Giraffes — lifesize Green Opal Shona sculpture by Shepard Phiri, approximately 6 feet tall',
     image: '/images/recent/baby-giraffes.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
@@ -384,6 +387,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 101,
     title: 'The Embrace',
+    artist: 'Samson Mukohwa',
     material: 'Springstone',
     image: '/images/recent/the-embrace.jpg',
     aspectRatio: 'landscape',
@@ -548,7 +552,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 108,
     title: 'Aviary',
-    artist: 'Samson Mukhowa',
+    artist: 'Samson Mukohwa',
     material: 'Multiple Stones',
     image: '/images/recent/aviary-samson.jpg',
     aspectRatio: 'portrait',
@@ -559,6 +563,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 110,
     title: 'Abstract 02',
+    artist: 'Elvis Mamvura',
     material: 'White Opal',
     image: '/images/recent/abstract-white-opal-02.jpg',
     aspectRatio: 'portrait',
@@ -654,6 +659,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 111,
     title: 'Abstract 03',
+    artist: 'Elvis Mamvura',
     material: 'White Opal',
     image: '/images/recent/abstract-white-opal-03.jpg',
     aspectRatio: 'portrait',
