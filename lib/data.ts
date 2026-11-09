@@ -335,18 +335,6 @@ export const recentAdditions: Artwork[] = [
   },
   // 22
   {
-    id: 101,
-    title: 'The Embrace',
-    material: 'Springstone',
-    image: '/images/recent/the-embrace.jpg',
-    aspectRatio: 'landscape',
-    description: 'Placeholder description for this work.',
-    images: ['/images/recent/the-embrace.jpg'],
-    price: 3500,
-    layout: 'feature',
-  },
-  // 23
-  {
     id: 5,
     title: 'Trusting',
     artist: 'Bywell Sango',
@@ -364,7 +352,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Trusting/DSC_0184.jpg',
     ],
   },
-  // 24
+  // 23
   {
     id: 98,
     title: 'Abstract 02',
@@ -376,7 +364,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/abstract-02-blessing.jpg'],
     fit: 'cover',
   },
-  // 25
+  // 24
   {
     id: 113,
     title: 'Baby Giraffes',
@@ -391,6 +379,18 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/baby-giraffes.jpg',
       '/images/recent/baby-giraffes/baby-giraffes-2.jpg',
     ],
+  },
+  // 25
+  {
+    id: 101,
+    title: 'The Embrace',
+    material: 'Springstone',
+    image: '/images/recent/the-embrace.jpg',
+    aspectRatio: 'landscape',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/the-embrace.jpg'],
+    price: 3500,
+    layout: 'feature',
   },
   // 26
   {
@@ -432,6 +432,16 @@ export const recentAdditions: Artwork[] = [
   },
   // 29
   {
+    id: 105,
+    title: 'Abstract',
+    material: 'Leopard Stone',
+    image: '/images/recent/abstract-leopard-stone.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-leopard-stone.jpg'],
+  },
+  // 30
+  {
     id: 3,
     title: 'Watchmen',
     artist: 'Phillip Mlima',
@@ -448,7 +458,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%201/DSC_0137.jpg',
     ],
   },
-  // 30
+  // 31
   {
     id: 6,
     title: 'Watchmen',
@@ -465,16 +475,6 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/DSC_0138.jpg',
       '/images/recent/Watchmen%202/DSC_0140.jpg',
     ],
-  },
-  // 31
-  {
-    id: 105,
-    title: 'Abstract',
-    material: 'Leopard Stone',
-    image: '/images/recent/abstract-leopard-stone.jpg',
-    aspectRatio: 'portrait',
-    description: 'Placeholder description for this work.',
-    images: ['/images/recent/abstract-leopard-stone.jpg'],
   },
   // 32
   {
