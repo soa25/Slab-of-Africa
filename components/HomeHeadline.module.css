@@ -1,3 +1,14 @@
+/* Mobile size keeps the longest line ("for timeless Zimbabwean") 30px+ clear of the gutters at 360px wide */
+.headline {
+  font-size: clamp(1.5rem, 8vw, 2rem);
+}
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: clamp(2rem, 4.5vw, 4rem);
+  }
+}
+
 /* Line mask: room below for descenders and italic swashes, cancelled by the negative margin */
 .mask {
   display: block;
@@ -8,24 +19,13 @@
 
 .line {
   display: block;
+  white-space: nowrap;
   will-change: transform;
 }
 
 .drift {
   display: block;
-}
-
-/* Drift only from 768px up */
-@media (min-width: 768px) {
-  .drift {
-    will-change: transform;
-  }
-}
-
-@media (max-width: 767px) {
-  .drift {
-    transform: none !important;
-  }
+  will-change: transform;
 }
 
 /* Reduced motion: finished static headline */

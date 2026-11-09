@@ -1,20 +1,31 @@
 'use client'
 
-import { ReactNode } from 'react'
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
+import { ReactNode, useEffect } from 'react'
+import { motion, useMotionValue, useScroll, useTransform, MotionValue } from 'framer-motion'
 import styles from './HomeHeadline.module.css'
 
 const EXPO_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const FULL_TEXT = 'The premier destination for timeless Zimbabwean stone sculpture.'
-const DRIFT = 24 // px
+const DRIFT_DESKTOP = 24 // px
+const DRIFT_MOBILE = 14 // px, under 768px
 
 // Homepage <h1>: lines slide up out of masks on load and drift apart as the page scrolls.
 // Transform only.
 export default function HomeHeadline() {
-  // Drift follows page scroll from the top, so nothing is offset on load
+  // Drift amount depends on viewport width, set on load and on resize
+  const drift = useMotionValue(DRIFT_DESKTOP)
+  useEffect(() => {
+    const update = () => drift.set(window.innerWidth < 768 ? DRIFT_MOBILE : DRIFT_DESKTOP)
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [drift])
+
+  // Drift follows native page scroll (works the same for touch and wheel), from the top so nothing is offset on load
   const { scrollY } = useScroll()
-  const driftLeft = useTransform(scrollY, [0, 500], [0, -DRIFT], { clamp: true })
-  const driftRight = useTransform(scrollY, [0, 500], [0, DRIFT], { clamp: true })
+  const progress = useTransform(scrollY, [0, 500], [0, 1], { clamp: true })
+  const driftLeft = useTransform(() => -progress.get() * drift.get())
+  const driftRight = useTransform(() => progress.get() * drift.get())
 
   const lines: { x: MotionValue<number>; content: ReactNode }[] = [
     { x: driftLeft, content: 'The premier destination' },
@@ -33,9 +44,8 @@ export default function HomeHeadline() {
     <div>
       <h1
         aria-label={FULL_TEXT}
-        className="font-display text-charcoal"
+        className={`font-display text-charcoal ${styles.headline}`}
         style={{
-          fontSize: 'clamp(2rem, 4.5vw, 4rem)',
           fontWeight: 400,
           lineHeight: 1.08,
           letterSpacing: '-0.01em',
