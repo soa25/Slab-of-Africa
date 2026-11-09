@@ -41,9 +41,11 @@ interface ScrollRevealProps {
   duration?: number
   y?: number
   once?: boolean
+  // Under 768px: opacity-only fade over 0.35s, no vertical movement
+  mobileFadeOnly?: boolean
 }
 
-export default function ScrollReveal({ children, className = '', delay = 0 }: ScrollRevealProps) {
+export default function ScrollReveal({ children, className = '', delay = 0, mobileFadeOnly = false }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const controls = useAnimation()
 
@@ -52,7 +54,11 @@ export default function ScrollReveal({ children, className = '', delay = 0 }: Sc
     if (!el) return
 
     callbackMap.set(el, () => {
-      controls.start({ opacity: 1, y: 0 })
+      if (mobileFadeOnly && window.matchMedia('(max-width: 767px)').matches) {
+        controls.start({ opacity: 1, y: 0 }, { duration: 0.35, ease: EXPO_OUT, delay })
+      } else {
+        controls.start({ opacity: 1, y: 0 })
+      }
     })
     getIO().observe(el)
 
@@ -60,12 +66,13 @@ export default function ScrollReveal({ children, className = '', delay = 0 }: Sc
       getIO().unobserve(el)
       callbackMap.delete(el)
     }
-  }, [controls])
+  }, [controls, mobileFadeOnly, delay])
 
   return (
     <motion.div
       ref={ref}
-      className={className}
+      // On mobile the transform is pinned to none, so the fade has no vertical movement
+      className={mobileFadeOnly ? `${className} max-md:!transform-none` : className}
       initial={{ opacity: 0, y: 18 }}
       animate={controls}
       transition={{ duration: 0.7, ease: EXPO_OUT, delay }}

@@ -164,8 +164,8 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(artGallerySchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
-        {/* Global grain/texture overlay — static SVG feTurbulence, no JS, no interaction */}
-        <svg
+        {/* Global grain/texture overlay — pre-rendered noise tile (public/grain.png), no live SVG filter */}
+        <div
           aria-hidden="true"
           style={{
             position: 'fixed', top: 0, left: 0,
@@ -173,14 +173,11 @@ export default function RootLayout({
             zIndex: 1,
             pointerEvents: 'none',
             opacity: 0.045,
+            backgroundImage: 'url(/grain.png)',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '256px',
           }}
-        >
-          <filter id="grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
-            <feColorMatrix type="saturate" values="0" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#grain)" />
-        </svg>
+        />
 
         <MotionProvider>
         <SmoothScrollProvider>

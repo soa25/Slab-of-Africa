@@ -10,11 +10,8 @@ const nextConfig = {
     ]
   },
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'picsum.photos' },
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'placehold.co' },
-    ],
+    // Cache optimized images for a year instead of regenerating them every 4 hours
+    minimumCacheTTL: 31536000,
   },
 }
 

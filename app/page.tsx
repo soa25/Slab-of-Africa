@@ -295,15 +295,23 @@ function Lightbox({
 function ArtworkCard({
   artwork,
   priority = false,
+  eager = false,
   onOpen,
 }: {
   artwork: Artwork
   priority?: boolean
+  eager?: boolean
   onOpen: (artwork: Artwork) => void
 }) {
   const images = artwork.images?.length ? artwork.images : [artwork.image ?? '']
   const [activeIndex, setActiveIndex] = useState(0)
   const hasMultiple = images.length > 1
+
+  // On first touch (or hover), quietly load the next angle so a swipe shows it instantly. Once per card.
+  const [preloadIndex, setPreloadIndex] = useState<number | null>(null)
+  const preloadNext = () => {
+    if (hasMultiple && preloadIndex === null) setPreloadIndex((activeIndex + 1) % images.length)
+  }
 
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
@@ -316,6 +324,7 @@ function ArtworkCard({
   const next = (e: React.MouseEvent) => { e.stopPropagation(); nextPhoto() }
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    preloadNext()
     touchStartX.current = e.touches[0].clientX
     touchStartY.current = e.touches[0].clientY
     didSwipe.current = false
@@ -338,6 +347,7 @@ function ArtworkCard({
         style={{ aspectRatio: '3 / 4' }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onMouseEnter={preloadNext}
         onClick={(e) => { if (didSwipe.current) { didSwipe.current = false; e.stopPropagation() } }}
       >
         <Image
@@ -347,8 +357,22 @@ function ArtworkCard({
           fill
           className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           priority={priority}
+          loading={!priority && eager ? 'eager' : undefined}
           sizes="(max-width: 768px) calc(100vw - 3rem), 50vw"
         />
+
+        {preloadIndex !== null && (
+          <Image
+            src={images[preloadIndex]}
+            alt=""
+            aria-hidden="true"
+            fill
+            className="object-contain"
+            style={{ visibility: 'hidden' }}
+            loading="eager"
+            sizes="(max-width: 768px) calc(100vw - 3rem), 50vw"
+          />
+        )}
 
         {hasMultiple && (
           <>
@@ -528,10 +552,11 @@ export default function HomePage() {
         {/* Editorial grid — 1-col mobile, 2-col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-24">
           {recentAdditions.map((artwork, i) => (
-            <ScrollReveal key={artwork.id} delay={(i % 2) * 0.07}>
+            <ScrollReveal key={artwork.id} delay={(i % 2) * 0.07} mobileFadeOnly>
               <ArtworkCard
                 artwork={artwork}
                 priority={i < 4}
+                eager={i < 10}
                 onOpen={setLightboxArtwork}
               />
             </ScrollReveal>
