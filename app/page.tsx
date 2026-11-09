@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { recentAdditions } from '@/lib/data'
 import ScrollReveal from '@/components/ScrollReveal'
+import HomeHeadline from '@/components/HomeHeadline'
 
 type Artwork = (typeof recentAdditions)[0]
 
@@ -509,39 +510,20 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero header */}
-      <section className="pt-36 md:pt-44 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-          <div>
-            <ScrollReveal delay={0.08}>
-              <h1
-                className="font-display text-charcoal"
-                style={{
-                  fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-                  fontWeight: 400,
-                  lineHeight: 1.05,
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                New Works,
-                <br />
-                <em style={{ fontStyle: 'italic', fontWeight: 300 }}>Just Arrived</em>
-              </h1>
-            </ScrollReveal>
-          </div>
+      <section className="pt-32 md:pt-40 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
+        {/* Headline left (~2/3), paragraph right in a narrow column, lined up with the headline's last line */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_22rem] gap-5 lg:gap-16 lg:[align-items:last_baseline]">
+          <HomeHeadline />
 
-          <ScrollReveal delay={0.15} className="md:max-w-xs">
+          <ScrollReveal delay={1.1}>
             <p className="font-body text-muted leading-relaxed text-sm md:text-base">
-              From the heart of Zimbabwe to collectors across the United States, discover our curated collection — timeless stone sculptures available for acquisition from San Francisco, California
+              Sourced and sold responsibly from the heart of Zimbabwe to collectors across the globe. Each piece is carved by hand from a single block of stone.
             </p>
           </ScrollReveal>
         </div>
 
-        {/* Thin divider with accent */}
-        <div className="flex items-center gap-4 mb-16">
-          <div className="divider flex-1" />
-          <div className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0" />
-          <div className="divider flex-1" />
-        </div>
+        {/* Thin divider, ~2rem above the grid */}
+        <div className="divider mt-10 mb-8" />
 
         {/* Editorial grid — 1-col mobile, 2-col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-12 md:gap-y-24">

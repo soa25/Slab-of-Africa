@@ -1,0 +1,38 @@
+/* Line mask: room below for descenders and italic swashes, cancelled by the negative margin */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+}
+
+.line {
+  display: block;
+  will-change: transform;
+}
+
+.drift {
+  display: block;
+}
+
+/* Drift only from 768px up */
+@media (min-width: 768px) {
+  .drift {
+    will-change: transform;
+  }
+}
+
+@media (max-width: 767px) {
+  .drift {
+    transform: none !important;
+  }
+}
+
+/* Reduced motion: finished static headline */
+@media (prefers-reduced-motion: reduce) {
+  .line,
+  .drift {
+    transform: none !important;
+    will-change: auto;
+  }
+}
