@@ -1,7 +1,7 @@
 export interface Artwork {
   id: number
   title: string
-  artist: string
+  artist?: string // omitted when not yet known
   material: string
   size?: string // omitted when dimensions aren't known
   year?: number
@@ -14,6 +14,7 @@ export interface Artwork {
   sold?: boolean
   price?: number // USD, shown on the homepage card when set
   fit?: 'contain' | 'cover' // homepage card image; defaults to 'contain'
+  series?: string // shown in italics under the artist on homepage cards
 }
 
 export interface Artist {
@@ -111,6 +112,45 @@ export const recentAdditions: Artwork[] = [
   },
   // 6
   {
+    id: 90,
+    title: 'Sprout 01',
+    artist: 'Itayi Mupumha',
+    material: 'Dolomite',
+    image: '/images/recent/sprout-01-itayi.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    series: 'Sprout series',
+    images: ['/images/recent/sprout-01-itayi.jpg'],
+    price: 1200,
+  },
+  // 7
+  {
+    id: 91,
+    title: 'Sprout 02',
+    artist: 'Itayi Mupumha',
+    material: 'Dolomite',
+    image: '/images/recent/sprout-02-itayi.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    series: 'Sprout series',
+    images: ['/images/recent/sprout-02-itayi.jpg'],
+    price: 1200,
+  },
+  // 8
+  {
+    id: 92,
+    title: 'Sprout 03',
+    artist: 'Itayi Mupumha',
+    material: 'Dolomite',
+    image: '/images/recent/sprout-03-itayi.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    series: 'Sprout series',
+    images: ['/images/recent/sprout-03-itayi.jpg'],
+    price: 1500,
+  },
+  // 9
+  {
     id: 1,
     title: 'Bonded Souls',
     artist: 'Gift Rusere',
@@ -128,7 +168,18 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Bonded%20Souls/DSC_0197.jpg',
     ],
   },
-  // 7
+  // 10
+  {
+    id: 93,
+    title: 'Elder',
+    material: 'Leopard Stone',
+    image: '/images/recent/elder-phillip.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/elder-phillip.jpg'],
+    price: 3000,
+  },
+  // 11
   {
     id: 7,
     title: 'Lovers',
@@ -145,7 +196,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Lovers/Lovers.jpg',
     ],
   },
-  // 8
+  // 12
   {
     id: 88,
     title: 'Abstract',
@@ -158,7 +209,7 @@ export const recentAdditions: Artwork[] = [
     price: 2700,
     fit: 'cover',
   },
-  // 9
+  // 13
   {
     id: 9,
     title: 'Abstract',
@@ -176,7 +227,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(red)/DSC_0454.jpg',
     ],
   },
-  // 10
+  // 14
   {
     id: 84,
     title: 'Dancing Away',
@@ -189,7 +240,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/dancing-away-dominic.jpg'],
   },
-  // 11
+  // 15
   {
     id: 8,
     title: 'Riches of True Love',
@@ -207,7 +258,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Riches%20of%20True%20Love/DSC_0444.jpg',
     ],
   },
-  // 12
+  // 16
   {
     id: 86,
     title: 'Torso',
@@ -218,7 +269,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/torso-timothy.jpg'],
   },
-  // 13
+  // 17
   {
     id: 78,
     title: 'Calling Bird',
@@ -232,7 +283,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/calling-bird-dominic-2.jpg'],
   },
-  // 14
+  // 18
   {
     id: 5,
     title: 'Trusting',
@@ -251,7 +302,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Trusting/DSC_0184.jpg',
     ],
   },
-  // 15
+  // 19
   {
     id: 83,
     title: 'Joyous Moment',
@@ -264,7 +315,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/Joyous-moment-dominic.jpg'],
   },
-  // 16
+  // 20
   {
     id: 87,
     title: 'Abstract',
@@ -275,7 +326,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/abstract-timothy.jpg'],
   },
-  // 17
+  // 21
   {
     id: 3,
     title: 'Watchmen',
@@ -293,7 +344,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%201/DSC_0137.jpg',
     ],
   },
-  // 18
+  // 22
   {
     id: 79,
     title: 'Happy Trio',
@@ -307,7 +358,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/happy-trio-dominic.jpg'],
   },
-  // 19
+  // 23
   {
     id: 6,
     title: 'Watchmen',
@@ -325,7 +376,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Watchmen%202/DSC_0140.jpg',
     ],
   },
-  // 20
+  // 24
   {
     id: 82,
     title: 'Relaxing with Mum',
@@ -338,7 +389,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/relaxing-with-mum-dominic.jpg'],
   },
-  // 21
+  // 25
   {
     id: 10,
     title: 'Abstract',
@@ -356,7 +407,7 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(green)/DSC_0472.jpg',
     ],
   },
-  // 22
+  // 26
   {
     id: 80,
     title: 'I Like It Mum',
@@ -369,7 +420,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/I-like-it-mum-dominic.jpg'],
   },
-  // 23
+  // 27
   {
     id: 89,
     title: 'Interlace',
@@ -382,7 +433,7 @@ export const recentAdditions: Artwork[] = [
     price: 2700,
     fit: 'cover',
   },
-  // 24
+  // 28
   {
     id: 81,
     title: 'Pat Cake',
@@ -395,7 +446,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pat-cake-dominic.jpg'],
   },
-  // 25
+  // 29
   {
     id: 75,
     title: 'Feeling Great',

@@ -11,6 +11,9 @@ import HomeHeadline from '@/components/HomeHeadline'
 
 type Artwork = (typeof recentAdditions)[0]
 
+// Alt/title text; leaves out "by …" when a piece has no artist yet
+const describe = (a: Artwork) => `${a.title} — ${a.material} Shona sculpture${a.artist ? ` by ${a.artist}` : ''}`
+
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 
 function Lightbox({
@@ -94,13 +97,15 @@ function Lightbox({
             >
               {/* Header */}
               <div style={{ marginBottom: '2.5rem' }}>
-                <p style={{
-                  fontFamily: 'var(--font-jost)', fontSize: '0.7rem',
-                  letterSpacing: '0.25em', textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.38)', marginBottom: '0.5rem',
-                }}>
-                  {artwork.artist}
-                </p>
+                {artwork.artist && (
+                  <p style={{
+                    fontFamily: 'var(--font-jost)', fontSize: '0.7rem',
+                    letterSpacing: '0.25em', textTransform: 'uppercase',
+                    color: 'rgba(255,255,255,0.38)', marginBottom: '0.5rem',
+                  }}>
+                    {artwork.artist}
+                  </p>
+                )}
                 <h2 style={{
                   fontFamily: 'var(--font-cormorant)',
                   fontSize: 'clamp(1.8rem, 3vw, 2.8rem)',
@@ -146,7 +151,7 @@ function Lightbox({
                   >
                     <Image
                       src={src}
-                      alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}, photo ${i + 1}`}
+                      alt={`${describe(artwork)}, photo ${i + 1}`}
                       fill
                       className="object-contain"
                       sizes="(max-width: 768px) 50vw, 33vw"
@@ -207,7 +212,7 @@ function Lightbox({
                 >
                   <Image
                     src={images[photoIndex]}
-                    alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}, photo ${photoIndex + 1}`}
+                    alt={`${describe(artwork)}, photo ${photoIndex + 1}`}
                     fill
                     className="object-contain"
                     sizes="90vw"
@@ -352,8 +357,8 @@ function ArtworkCard({
       >
         <Image
           src={images[activeIndex]}
-          alt={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
-          title={`${artwork.title} — ${artwork.material} Shona sculpture by ${artwork.artist}`}
+          alt={describe(artwork)}
+          title={describe(artwork)}
           fill
           className={`${artwork.fit === 'cover' ? 'object-cover object-center' : 'object-contain'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]`}
           priority={priority}
@@ -405,7 +410,12 @@ function ArtworkCard({
         >
           {artwork.title}
         </h3>
-        <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>
+        {artwork.artist && <p className="font-body text-sm text-muted mt-1.5">— {artwork.artist}</p>}
+        {artwork.series && (
+          <p className="font-body text-muted mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300, fontStyle: 'italic' }}>
+            {artwork.series}
+          </p>
+        )}
         <p className="font-body text-muted mt-1" style={{ fontSize: '0.78rem', fontWeight: 300, letterSpacing: '0.02em' }}>
           {artwork.material}{artwork.size ? ` · ${artwork.size}` : ''}
         </p>
@@ -473,12 +483,12 @@ export default function HomePage() {
     '@graph': recentAdditions.map(a => ({
       '@type': ['VisualArtwork', 'Product'],
       name: a.title,
-      creator: { '@type': 'Person', name: a.artist },
+      ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
       artMedium: `${a.material} stone`,
       artForm: 'Shona stone sculpture',
       // Size is left out entirely when a piece has no dimensions
       ...(a.size ? { size: a.size } : {}),
-      description: `${a.title} — ${a.material} Shona stone sculpture by ${a.artist}.${a.size ? ` ${a.size}.` : ''}`,
+      description: `${a.title} — ${a.material} Shona stone sculpture${a.artist ? ` by ${a.artist}` : ''}.${a.size ? ` ${a.size}.` : ''}`,
       image: `${SITE_URL}${a.image}`,
       url: `${SITE_URL}/inquire`,
       brand: { '@type': 'Brand', name: 'Slab of Africa' },

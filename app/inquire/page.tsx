@@ -260,7 +260,7 @@ export default function InquirePage() {
                       <option value="" style={{ background: '#1C1714' }}>Select a work, or leave blank for general inquiry</option>
                       {recentAdditions.map(a => (
                         <option key={a.id} value={a.title} style={{ background: '#1C1714' }}>
-                          {a.title} — {a.artist}
+                          {a.title}{a.artist ? ` — ${a.artist}` : ''}
                         </option>
                       ))}
                     </select>
