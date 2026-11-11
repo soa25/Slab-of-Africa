@@ -217,7 +217,7 @@ export const recentAdditions: Artwork[] = [
   // 13
   {
     id: 88,
-    title: 'Abstract',
+    title: 'Back to the Start',
     artist: 'Blessing Mutukwa',
     material: 'Dolomite',
     image: '/images/recent/abstract-blessing.jpg',
@@ -259,7 +259,7 @@ export const recentAdditions: Artwork[] = [
   // 16
   {
     id: 97,
-    title: 'Abstract 01',
+    title: 'Never Ending Story',
     artist: 'Blessing Mutukwa',
     material: 'Springstone',
     image: '/images/recent/abstract-01-blessing.jpg',
@@ -356,7 +356,7 @@ export const recentAdditions: Artwork[] = [
   // 23
   {
     id: 98,
-    title: 'Abstract 02',
+    title: 'Interconnected',
     artist: 'Blessing Mutukwa',
     material: 'Springstone',
     image: '/images/recent/abstract-02-blessing.jpg',
@@ -496,7 +496,7 @@ export const recentAdditions: Artwork[] = [
   // 33
   {
     id: 99,
-    title: 'Abstract 03',
+    title: 'Twisting Away',
     artist: 'Blessing Mutukwa',
     material: 'Springstone',
     image: '/images/recent/abstract-03-blessing.jpg',
@@ -650,7 +650,7 @@ export const recentAdditions: Artwork[] = [
   // 45
   {
     id: 100,
-    title: 'Abstract 04',
+    title: 'Freeform',
     artist: 'Blessing Mutukwa',
     material: 'Springstone',
     image: '/images/recent/abstract-04-blessing.jpg',
