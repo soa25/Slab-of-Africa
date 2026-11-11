@@ -29,7 +29,7 @@ export default function InquirePage() {
     // The dropdown stores the piece's id (titles repeat), so send a readable, unambiguous label instead
     const piece = recentAdditions.find(a => String(a.id) === formState.artwork)
     const artwork = piece
-      ? `${piece.title} — ${piece.artist ? `${piece.artist}, ` : ''}${piece.material} (#${piece.id})`
+      ? `${piece.title} — ${[piece.artist, piece.material].filter(Boolean).join(', ')} (#${piece.id})`
       : ''
     await fetch('https://formspree.io/f/mdawboko', {
       method: 'POST',

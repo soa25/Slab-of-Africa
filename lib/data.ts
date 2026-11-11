@@ -2,7 +2,7 @@ export interface Artwork {
   id: number
   title: string
   artist?: string // omitted when not yet known
-  material: string
+  material?: string // omitted when the stone isn't known yet
   size?: string // omitted when dimensions aren't known
   year?: number
   image: string
@@ -20,6 +20,7 @@ export interface Artwork {
   quote?: { text: string; attribution?: string } // shown in the feature row's quote slot when set
   alt?: string // overrides the automatic alt text (e.g. when size needs spelling out)
   sizeDescription?: string // spelled-out size for structured data when `size` isn't a measurement
+  photoLabels?: string[] // per-photo alt text addition, matched to `images` by position ('' = none)
 }
 
 export interface Artist {
@@ -241,21 +242,19 @@ export const recentAdditions: Artwork[] = [
   },
   // 15
   {
-    id: 9,
-    title: 'Abstract',
-    artist: 'Tafadzwa Mamvura',
-    material: 'Red Jasper',
-    size: '24 × 11 × 8.5 in',
-    year: 2024,
-    image: '/images/recent/abstract-taf.jpg',
+    id: 118, // together-forever
+    title: 'Together Forever',
+    artist: 'Philip Mlima',
+    size: '43 × 7 in',
+    image: '/images/recent/together-forever-philip.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     images: [
-      '/images/recent/abstract-taf.jpg',
-      '/images/recent/Abstract%20(red)/DSC_0451.jpg',
-      '/images/recent/Abstract%20(red)/DSC_0452.jpg',
-      '/images/recent/Abstract%20(red)/DSC_0454.jpg',
+      '/images/recent/together-forever-philip.jpg',
+      '/images/recent/together-forever/together-forever-interior.jpg',
     ],
+    fit: 'cover',
+    photoLabels: ['', 'interior view'],
   },
   // 16
   {
@@ -438,6 +437,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 105,
     title: 'Abstract',
+    artist: 'Farayi Nyakanyanza',
     material: 'Leopard Stone',
     image: '/images/recent/abstract-leopard-stone.jpg',
     aspectRatio: 'portrait',
@@ -561,6 +561,22 @@ export const recentAdditions: Artwork[] = [
   },
   // 38
   {
+    id: 117, // the-kiss
+    title: 'The Kiss',
+    artist: 'Philip Mlima',
+    size: '41 × 8 in',
+    image: '/images/recent/the-kiss-philip.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: [
+      '/images/recent/the-kiss-philip.jpg',
+      '/images/recent/the-kiss/the-kiss-interior.jpg',
+    ],
+    fit: 'cover',
+    photoLabels: ['', 'interior view'],
+  },
+  // 39
+  {
     id: 110,
     title: 'Abstract 02',
     artist: 'Elvis Mamvura',
@@ -571,7 +587,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/abstract-white-opal-02.jpg'],
     price: 1000,
   },
-  // 39
+  // 40
   {
     id: 104,
     title: 'Pretty Woman',
@@ -582,7 +598,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pretty-woman-simon.jpg'],
   },
-  // 40
+  // 41
   {
     id: 112,
     title: 'Intertwined Spirit',
@@ -594,7 +610,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/intertwined-spirit-itayi.jpg'],
     price: 3000,
   },
-  // 41
+  // 42
   {
     id: 89,
     title: 'Interlace',
@@ -607,17 +623,18 @@ export const recentAdditions: Artwork[] = [
     price: 2700,
     fit: 'cover',
   },
-  // 42
+  // 43
   {
     id: 106,
     title: 'Flower',
+    artist: 'Farayi Nyakanyanza',
     material: 'Leopard Stone',
     image: '/images/recent/flower-leopard-stone.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     images: ['/images/recent/flower-leopard-stone.jpg'],
   },
-  // 43
+  // 44
   {
     id: 81,
     title: 'Pat Cake',
@@ -630,7 +647,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pat-cake-dominic.jpg'],
   },
-  // 44
+  // 45
   {
     id: 100,
     title: 'Abstract 04',
@@ -642,7 +659,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/abstract-04-blessing.jpg'],
     fit: 'cover',
   },
-  // 45
+  // 46
   {
     id: 75,
     title: 'Feeling Great',
@@ -654,18 +671,6 @@ export const recentAdditions: Artwork[] = [
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     images: ['/images/recent/feeling-great-dominic.jpg'],
-  },
-  // 46
-  {
-    id: 111,
-    title: 'Abstract 03',
-    artist: 'Elvis Mamvura',
-    material: 'White Opal',
-    image: '/images/recent/abstract-white-opal-03.jpg',
-    aspectRatio: 'portrait',
-    description: 'Placeholder description for this work.',
-    images: ['/images/recent/abstract-white-opal-03.jpg'],
-    price: 1300,
   },
   // 47
   {
@@ -702,6 +707,36 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-03-owen.jpg'],
+  },
+  // 50
+  {
+    id: 111,
+    title: 'Abstract 03',
+    artist: 'Elvis Mamvura',
+    material: 'White Opal',
+    image: '/images/recent/abstract-white-opal-03.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/abstract-white-opal-03.jpg'],
+    price: 1300,
+  },
+  // 51
+  {
+    id: 9,
+    title: 'Abstract',
+    artist: 'Tafadzwa Mamvura',
+    material: 'Red Jasper',
+    size: '24 × 11 × 8.5 in',
+    year: 2024,
+    image: '/images/recent/abstract-taf.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: [
+      '/images/recent/abstract-taf.jpg',
+      '/images/recent/Abstract%20(red)/DSC_0451.jpg',
+      '/images/recent/Abstract%20(red)/DSC_0452.jpg',
+      '/images/recent/Abstract%20(red)/DSC_0454.jpg',
+    ],
   },
 ]
 

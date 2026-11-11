@@ -74,9 +74,12 @@ function LayeredPhoto({
 // "Multiple Stones" can't be used as an adjective ("Multiple Stones Shona sculpture"), so it gets its own wording
 const MULTIPLE_STONES = 'Multiple Stones'
 
-// Alt/title text; leaves out "by …" when a piece has no artist yet
+// Alt/title text; leaves out the stone or "by …" when a piece doesn't have one yet
 const describe = (a: Artwork) =>
-  a.alt ?? `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona sculpture in multiple stones' : `${a.material} Shona sculpture`}${a.artist ? ` by ${a.artist}` : ''}`
+  a.alt ?? `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona sculpture in multiple stones' : a.material ? `${a.material} Shona sculpture` : 'Shona sculpture'}${a.artist ? ` by ${a.artist}` : ''}`
+
+// Lightbox photo alt: the photo's label (e.g. "interior view") when it has one, otherwise its number
+const photoAlt = (a: Artwork, i: number) => `${describe(a)}, ${a.photoLabels?.[i] || `photo ${i + 1}`}`
 
 // True when (x, y) lands on the visible picture of an object-fit: contain image,
 // not on the empty letterbox space around it
@@ -241,7 +244,7 @@ function Lightbox({
                   >
                     <Image
                       src={src}
-                      alt={`${describe(artwork)}, photo ${i + 1}`}
+                      alt={photoAlt(artwork, i)}
                       fill
                       className="object-contain"
                       sizes={THUMB_SIZES}
@@ -306,7 +309,7 @@ function Lightbox({
                 >
                   <LayeredPhoto
                     src={images[photoIndex]}
-                    alt={`${describe(artwork)}, photo ${photoIndex + 1}`}
+                    alt={photoAlt(artwork, photoIndex)}
                     // Single photo: the card's file is cached. Multi-photo: the grid thumbnail's file is cached.
                     previewSizes={single ? CARD_SIZES : THUMB_SIZES}
                     sizes={single ? '100vw' : '90vw'}
@@ -458,7 +461,7 @@ const ArtworkCard = memo(function ArtworkCard({
       >
         <Image
           src={images[activeIndex]}
-          alt={describe(artwork)}
+          alt={artwork.photoLabels?.[activeIndex] ? `${describe(artwork)}, ${artwork.photoLabels[activeIndex]}` : describe(artwork)}
           title={describe(artwork)}
           fill
           className={`${artwork.fit === 'cover' ? 'object-cover object-center' : 'object-contain'} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]`}
@@ -514,9 +517,11 @@ function CardCaption({ artwork }: { artwork: Artwork }) {
           {artwork.subline}
         </p>
       )}
-      <p className="font-body text-muted mt-1 text-[0.72rem] tracking-normal md:text-[0.78rem] md:tracking-[0.02em]" style={{ fontWeight: 300 }}>
-        {artwork.material}{artwork.size ? ` · ${artwork.size}` : ''}
-      </p>
+      {(artwork.material || artwork.size) && (
+        <p className="font-body text-muted mt-1 text-[0.72rem] tracking-normal md:text-[0.78rem] md:tracking-[0.02em]" style={{ fontWeight: 300 }}>
+          {[artwork.material, artwork.size].filter(Boolean).join(' · ')}
+        </p>
+      )}
       {artwork.note && (
         <p className="font-body text-muted mt-0.5 text-[0.7rem] md:text-[0.75rem]" style={{ fontWeight: 300, fontStyle: 'italic' }}>
           {artwork.note}
@@ -641,20 +646,21 @@ export default function HomePage() {
       '@type': ['VisualArtwork', 'Product'],
       name: a.title,
       ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
-      artMedium: a.material === MULTIPLE_STONES ? MULTIPLE_STONES : `${a.material} stone`,
+      ...(a.material ? { artMedium: a.material === MULTIPLE_STONES ? MULTIPLE_STONES : `${a.material} stone` } : {}),
       artForm: 'Shona stone sculpture',
       // Size is left out entirely when a piece has no dimensions
       // A spelled-out size (e.g. "Lifesize") goes in the description only, not the size property
       ...(a.size && !a.sizeDescription ? { size: a.size } : {}),
-      description: `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona stone sculpture in multiple stones' : `${a.material} Shona stone sculpture`}${a.artist ? ` by ${a.artist}` : ''}.${a.sizeDescription ? ` ${a.sizeDescription}.` : a.size ? ` ${a.size}.` : ''}`,
+      description: `${a.title} — ${a.material === MULTIPLE_STONES ? 'Shona stone sculpture in multiple stones' : a.material ? `${a.material} Shona stone sculpture` : 'Shona stone sculpture'}${a.artist ? ` by ${a.artist}` : ''}.${a.sizeDescription ? ` ${a.sizeDescription}.` : a.size ? ` ${a.size}.` : ''}`,
       image: `${SITE_URL}${a.image}`,
       url: `${SITE_URL}/inquire`,
       brand: { '@type': 'Brand', name: 'Slab of Africa' },
       offers: {
         '@type': 'Offer',
         availability: 'https://schema.org/InStock',
-        // Real price when a piece has one, otherwise the existing placeholder
-        price: a.price !== undefined ? String(a.price) : '0',
+        // Real price when a piece has one, otherwise the existing placeholder.
+        // Pieces with no stone listed yet (no details at all) leave the price out instead.
+        ...(a.price !== undefined ? { price: String(a.price) } : a.material ? { price: '0' } : {}),
         priceCurrency: 'USD',
         priceValidUntil: '2027-12-31',
         priceSpecification: {
