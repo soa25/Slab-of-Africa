@@ -577,18 +577,6 @@ export const recentAdditions: Artwork[] = [
   },
   // 39
   {
-    id: 110,
-    title: 'Abstract 02',
-    artist: 'Elvis Mamvura',
-    material: 'White Opal',
-    image: '/images/recent/abstract-white-opal-02.jpg',
-    aspectRatio: 'portrait',
-    description: 'Placeholder description for this work.',
-    images: ['/images/recent/abstract-white-opal-02.jpg'],
-    price: 1000,
-  },
-  // 40
-  {
     id: 104,
     title: 'Pretty Woman',
     artist: 'Simon Chidharara',
@@ -598,7 +586,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pretty-woman-simon.jpg'],
   },
-  // 41
+  // 40
   {
     id: 112,
     title: 'Intertwined Spirit',
@@ -610,7 +598,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/intertwined-spirit-itayi.jpg'],
     price: 3000,
   },
-  // 42
+  // 41
   {
     id: 89,
     title: 'Interlace',
@@ -623,7 +611,7 @@ export const recentAdditions: Artwork[] = [
     price: 2700,
     fit: 'cover',
   },
-  // 43
+  // 42
   {
     id: 106,
     title: 'Flower',
@@ -634,7 +622,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/flower-leopard-stone.jpg'],
   },
-  // 44
+  // 43
   {
     id: 81,
     title: 'Pat Cake',
@@ -647,7 +635,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/pat-cake-dominic.jpg'],
   },
-  // 45
+  // 44
   {
     id: 100,
     title: 'Freeform',
@@ -659,7 +647,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/abstract-04-blessing.jpg'],
     fit: 'cover',
   },
-  // 46
+  // 45
   {
     id: 75,
     title: 'Feeling Great',
@@ -672,7 +660,7 @@ export const recentAdditions: Artwork[] = [
     description: 'Placeholder description for this work.',
     images: ['/images/recent/feeling-great-dominic.jpg'],
   },
-  // 47
+  // 46
   {
     id: 94,
     title: 'Flame Lily 01',
@@ -684,7 +672,7 @@ export const recentAdditions: Artwork[] = [
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-01-owen.jpg'],
   },
-  // 48
+  // 47
   {
     id: 95,
     title: 'Flame Lily 02',
@@ -696,7 +684,7 @@ export const recentAdditions: Artwork[] = [
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-02-owen.jpg'],
   },
-  // 49
+  // 48
   {
     id: 96,
     title: 'Flame Lily 03',
@@ -708,7 +696,7 @@ export const recentAdditions: Artwork[] = [
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-03-owen.jpg'],
   },
-  // 50
+  // 49
   {
     id: 111,
     title: 'Abstract 03',
@@ -720,7 +708,7 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/abstract-white-opal-03.jpg'],
     price: 1300,
   },
-  // 51
+  // 50
   {
     id: 9,
     title: 'Abstract',
