@@ -98,7 +98,7 @@ export const recentAdditions: Artwork[] = [
     title: 'Eternal Flame',
     artist: 'Timothy Gwaravaza',
     material: 'Aventurine',
-    size: '39 × 27 in',
+    size: '32 × 22 in',
     image: '/images/recent/eternal-flame-timothy.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
@@ -715,18 +715,6 @@ export const recentAdditions: Artwork[] = [
     images: ['/images/recent/flame-lily-03-owen.jpg'],
   },
   // 49
-  {
-    id: 111,
-    title: 'Abstract 03',
-    artist: 'Elvis Mamvura',
-    material: 'White Opal',
-    image: '/images/recent/abstract-white-opal-03.jpg',
-    aspectRatio: 'portrait',
-    description: 'Placeholder description for this work.',
-    images: ['/images/recent/abstract-white-opal-03.jpg'],
-    price: 1300,
-  },
-  // 50
   {
     id: 9,
     title: 'Abstract',
