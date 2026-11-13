@@ -383,11 +383,11 @@ export const recentAdditions: Artwork[] = [
     size: 'Lifesize · approx. 6 ft',
     sizeDescription: 'Lifesize, approximately 6 ft',
     alt: 'Baby Giraffes — lifesize Green Opal Shona sculpture by Shepard Phiri, approximately 6 feet tall',
-    image: '/images/recent/baby-giraffes.jpg',
+    image: '/images/recent/baby-giraffes-v2.jpg',
     aspectRatio: 'portrait',
     description: 'Placeholder description for this work.',
     images: [
-      '/images/recent/baby-giraffes.jpg',
+      '/images/recent/baby-giraffes-v2.jpg',
       '/images/recent/baby-giraffes/baby-giraffes-2.jpg',
     ],
   },
