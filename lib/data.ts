@@ -680,6 +680,19 @@ export const recentAdditions: Artwork[] = [
   },
   // 46
   {
+    id: 119,
+    title: "Dancer's Turn",
+    artist: 'Gift Rusere',
+    material: 'Green Opal',
+    size: '16 × 9 in',
+    image: '/images/recent/dancers-turn-green-opal-gift.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: ['/images/recent/dancers-turn-green-opal-gift.jpg'],
+    fit: 'cover',
+  },
+  // 47
+  {
     id: 94,
     title: 'Flame Lily 01',
     artist: 'Owen Mulungisi',
@@ -690,7 +703,7 @@ export const recentAdditions: Artwork[] = [
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-01-owen.jpg'],
   },
-  // 47
+  // 48
   {
     id: 95,
     title: 'Flame Lily 02',
@@ -702,7 +715,7 @@ export const recentAdditions: Artwork[] = [
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-02-owen.jpg'],
   },
-  // 48
+  // 49
   {
     id: 96,
     title: 'Flame Lily 03',
@@ -714,7 +727,7 @@ export const recentAdditions: Artwork[] = [
     series: 'Flame Lily Series',
     images: ['/images/recent/flame-lily-03-owen.jpg'],
   },
-  // 49
+  // 50
   {
     id: 9,
     title: 'Abstract',
@@ -731,6 +744,38 @@ export const recentAdditions: Artwork[] = [
       '/images/recent/Abstract%20(red)/DSC_0452.jpg',
       '/images/recent/Abstract%20(red)/DSC_0454.jpg',
     ],
+  },
+  // 51
+  {
+    id: 120,
+    title: 'Unfolding',
+    artist: 'Gift Rusere',
+    material: 'Springstone',
+    size: '8.5 × 7 in',
+    image: '/images/recent/unfolding-springstone-gift.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: [
+      '/images/recent/unfolding-springstone-gift.jpg',
+      '/images/recent/unfolding/unfolding-springstone-side-gift.jpg',
+    ],
+    fit: 'cover',
+  },
+  // 52
+  {
+    id: 121,
+    title: 'Close Hold',
+    artist: 'Gift Rusere',
+    material: 'Springstone',
+    size: '13 × 12 in',
+    image: '/images/recent/close-hold-springstone-gift.jpg',
+    aspectRatio: 'portrait',
+    description: 'Placeholder description for this work.',
+    images: [
+      '/images/recent/close-hold-springstone-gift.jpg',
+      '/images/recent/close-hold/close-hold-springstone-side-gift.jpg',
+    ],
+    fit: 'cover',
   },
 ]
 
