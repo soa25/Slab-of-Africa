@@ -9,9 +9,10 @@ import ConditionalFooter from '@/components/ConditionalFooter'
 import MotionProvider from '@/components/MotionProvider'
 import EdgeFade from '@/components/EdgeFade'
 import { GoogleAnalytics } from '@next/third-parties/google'
-import { collectionWorks } from '@/lib/data'
+import { SITE_URL, pageMetadata } from '@/lib/seo'
 
-const SITE_URL = 'https://www.slabofafrica.com'
+const HOME_DESCRIPTION =
+  'Hand-carved Shona stone sculpture from Zimbabwe in springstone, serpentine and green opal, for collectors across the United States. Based in San Francisco, CA.'
 
 const cormorant = Cormorant({
   subsets: ['latin'],
@@ -42,8 +43,6 @@ export const metadata: Metadata = {
     default: 'Slab of Africa | Shona Stone Sculptures from Zimbabwe',
     template: '%s | Slab of Africa',
   },
-  description:
-    'Discover hand-carved Shona stone sculptures from Zimbabwe. Authentic African art including serpentine, springstone and green opal sculptures available for collectors across the United States. Based in San Francisco, CA.',
   keywords: [
     'Shona sculpture', 'Zimbabwe sculpture', 'African art', 'stone sculpture',
     'hand carved sculpture', 'serpentine sculpture', 'springstone', 'African home decor',
@@ -53,23 +52,12 @@ export const metadata: Metadata = {
     'handmade African sculpture', 'Shona sculpture for sale', 'African stone art',
     'Zimbabwe sculptures USA',
   ],
-  openGraph: {
-    title: 'Slab of Africa | Shona Stone Sculptures from Zimbabwe',
-    description: 'Discover hand-carved Shona stone sculptures from Zimbabwe. Authentic African art available for collectors across the United States.',
-    type: 'website',
-    url: SITE_URL,
-    siteName: 'Slab of Africa',
-    images: [{ url: '/images/recent/Bonded%20Souls.jpg', width: 800, height: 1067, alt: 'Bonded Souls — Green Opal Shona stone sculpture by Gift Rusere, Slab of Africa' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Slab of Africa | Shona Stone Sculptures from Zimbabwe',
-    description: 'Hand-carved Shona stone sculptures from Zimbabwe. African art for collectors across the United States.',
-    images: ['/images/recent/Bonded%20Souls.jpg'],
-  },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  // Homepage description, canonical and share card; every other page sets its own
+  ...pageMetadata({
+    path: '',
+    shareTitle: 'Slab of Africa | Shona Stone Sculptures from Zimbabwe',
+    description: HOME_DESCRIPTION,
+  }),
   robots: {
     index: true,
     follow: true,
@@ -130,27 +118,6 @@ const artGallerySchema = {
   sameAs: ['https://instagram.com/slabofafrica'],
 }
 
-const itemListSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: 'Shona Stone Sculpture Collection — Slab of Africa',
-  description: 'Hand-carved Shona stone sculptures from Zimbabwe available for collectors.',
-  url: `${SITE_URL}/collection`,
-  numberOfItems: collectionWorks.length,
-  itemListElement: collectionWorks.map((w, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    item: {
-      '@type': 'VisualArtwork',
-      name: w.title,
-      creator: { '@type': 'Person', name: w.artist },
-      artMedium: `${w.material} stone`,
-      artForm: 'Sculpture',
-      url: `${SITE_URL}/collection`,
-    },
-  })),
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -162,7 +129,6 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(artGallerySchema) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
         {/* Global grain/texture overlay — pre-rendered noise tile (public/grain.png), no live SVG filter */}
         <div

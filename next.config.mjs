@@ -3,9 +3,10 @@ const nextConfig = {
   transpilePackages: ['lenis'],
   async redirects() {
     return [
-{ source: '/contact/', destination: '/inquire', permanent: true },
-      { source: '/new-page/', destination: '/', permanent: true },
-      { source: '/work/', destination: '/collection', permanent: true },
+      // Sources have no trailing slash: Next.js strips it before redirects run
+      { source: '/contact', destination: '/inquire', permanent: true },
+      { source: '/new-page', destination: '/', permanent: true },
+      { source: '/work', destination: '/', permanent: true },
       { source: '/fairs', destination: '/exhibits', permanent: true },
     ]
   },

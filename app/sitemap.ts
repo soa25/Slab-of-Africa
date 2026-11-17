@@ -9,12 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: 'https://www.slabofafrica.com/collection',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
       url: 'https://www.slabofafrica.com/inquire',
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -22,6 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: 'https://www.slabofafrica.com/marin',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://www.slabofafrica.com/artists',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,

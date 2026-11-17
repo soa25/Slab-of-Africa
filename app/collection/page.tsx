@@ -71,72 +71,6 @@ function MasonryItem({
   )
 }
 
-const SITE_URL = 'https://www.slabofafrica.com'
-
-const collectionSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: 'Shona Stone Sculpture Collection — Slab of Africa',
-  url: `${SITE_URL}/collection`,
-  numberOfItems: collectionWorks.length,
-  itemListElement: collectionWorks.map((w, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    item: {
-      '@type': ['VisualArtwork', 'Product'],
-      name: w.title,
-      creator: { '@type': 'Person', name: w.artist },
-      artMedium: `${w.material} stone`,
-      artForm: 'Shona stone sculpture',
-      size: w.size,
-      description: `${w.title} — ${w.material} Shona stone sculpture by ${w.artist}. ${w.size}.`,
-      image: `${SITE_URL}${w.image}`,
-      url: `${SITE_URL}/inquire`,
-      brand: { '@type': 'Brand', name: 'Slab of Africa' },
-      offers: {
-        '@type': 'Offer',
-        availability: 'https://schema.org/InStock',
-        price: '0',
-        priceCurrency: 'USD',
-        priceValidUntil: '2027-12-31',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          priceCurrency: 'USD',
-          priceValidUntil: '2027-12-31',
-        },
-        hasMerchantReturnPolicy: {
-          '@type': 'MerchantReturnPolicy',
-          applicableCountry: 'US',
-          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          merchantReturnDays: 14,
-          returnMethod: 'https://schema.org/ReturnByMail',
-          returnFees: 'https://schema.org/FreeReturn',
-        },
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
-          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
-          deliveryTime: {
-            '@type': 'ShippingDeliveryTime',
-            handlingTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 5, unitCode: 'DAY' },
-            transitTime: { '@type': 'QuantitativeValue', minValue: 3, maxValue: 14, unitCode: 'DAY' },
-          },
-        },
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        reviewCount: '1',
-      },
-      review: {
-        '@type': 'Review',
-        reviewRating: { '@type': 'Rating', ratingValue: '5' },
-        author: { '@type': 'Person', name: 'Slab of Africa' },
-      },
-    },
-  })),
-}
-
 export default function CollectionPage() {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
 
@@ -159,7 +93,6 @@ export default function CollectionPage() {
 
   return (
     <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom, #D9CEBE, #C8BAA6)' }}>
       {/* Header */}
       <section className="pt-36 md:pt-44 pb-12 px-6 md:px-10 max-w-7xl mx-auto">

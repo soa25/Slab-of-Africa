@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'About Shona Sculpture',
-  description: 'Learn about the Shona stone carving tradition from Zimbabwe. Hand-carved from serpentine, springstone and green opal, each sculpture is a unique expression of African artistic heritage. Discover the history and process behind authentic handmade Zimbabwe art.',
+  ...pageMetadata({
+    path: '/about',
+    title: 'About Shona Sculpture',
+    shareTitle: 'About Shona Sculpture | Slab of Africa',
+    description: 'The Shona stone carving tradition of Zimbabwe: how each sculpture is hand-carved from serpentine, springstone or green opal, and the history behind the work.',
+    image: { url: '/images/about/DSC_1187.JPG', width: 2000, height: 1333, alt: 'Hand-carved Shona stone sculpture from Zimbabwe' },
+  }),
   keywords: [
     'what is Shona sculpture', 'Zimbabwe stone carving tradition', 'handmade African art',
     'Shona art history', 'Zimbabwe sculpture tradition', 'African stone carving',
@@ -10,14 +16,6 @@ export const metadata: Metadata = {
     'hand carved African art', 'Shona stone carving technique', 'Zimbabwe artistic tradition',
     'African sculpture history', 'Shona culture art', 'Zimbabwe art meaning',
   ],
-  openGraph: {
-    title: 'About Shona Sculpture | Slab of Africa',
-    description: 'Learn about the Shona stone carving tradition from Zimbabwe — hand-carved from serpentine, springstone and green opal. The history and process behind authentic African art.',
-    url: 'https://www.slabofafrica.com/about',
-  },
-  alternates: {
-    canonical: 'https://www.slabofafrica.com/about',
-  },
 }
 
 const breadcrumb = {

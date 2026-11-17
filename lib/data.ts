@@ -81,7 +81,7 @@ export const recentAdditions: Artwork[] = [
     id: 4,
     title: 'Infinity',
     artist: 'Gift Rusere',
-    material: 'Spring Stone',
+    material: 'Springstone',
     size: '32 × 12.5 in',
     year: 2024,
     image: '/images/recent/Infinity.jpg',
@@ -459,7 +459,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 3,
     title: 'Watchmen',
-    artist: 'Phillip Mlima',
+    artist: 'Philip Mlima',
     material: 'Springstone',
     size: '11 × 11 in',
     year: 2024,
@@ -477,7 +477,7 @@ export const recentAdditions: Artwork[] = [
   {
     id: 6,
     title: 'Watchmen',
-    artist: 'Phillip Mlima',
+    artist: 'Philip Mlima',
     material: 'Springstone',
     size: '11 × 11 in',
     year: 2024,

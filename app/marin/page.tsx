@@ -1,13 +1,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import type { CSSProperties } from 'react'
 
-export const metadata: Metadata = {
-  title: 'Zimbabwe Contemporary Sculpture Exhibition — Marin Art & Garden Center',
-  description:
-    'Works by Dominic Benhura at the Marin Art & Garden Center, Ross, California. July 1 — October 15, 2026. Available for acquisition through Slab of Africa.',
-}
+const MARIN_TITLE = 'Zimbabwe Contemporary Sculpture Exhibition — Marin Art & Garden Center'
+const MARIN_DESCRIPTION =
+  'Works by Dominic Benhura at the Marin Art & Garden Center, Ross, California. July 1 — October 15, 2026. Available for acquisition through Slab of Africa.'
+
+export const metadata: Metadata = pageMetadata({
+  path: '/marin',
+  title: MARIN_TITLE,
+  shareTitle: `${MARIN_TITLE} | Slab of Africa`,
+  description: MARIN_DESCRIPTION,
+  image: { url: '/images/marin/marin-2.JPG', width: 1333, height: 2000, alt: 'Dominic Benhura Shona stone sculpture in a garden setting' },
+})
 
 const PHOTOS = [
   '/images/marin/marin-2.JPG',

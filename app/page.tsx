@@ -638,6 +638,10 @@ const FeatureCard = memo(function FeatureCard({
 
 const SITE_URL = 'https://www.slabofafrica.com'
 
+// artMedium text: adds "stone" only when the name doesn't already end in it
+// ("Green Opal stone", but "Leopard Stone", "Springstone" and "Multiple Stones" stay as they are)
+const stoneMedium = (m: string) => (/stones?$/i.test(m) ? m : `${m} stone`)
+
 export default function HomePage() {
 
   const sculptureSchema = {
@@ -649,13 +653,13 @@ export default function HomePage() {
       name: a.title,
       image: `${SITE_URL}${a.image}`,
       ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
-      ...(a.material ? { artMedium: a.material === MULTIPLE_STONES ? MULTIPLE_STONES : `${a.material} stone` } : {}),
+      ...(a.material ? { artMedium: stoneMedium(a.material) } : {}),
       ...(a.size && !a.sizeDescription ? { size: a.size } : {}),
     } : {
       '@type': ['VisualArtwork', 'Product'],
       name: a.title,
       ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
-      ...(a.material ? { artMedium: a.material === MULTIPLE_STONES ? MULTIPLE_STONES : `${a.material} stone` } : {}),
+      ...(a.material ? { artMedium: stoneMedium(a.material) } : {}),
       artForm: 'Shona stone sculpture',
       // Size is left out entirely when a piece has no dimensions
       // A spelled-out size (e.g. "Lifesize") goes in the description only, not the size property
@@ -675,34 +679,13 @@ export default function HomePage() {
           priceCurrency: 'USD',
           priceValidUntil: '2027-12-31',
         },
+        // All purchases are final. Shipping isn't marked up: Bay Area and Northern California
+        // delivery is free and elsewhere is a variable cost, which shippingDetails can't express.
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
           applicableCountry: 'US',
-          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          merchantReturnDays: 14,
-          returnMethod: 'https://schema.org/ReturnByMail',
-          returnFees: 'https://schema.org/FreeReturn',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
         },
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'USD' },
-          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
-          deliveryTime: {
-            '@type': 'ShippingDeliveryTime',
-            handlingTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 5, unitCode: 'DAY' },
-            transitTime: { '@type': 'QuantitativeValue', minValue: 3, maxValue: 14, unitCode: 'DAY' },
-          },
-        },
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        reviewCount: '1',
-      },
-      review: {
-        '@type': 'Review',
-        reviewRating: { '@type': 'Rating', ratingValue: '5' },
-        author: { '@type': 'Person', name: 'Slab of Africa' },
       },
     }),
   }
@@ -728,6 +711,9 @@ export default function HomePage() {
 
         {/* Thin divider, ~2rem above the grid */}
         <div className="divider mt-10 mb-8" />
+
+        {/* Section heading for search engines and screen readers; visually hidden so the design is unchanged */}
+        <h2 className="sr-only">Recent Work</h2>
 
         {/* Editorial grid — 1-col mobile, 2-col desktop */}
         <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-x-3 md:gap-x-8 gap-y-10 md:gap-y-24 -mx-2 md:mx-0">

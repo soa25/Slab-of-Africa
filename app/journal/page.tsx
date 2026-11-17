@@ -1,13 +1,16 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import ScrollReveal from '@/components/ScrollReveal'
 
 // Placeholder page: noindex and left out of the sitemap until it has content
 export const metadata: Metadata = {
-  title: 'Journal',
+  ...pageMetadata({
+    path: '/journal',
+    title: 'Journal',
+    shareTitle: 'Journal | Slab of Africa',
+    description: 'Notes on Shona stone sculpture, the artists and the stone, from Slab of Africa.',
+  }),
   robots: { index: false },
-  alternates: {
-    canonical: 'https://www.slabofafrica.com/journal',
-  },
 }
 
 export default function JournalPage() {

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
 import WaitlistForm from './WaitlistForm'
@@ -6,11 +7,14 @@ import KadikiWord from './KadikiWord'
 
 // Placeholder page: noindex and left out of the sitemap until it has content
 export const metadata: Metadata = {
-  title: 'Kadiki',
+  ...pageMetadata({
+    path: '/kadiki',
+    title: 'Kadiki',
+    shareTitle: 'Kadiki | Slab of Africa',
+    description: 'Kadiki is a collection of small hand-carved Shona stone sculptures from Slab of Africa: animals, family groups and timeless Shona forms.',
+    image: { url: '/images/kadiki/kadiki-1.jpg', width: 1086, height: 1448, alt: 'Kadiki small Shona stone sculpture carved by hand' },
+  }),
   robots: { index: false },
-  alternates: {
-    canonical: 'https://www.slabofafrica.com/kadiki',
-  },
 }
 
 const BODY = [

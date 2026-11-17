@@ -1,21 +1,19 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Exhibits',
-  description: 'Slab of Africa at African art fairs and exhibitions across the United States. See Shona stone sculptures from Zimbabwe at live shows and art events including Art-Fair-Mont in San Francisco.',
+  ...pageMetadata({
+    path: '/exhibits',
+    title: 'Exhibits',
+    shareTitle: 'Art Fairs | Slab of Africa — Shona Sculpture Exhibitions',
+    description: 'Slab of Africa at Art-Fair-Mont in San Francisco and art fairs across the United States. See hand-carved Zimbabwean stone sculpture in person.',
+    image: { url: '/images/fairs/Art-fair-mont/GCS-Art-Fairmont-20260118_0082.jpg', width: 2000, height: 1333, alt: 'Slab of Africa exhibition of hand-carved Shona stone sculpture' },
+  }),
   keywords: [
     'African art fair', 'Shona sculpture exhibition', 'Zimbabwe art show', 'African art event',
     'Shona art fair San Francisco', 'African sculpture exhibition USA', 'Zimbabwe art fair',
     'African art gallery show', 'Shona stone art exhibition', 'art fair San Francisco',
   ],
-  openGraph: {
-    title: 'Art Fairs | Slab of Africa — Shona Sculpture Exhibitions',
-    description: 'Slab of Africa at African art fairs and exhibitions. See hand-carved Shona stone sculptures from Zimbabwe at live events.',
-    url: 'https://www.slabofafrica.com/exhibits',
-  },
-  alternates: {
-    canonical: 'https://www.slabofafrica.com/exhibits',
-  },
 }
 
 const breadcrumb = {

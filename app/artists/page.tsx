@@ -26,8 +26,8 @@ const ARTISTS = [
     bio: `Born in Guruve in 1979, Bywell Sango grew up in the shadow — and the influence — of his older brother Brighton, one of Zimbabwe's celebrated sculptors. He developed his practice early, absorbing the discipline while finding his own direction: a style rooted not in narrative or mythology but in the stone itself. He follows the material, letting its natural contours suggest the final form. He works in cobalt, opal, springstone and serpentine and has exhibited at the National Gallery of Zimbabwe and internationally across Austria, Germany, Denmark, Sweden, Norway, Finland and the United States.`,
   },
   {
-    name: 'Phillip Mlima',
-    bio: `Born in Harare in 1978 and raised in Mufokse Township, with family roots in Mutoko, Phillip Mlima began sculpting in 1998 in the Ruwa area — though the real foundation was laid two years earlier, when the celebrated Gerald Takawira took him under his wing. The eldest of five siblings and a father of three, his work spans creations, abstracts, animals, figurative birds and scenes drawn from Shona life. For Phillip, sculpting is inseparable from culture; his pieces are an ongoing conversation with the values and customs of the people he comes from.`,
+    name: 'Philip Mlima',
+    bio: `Born in Harare in 1978 and raised in Mufokse Township, with family roots in Mutoko, Philip Mlima began sculpting in 1998 in the Ruwa area — though the real foundation was laid two years earlier, when the celebrated Gerald Takawira took him under his wing. The eldest of five siblings and a father of three, his work spans creations, abstracts, animals, figurative birds and scenes drawn from Shona life. For Philip, sculpting is inseparable from culture; his pieces are an ongoing conversation with the values and customs of the people he comes from.`,
   },
   {
     name: 'Tafadzwa Mamvura',

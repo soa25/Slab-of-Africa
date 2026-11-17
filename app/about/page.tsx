@@ -35,7 +35,7 @@ export default function AboutPage() {
 
             <ScrollReveal delay={0.05}>
               <p className="section-label mb-6">About</p>
-              <h2
+              <h1
                 className="font-display text-charcoal"
                 style={{
                   fontSize: 'clamp(2.4rem, 4vw, 4rem)',
@@ -47,7 +47,7 @@ export default function AboutPage() {
               >
                 About Slab<br />
                 <em style={{ fontStyle: 'italic', fontWeight: 300 }}>of Africa</em>
-              </h2>
+              </h1>
               <div className="space-y-5">
                 <p className="font-body text-muted leading-relaxed" style={{ fontSize: '0.975rem' }}>
                   Slab of Africa exists for one reason: the world should know these artists.
