@@ -642,7 +642,16 @@ export default function HomePage() {
 
   const sculptureSchema = {
     '@context': 'https://schema.org',
-    '@graph': recentAdditions.map(a => ({
+    '@graph': recentAdditions.map(a => a.price === undefined ? {
+      // No price ("price on request", including sold pieces): a plain artwork with no offer,
+      // so no price, currency or availability is output
+      '@type': 'VisualArtwork',
+      name: a.title,
+      image: `${SITE_URL}${a.image}`,
+      ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
+      ...(a.material ? { artMedium: a.material === MULTIPLE_STONES ? MULTIPLE_STONES : `${a.material} stone` } : {}),
+      ...(a.size && !a.sizeDescription ? { size: a.size } : {}),
+    } : {
       '@type': ['VisualArtwork', 'Product'],
       name: a.title,
       ...(a.artist ? { creator: { '@type': 'Person', name: a.artist } } : {}),
@@ -658,9 +667,7 @@ export default function HomePage() {
       offers: {
         '@type': 'Offer',
         availability: 'https://schema.org/InStock',
-        // Real price when a piece has one, otherwise the existing placeholder.
-        // Pieces with no stone listed yet (no details at all) leave the price out instead.
-        ...(a.price !== undefined ? { price: String(a.price) } : a.material ? { price: '0' } : {}),
+        price: String(a.price),
         priceCurrency: 'USD',
         priceValidUntil: '2027-12-31',
         priceSpecification: {
@@ -697,7 +704,7 @@ export default function HomePage() {
         reviewRating: { '@type': 'Rating', ratingValue: '5' },
         author: { '@type': 'Person', name: 'Slab of Africa' },
       },
-    })),
+    }),
   }
 
   return (
